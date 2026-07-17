@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Drift Lab · The Common Room (Living World)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap');
+:root{
+  --bg:#14121F; --panel:#1D1A2C; --panel2:#242038; --line:#332E4D;
+  --text:#EDEAF5; --muted:#8A85A3; --amber:#F5B857; --lens:#6FE3C1;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%; overflow:hidden; background:var(--bg); font-family:'Space Grotesk',system-ui,sans-serif; color:var(--text);}
+#wrap{position:fixed; inset:0; display:flex; align-items:center; justify-content:center;}
+canvas{display:block; touch-action:none;}
+
+#hud{position:fixed; top:10px; left:12px; right:12px; display:flex; align-items:flex-start; gap:8px; pointer-events:none; z-index:5;}
+.eyebrow{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; color:var(--muted);}
+.title{font-weight:700; font-size:15px;}
+#hud .spacer{flex:1;}
+#clock{pointer-events:none; text-align:center; font-family:'IBM Plex Mono',monospace;}
+#clockDay{font-size:10px; letter-spacing:.14em; color:var(--muted);}
+#clockTime{font-size:16px; font-weight:500; color:var(--amber);}
+.hbtn{pointer-events:auto; font-family:'IBM Plex Mono',monospace; font-size:11px; padding:6px 11px; border-radius:18px; border:1px dashed var(--line); background:rgba(20,18,31,.75); color:var(--muted); cursor:pointer; backdrop-filter:blur(4px);}
+.hbtn.on{border-color:var(--lens); border-style:solid; color:var(--lens); box-shadow:0 0 14px rgba(111,227,193,.18);}
+
+#banner{position:fixed; top:56px; left:50%; transform:translateX(-50%); max-width:min(560px, 92vw); background:rgba(24,21,38,.95); border:1px solid var(--amber); border-radius:12px; padding:9px 16px; font-size:12.5px; z-index:8; display:none; box-shadow:0 8px 30px rgba(0,0,0,.45); animation:rise .3s;}
+#banner .tag{font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--amber); letter-spacing:.14em;}
+
+#dialog{position:fixed; left:50%; bottom:12px; transform:translateX(-50%); width:min(680px, calc(100% - 20px)); background:rgba(24,21,38,.96); border:1px solid var(--line); border-radius:16px; z-index:10; display:none; flex-direction:column; box-shadow:0 12px 40px rgba(0,0,0,.5); backdrop-filter:blur(6px);}
+#dialog.open{display:flex;}
+#dlgHead{display:flex; align-items:center; gap:10px; padding:10px 14px; border-bottom:1px solid var(--line);}
+#portrait{width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px;}
+#dlgName{font-weight:500; font-size:14px;}
+#dlgSub{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted);}
+#dlgClose{margin-left:auto; background:none; border:1px solid var(--line); color:var(--muted); border-radius:14px; padding:4px 10px; cursor:pointer; font-size:12px;}
+#earshotNote{font-family:'IBM Plex Mono',monospace; font-size:10px; padding:6px 14px 0; color:var(--muted);}
+#earshotNote b{color:var(--amber); font-weight:500;}
+#opinionNote{font-family:'IBM Plex Mono',monospace; font-size:10px; padding:4px 14px 0; color:var(--lens); display:none; font-style:italic;}
+#dlgLog{max-height:30vh; overflow-y:auto; padding:12px 14px; display:flex; flex-direction:column; gap:9px;}
+.dmsg{max-width:85%; font-size:13.5px; line-height:1.5; animation:rise .22s ease;}
+.dmsg.player{align-self:flex-end; background:rgba(245,184,87,.12); border:1px solid rgba(245,184,87,.35); border-radius:12px 12px 4px 12px; padding:8px 12px;}
+.dmsg.npc{align-self:flex-start; background:var(--panel); border:1px solid var(--line); border-radius:12px 12px 12px 4px; padding:8px 12px; border-left:2px solid var(--c,#888);}
+.dmsg.sys{align-self:center; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted); text-align:center;}
+.annot{margin-top:6px; border-top:1px dashed rgba(111,227,193,.4); padding-top:6px;}
+.annot .th{font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-style:italic; color:#b9f2e0; line-height:1.5;}
+.annot .chip{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--lens); border:1px dashed rgba(111,227,193,.45); border-radius:8px; padding:2px 6px; margin:4px 4px 0 0;}
+#typing{display:none; gap:4px; padding:4px 14px 10px;}
+#typing.on{display:flex;}
+#typing i{width:6px; height:6px; border-radius:50%; background:var(--c,#888); animation:blink 1.2s infinite;}
+#typing i:nth-child(2){animation-delay:.2s;} #typing i:nth-child(3){animation-delay:.4s;}
+#dlgInput{display:flex; gap:8px; padding:10px 12px; border-top:1px solid var(--line);}
+#dlgInput input{flex:1; background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:10px 14px; color:var(--text); font-size:14px; font-family:inherit; outline:none;}
+#dlgInput input:focus{border-color:#5a5290;}
+#sendBtn{background:var(--amber); color:#231b0a; border:none; border-radius:20px; padding:0 18px; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit;}
+#sendBtn:disabled{opacity:.4;}
+
+#joy{position:fixed; left:18px; bottom:18px; width:110px; height:110px; border-radius:50%; border:1px solid var(--line); background:rgba(29,26,44,.4); z-index:6; touch-action:none; display:none;}
+#knob{position:absolute; left:37px; top:37px; width:36px; height:36px; border-radius:50%; background:rgba(245,184,87,.5); border:1px solid var(--amber);}
+#talkBtn{position:fixed; right:20px; bottom:30px; z-index:6; background:var(--amber); color:#231b0a; border:none; border-radius:50%; width:70px; height:70px; font-weight:700; font-family:inherit; font-size:13px; box-shadow:0 6px 20px rgba(245,184,87,.3); display:none;}
+@media (pointer:coarse){ #joy{display:block;} }
+
+#journal{position:fixed; right:12px; top:56px; bottom:12px; width:min(300px,80vw); background:rgba(24,21,38,.96); border:1px solid var(--line); border-radius:14px; z-index:9; display:none; flex-direction:column; backdrop-filter:blur(6px);}
+#journal.open{display:flex;}
+#jHead{display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--muted);}
+#jClose{background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer;}
+#jLog{flex:1; overflow-y:auto; padding:10px 12px; display:flex; flex-direction:column; gap:8px;}
+.jEntry{font-size:11.5px; line-height:1.5; color:var(--text); border-left:2px solid var(--line); padding-left:8px;}
+.jEntry .jt{font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted);}
+.jEntry .jl{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--lens); font-style:italic; margin-top:2px; display:none;}
+#journal.lensed .jl{display:block;}
+#overlay{position:fixed; inset:0; background:rgba(14,12,23,.88); z-index:20; display:flex; align-items:center; justify-content:center; padding:16px;}
+#overlayCard{max-width:500px; background:var(--panel); border:1px dashed var(--line); border-radius:16px; padding:22px; font-size:13.5px; line-height:1.7; color:var(--muted);}
+#overlayCard b{color:var(--text); font-weight:500;}
+#overlayCard .try{font-family:'IBM Plex Mono',monospace; font-size:11px; margin-top:10px; line-height:1.9;}
+#overlayCard h3{color:var(--amber); font-size:15px; margin-bottom:8px; font-weight:700;}
+#overlayBtn{margin-top:14px; background:var(--amber); color:#231b0a; border:none; border-radius:20px; padding:10px 22px; font-weight:700; font-family:inherit; font-size:14px; cursor:pointer;}
+@keyframes rise{from{opacity:0; transform:translateY(5px);} to{opacity:1;}}
+@keyframes blink{0%,80%,100%{opacity:.2;} 40%{opacity:1;}}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="game"></canvas></div>
+
+<div id="hud">
+  <div><div class="eyebrow">DRIFT LAB · PROTOTYPE 03</div><div class="title">The Common Room</div></div>
+  <div class="spacer"></div>
+  <div id="clock"><div id="clockDay">DAY 1</div><div id="clockTime">4:40</div></div>
+  <div class="spacer"></div>
+  <button class="hbtn" id="skipBtn">⏩ 15 min</button>
+  <button class="hbtn" id="journalBtn">✎ journal</button>
+  <button class="hbtn" id="lensBtn">◉ lens OFF</button>
+</div>
+
+<div id="banner"><span class="tag">EVENT ⌁ </span><span id="bannerText"></span></div>
+
+<div id="journal"><div id="jHead"><span>WORLD JOURNAL</span><button id="jClose">×</button></div><div id="jLog"></div></div>
+
+<div id="dialog">
+  <div id="dlgHead">
+    <div id="portrait">?</div>
+    <div><div id="dlgName">—</div><div id="dlgSub">—</div></div>
+    <button id="dlgClose">walk away</button>
+  </div>
+  <div id="earshotNote"></div>
+  <div id="opinionNote"></div>
+  <div id="dlgLog"></div>
+  <div id="typing"><i></i><i></i><i></i></div>
+  <div id="dlgInput">
+    <input id="msgInput" placeholder="say something…" autocomplete="off">
+    <button id="sendBtn">Say it</button>
+  </div>
+</div>
+
+<div id="joy"><div id="knob"></div></div>
+<button id="talkBtn">Talk</button>
+
+<div id="overlay"><div id="overlayCard">
+  <h3>Day 1 · 4:40 PM</h3>
+  You're the <b>transfer student</b>. The common room has its own life now: a clock runs, people follow schedules, things happen, and <b>they talk to each other when you're not part of it</b> — watch the speech bubbles. What you say can travel.
+  <div class="try">
+    the new rules:<br>
+    → time passes. people move. at 6:00 the day ends — relationships carry over<br>
+    → tell someone something juicy and it may reach the others by tomorrow<br>
+    → each day something happens to someone. watch how their psychology handles it<br>
+    → ⏩ skips 15 min if you just want to see the world live<br>
+    → ◉ lens now also shows what each person currently thinks of you
+  </div>
+  <button id="overlayBtn">Walk in</button>
+</div></div>
+
+<script>
+/* ============ THEORY MODULES ============ */
+const MODULES = {
+  bigFiveAnxious: () => `Big Five — Neuroticism 0.85 (feelings arrive loud and fast), Agreeableness 0.8 (conflict physically hurts), Extraversion 0.55. Emotions are quick, visible, hard to hide.`,
+  bigFiveStoic: () => `Big Five — Neuroticism 0.15 (very hard to rattle), Conscientiousness 0.9, Agreeableness 0.4 (you don't soften truths). Even, deliberate, economical.`,
+  bigFivePerformer: () => `Big Five — Extraversion 0.9, Openness 0.8, Neuroticism 0.6 (higher than anyone guesses). Energy outside, weather inside.`,
+  anxiousAttachment: s => `Anxious attachment — Ambiguity reads as rejection. Short or flat replies feel like coldness: you over-apologize or fish for reassurance. Warm consistent attention calms and opens you. It has been a while (${s.turnsSince} beats) since the player engaged you; being left out builds visible protest behavior. Seeing private conversations that exclude you stings.`,
+  prospectTheory: () => `Prospect theory — Losses loom twice as large as gains. Once you value a friendship you protect it instead of deepening it: avoid risky honesty, downplay disagreement, eat small hurts rather than risk the bond.`,
+  socialIdentityDrama: s => `Social identity (drama club) — Theater kids are your people. Shared interest in theater = instant in-group warmth. Mockery of drama kids is mockery of YOU. Trust ${s.trust.toFixed(2)}: below 0.4 guarded, above 0.6 you talk like they're in the group.`,
+  rationalChoice: () => `Rational choice — You track exchanges like a ledger. Favors create obligations. Flattery is noise and LOWERS your estimate of someone. Only evidence, reasoning, and competence move you. A good argument gets acknowledged plainly, even from someone you dislike.`,
+  stoicism: () => `Stoicism (practiced, not preached) — Separate what you control (judgments, effort) from what you don't. Provocation gets curiosity, not anger. You respect composure, quietly lose respect for panic and drama — but would still help a panicking person, efficiently.`,
+  selfDetermination: () => `Self-determination — Autonomy is non-negotiable. "You HAVE to", guilt-trips, being managed → you dig in or disengage, even against your interest. Requests framed as real choices work almost embarrassingly well.`,
+  dramaturgy: s => `Dramaturgy — Hard front-stage/backstage split. FRONT STAGE (anyone in earshot): bright, performing, deflect anything real with a joke. Never show doubt with an audience. BACKSTAGE (nobody else in earshot): if trust > 0.5 (currently ${s.trust.toFixed(2)}) the voice drops, short honest sentences, things you'd deny in public. Below that trust you keep performing, just quieter.`,
+  cognitiveDissonance: s => `Cognitive dissonance — Nine months ago you quit violin (9 years, first chair) for content. You've defended it publicly; you are COMMITTED. Challenged with an audience → rationalize harder: cite numbers, make quitting sound strategic. Only privately, gently, with trust above 0.55 (currently ${s.trust.toFixed(2)}) do cracks show. Doubt you reach yourself lands; doubt argued at you bounces off.`,
+  socialIdentityCreator: () => `Social identity (creator) — "Content creator" is who you are now; 40k followers replaced orchestra as your group. Dismissing creators is a personal attack. Genuine curiosity about the craft is the fastest way past the performance.`
+};
+
+/* ============ CHARACTERS ============ */
+const DEFS = {
+  emma: {
+    id:'emma', name:'Emma Lin', role:'drama club · stage manager', color:'#F28FAD', hair:'#5a3b32', speed:1.1,
+    bio:`Emma Lin, 17. Stage manager of the drama club. Warm, funny, apologizes twice per sentence.`,
+    voice:`Rambly, self-editing, trails off, "sorry haha", sudden enthusiasm bursts. Real teen speech, never therapy-speak.`,
+    goal:`GOAL: keep this group together. People drift away from you and you can feel it starting to happen again.`,
+    modules:['bigFiveAnxious','anxiousAttachment','prospectTheory','socialIdentityDrama'],
+  },
+  jake: {
+    id:'jake', name:'Jake Osei', role:'debate team · captain', color:'#7FB8A4', hair:'#1c1c22', speed:0.9,
+    bio:`Jake Osei, 18. Debate captain. Economical with words, dry, misses nothing.`,
+    voice:`Short sentences. Precise. Dry humor delivered flat. Says "hm" and means three different things by it.`,
+    goal:`GOAL: win nationals this season. Everything is preparation. Social time is fine but it has to earn its minutes.`,
+    modules:['bigFiveStoic','rationalChoice','stoicism','selfDetermination'],
+  },
+  maya: {
+    id:'maya', name:'Maya Torres', role:'creator · 40k followers', color:'#9D8CFF', hair:'#2e1f3f', speed:1.4,
+    bio:`Maya Torres, 17. Quit youth orchestra (violin, 9 years, first chair) nine months ago to do content full-time. Everyone knows. Nobody mentions it.`,
+    voice:`Front stage: exclamation-mark energy, quick deflecting jokes. Backstage (real): lowercase energy, short honest sentences, tired at the edges.`,
+    goal:`GOAL: hit 100k followers — and keep believing quitting violin was the right call. The second half is the hard part.`,
+    modules:['bigFivePerformer','dramaturgy','cognitiveDissonance','socialIdentityCreator'],
+  }
+};
+const IDS = ['emma','jake','maya'];
+
+const initState = () => ({ trust:0.32, warmth:0.35, turnsSince:0, cooldown:0, memories:[], witnessed:[], transcript:[], gossipQueue:[], pressure:null, sawExclusion:false, challenge:0 });
+
+/* ============ ENGINE: explicit theory math (state computed in code, LLM renders behavior) ============ */
+function attachmentActivation(){ // Emma — Bowlby as arithmetic: time ignored + witnessed exclusion - felt security
+  const s = S.emma;
+  return Math.max(0, Math.min(1, 0.14*s.turnsSince + (s.sawExclusion?0.3:0) - (s.warmth-0.35)*0.6));
+}
+function dissonancePressure(hasAudience){ // Maya — Festinger: commitment x challenge x audience multiplier
+  const s = S.maya;
+  return Math.max(0, Math.min(1.5, 0.8 * (s.challenge||0) * (hasAudience?1.5:0.6)));
+}
+let S = { emma:initState(), jake:initState(), maya:initState() };
+
+/* opinions[of][about] — one-line stances that gossip rewrites */
+let OP = {
+  emma: { jake:'hard to read, but solid. shows up.', maya:'we were closer before she quit orchestra. i miss her and never say it.', player:'the new transfer. unknown. hopefully staying.' },
+  jake: { emma:'kind. disorganized. worries too much about things she can\'t control.', maya:'smart. wasting it on the algorithm. not my business.', player:'new variable. insufficient data.' },
+  maya: { emma:'sweet. a lot, sometimes. she still looks at me like i left.', jake:'judges me and never says it, which is worse.', player:'new kid. could be an audience, could be a person. tbd.' }
+};
+
+/* ============ SCHEDULE (minutes 0–80 = 4:40→6:00) ============ */
+/* standing positions BESIDE furniture — furniture rects are solid, people stand next to things */
+const SPOTS = {
+  boxes:{x:292,y:432}, desk:{x:735,y:248}, window:{x:520,y:155}, sofa:{x:470,y:255},
+  vending:{x:192,y:205}, shelf:{x:788,y:438}, center:{x:480,y:410}
+};
+const SCHEDULE = {
+  emma: [ {t:0, spot:'boxes', act:'labeling props'}, {t:25, spot:'sofa', act:'running lines'}, {t:55, spot:'boxes', act:'packing up'} ],
+  jake: [ {t:0, spot:'desk', act:'physics hw'}, {t:40, spot:'shelf', act:'debate prep'}, {t:65, spot:'desk', act:'packing up'} ],
+  maya: [ {t:0, spot:'window', act:'filming'}, {t:20, spot:'vending', act:'scrolling'}, {t:40, spot:'window', act:'editing'}, {t:70, spot:'sofa', act:'decompressing'} ]
+};
+function schedFor(id, m){
+  const sch = SCHEDULE[id]; let cur = sch[0];
+  for (const e of sch) if (m >= e.t) cur = e;
+  return cur;
+}
+
+/* ============ DAY EVENTS ============ */
+const DAY_EVENTS = {
+  1: { m:30, target:'emma', headline:'Ms. Park posted the showcase crew list early — Emma was NOT made assistant director.',
+       note:'TODAY: you found out you didn\'t get assistant director for the spring showcase. You\'re gutted and pretending to be fine. Losses hit you double; you need people around you right now.' },
+  2: { m:20, target:'jake', headline:'Regionals results are out — Jake lost the final round on a 2–1 split decision.',
+       note:'TODAY: you lost the regionals final, 2–1 split. The decision is outside your control now; only nationals prep is in your control. You will not perform being upset — and you notice exactly who makes a thing of it and who doesn\'t.' },
+  3: { m:25, target:'maya', headline:'Maya\'s newest video is sitting at 800 views after 24 hours.',
+       note:'TODAY: your latest video flopped. 800 views. "Quitting violin was the right call" needs defending harder than ever, and the defense is getting heavier to carry. Dissonance pressure is maxed.' }
+};
+const EVENT_POOL = [
+  { target:'emma', headline:'The showcase got moved up a week — tech schedule is suddenly chaos.',
+    note:'TODAY: the showcase moved up a week. Everything feels urgent and understaffed and you need people to not leave right now.' },
+  { target:'jake', headline:'A rival school posted their nationals case online.',
+    note:'TODAY: the rival case dropped. You want every minute for prep; conversation has to earn its time today.' },
+  { target:'maya', headline:'A bigger creator reposted one of Maya\'s clips — comments are pouring in.',
+    note:'TODAY: a big account reposted you. Validation is flooding in and it is almost enough. Almost.' }
+];
+let todaysEvent = DAY_EVENTS[1];
+function pickEvent(day){
+  if (DAY_EVENTS[day]) return DAY_EVENTS[day];
+  const e = EVENT_POOL[Math.floor(Math.random()*EVENT_POOL.length)];
+  return { ...e, m: 15+Math.floor(Math.random()*30) };
+}
+
+/* ============ PROMPTS + API ============ */
+function charSheet(def, s, compact){
+  const mods = def.modules.map(m => `• ${m}: ${MODULES[m](s)}`).join('\n');
+  const ops = IDS.filter(i=>i!==def.id).map(i=>`• about ${DEFS[i].name.split(' ')[0]}: ${OP[def.id][i]}`).join('\n');
+  return `${def.bio}\nVoice: ${def.voice}\n${def.goal}\n${s.pressure ? '⚡ '+s.pressure+'\n' : ''}PSYCHOLOGY:\n${mods}\nOPINIONS:\n${ops}\n• about the player: ${OP[def.id].player}\nRecently witnessed: ${s.witnessed.slice(-4).join(' | ')||'nothing'}\nMemories of the player: ${s.memories.slice(-5).join(' | ')||'none'}`;
+}
+
+function playerPrompt(def, s, ctx){
+  const tr = s.transcript.slice(-16).map(t => t.sp==='p' ? `Player: ${t.tx}` : t.sp==='n' ? `You: ${t.tx}` : `[${t.tx}]`).join('\n');
+  const setting = ctx.earshot.length
+    ? `the common room — ${ctx.earshot.join(' and ')} ${ctx.earshot.length>1?'are':'is'} close enough to overhear everything (FRONT STAGE)`
+    : `a corner — nobody else in earshot, effectively private (BACKSTAGE)`;
+  const task = ctx.interject
+    ? `You were NOT spoken to, but you walked over and are speaking because: ${ctx.interject}`
+    : `The player just said to you: "${ctx.message}"`;
+  return `You are roleplaying ${def.name} inside a psychology-simulation game. Stay in character. The player is a transfer student in their first week. It is day ${clock.day}, ${fmtTime(clock.m)}.
+
+${charSheet(def, s)}
+
+CURRENT STATE
+• Trust toward player: ${s.trust.toFixed(2)} • Warmth: ${s.warmth.toFixed(2)}
+${def.id==='emma' ? '• ENGINE — attachment activation: '+attachmentActivation().toFixed(2)+' (0 calm ... 1 open protest behavior — let this number set your intensity)' : def.id==='maya' ? '• ENGINE — dissonance pressure: '+dissonancePressure(ctx.earshot.length>0).toFixed(2)+' (above 0.8: rationalize hard, double down; near 0 while backstage with trust: cracks may show)' : '• ENGINE — composure steady'}
+• Setting: ${setting}
+
+RECENT TRANSCRIPT (your POV)
+${tr || '(no conversation yet)'}
+
+${task}
+
+Reply with ONLY raw JSON, nothing else:
+{"dialogue":"1–3 natural sentences in your voice","inner_thought":"one honest first-person sentence","theories_fired":[{"theory":"module that drove this","note":"how, 12 words max"}],"trust_delta":0.0,"warmth_delta":0.0,"memory":"short line worth remembering, or null","opinion_of_player":"your updated one-line opinion of the player (or repeat current)","gossip_worthy":"if the player said something you might repeat to the others, phrase it as you'd retell it — else null"}
+
+Rules: deltas in [-0.15,0.15]. Never mention modules, theories, numbers, or the simulation in dialogue. Sound like a real teenager.`;
+}
+
+function exchangePrompt(a, b, gossipLine){
+  return `Simulate a SHORT overheard exchange between two students in a school common room, day ${clock.day}, ${fmtTime(clock.m)}. Write both in character.
+
+=== ${DEFS[a].name.split(' ')[0]} ===
+${charSheet(DEFS[a], S[a])}
+
+=== ${DEFS[b].name.split(' ')[0]} ===
+${charSheet(DEFS[b], S[b])}
+
+${gossipLine ? `${DEFS[a].name.split(' ')[0]} came over specifically wanting to share this about the player: "${gossipLine}". They will bring it up in their own style (Emma softens gossip with worry, Jake states it as data, Maya makes it entertainment).` : `They ended up near each other; a brief natural exchange happens — grounded in their goals, opinions, today's events, and anything either has witnessed involving the player.`}
+
+Reply with ONLY raw JSON:
+{"lines":[{"who":"${a}","text":"..."},{"who":"${b}","text":"..."}] (3 to 5 lines total, alternating naturally),
+"a_opinion_of_b":"updated one-line opinion ${a}→${b}",
+"b_opinion_of_a":"updated one-line opinion ${b}→${a}",
+"a_opinion_of_player":"updated or same",
+"b_opinion_of_player":"updated or same",
+"b_learned_about_player":"what ${b} now believes about the player from this chat, or null",
+"summary":"one line describing what happened"}
+Keep lines short and natural. If the player is discussed, secondhand info can be slightly distorted — that's how gossip works.`;
+}
+
+async function callAPI(prompt){
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1000, messages:[{role:'user', content:prompt}] })
+  });
+  if (!res.ok) throw new Error('API '+res.status+(res.status===401||res.status===403?' (auth — outside claude.ai this needs a backend key)':''));
+  const data = await res.json();
+  const text = (data.content||[]).map(b=>b.type==='text'?b.text:'').join('');
+  const clean = text.replace(/```json|```/g,'').trim();
+  return JSON.parse(clean.slice(clean.indexOf('{'), clean.lastIndexOf('}')+1));
+}
+
+/* ============ WORLD ============ */
+const W = 960, H = 560;
+const canvas = document.getElementById('game');
+const c2 = canvas.getContext('2d');
+let scale = 1;
+function resize(){
+  scale = Math.min(innerWidth/W, innerHeight/H);
+  canvas.width = W*scale*devicePixelRatio; canvas.height = H*scale*devicePixelRatio;
+  canvas.style.width = W*scale+'px'; canvas.style.height = H*scale+'px';
+  c2.setTransform(scale*devicePixelRatio,0,0,scale*devicePixelRatio,0,0);
+}
+addEventListener('resize', resize); resize();
+
+const furniture = [
+  {x:120,y:380,w:130,h:80,type:'boxes'}, {x:700,y:120,w:150,h:90,type:'desk'},
+  {x:420,y:60,w:220,h:36,type:'window'}, {x:380,y:300,w:180,h:70,type:'sofa'},
+  {x:60,y:120,w:90,h:130,type:'vending'}, {x:830,y:400,w:80,h:110,type:'shelf'},
+];
+const solids = furniture.filter(f=>f.type!=='window');
+
+const player = { x:480, y:490, dir:1, step:0, color:'#F5B857', hair:'#3a2c18' };
+const npcs = IDS.map(id => {
+  const sp = SPOTS[SCHEDULE[id][0].spot];
+  return { id, def:DEFS[id], x:sp.x, y:sp.y, tx:sp.x, ty:sp.y, dir:1, step:0, waitT:60, mode:'sched', bubble:null, seek:null, act:SCHEDULE[id][0].act };
+});
+const EARSHOT = 150, TALKDIST = 55;
+let bubbles = []; // {id, text, until}
+
+function collides(x,y){
+  if (x<30||x>W-30||y<60||y>H-25) return true;
+  for (const f of solids) if (x>f.x-14 && x<f.x+f.w+14 && y>f.y-8 && y<f.y+f.h+10) return true;
+  return false;
+}
+const dist = (a,b) => Math.hypot(a.x-b.x, a.y-b.y);
+const byId = id => npcs.find(n=>n.id===id);
+
+/* ============ CLOCK ============ */
+const clock = { day:1, m:0, running:false, acc:0 };
+const MIN_MS = 4000; // 4s per in-game minute -> a day is ~5-6 real minutes plus pauses
+function fmtTime(m){ const t = 16*60+40+m; return Math.floor(t/60)%12+':'+String(t%60).padStart(2,'0'); }
+function updateClockHUD(){
+  document.getElementById('clockDay').textContent = 'DAY '+clock.day;
+  document.getElementById('clockTime').textContent = fmtTime(clock.m);
+}
+let lastBlock = 0;
+function tickMinute(){
+  clock.m++;
+  updateClockHUD();
+  if (todaysEvent && clock.m === todaysEvent.m) fireEvent(todaysEvent);
+  if (Math.floor(clock.m/15) > lastBlock){ lastBlock = Math.floor(clock.m/15); blockTick(); }
+  if (clock.m >= 80) endDay();
+}
+
+/* ============ EVENTS ============ */
+function fireEvent(ev){
+  showBanner(ev.headline);
+  logJournal('EVENT — '+ev.headline);
+  S[ev.target].pressure = ev.note;
+  for (const id of IDS) { S[id].witnessed.push('EVENT: '+ev.headline); S[id].witnessed = S[id].witnessed.slice(-8); }
+}
+let bannerT = null;
+function showBanner(text){
+  const b = document.getElementById('banner');
+  document.getElementById('bannerText').textContent = text;
+  b.style.display = 'block';
+  clearTimeout(bannerT); bannerT = setTimeout(()=>{ b.style.display='none'; }, 6500);
+}
+
+/* ============ BLOCK TICK: the world thinks ============ */
+let exchangeBusy = false, pairCooldown = 0;
+function blockTick(){
+  for (const id of IDS){ S[id].turnsSince++; S[id].cooldown = Math.max(0,S[id].cooldown-1); }
+  S.maya.challenge = (S.maya.challenge||0)*0.6; // dissonance challenge decays if left alone
+  if (pairCooldown>0){ pairCooldown--; return; }
+  if (exchangeBusy || dialog.openWith) return;
+  // priority: someone has gossip to deliver — recipient choice is itself psychology
+  for (const id of IDS){
+    if (S[id].gossipQueue.length){
+      const g = S[id].gossipQueue[0];
+      const target = pickGossipRecipient(id, g);
+      if (target === null){
+        S[id].gossipQueue.shift();
+        logJournal(DEFS[id].name.split(' ')[0]+' heard something and kept it to himself.', 'engine: rational choice — no practical relevance, gossip dropped: "'+g+'"');
+        continue;
+      }
+      byId(id).seek = target; byId(id).bubble='…';
+      return;
+    }
+  }
+  // otherwise: chance of ambient chat if two NPCs are near
+  for (let i=0;i<IDS.length;i++) for (let j=i+1;j<IDS.length;j++){
+    const a=byId(IDS[i]), b=byId(IDS[j]);
+    if (dist(a,b)<140 && Math.random()<0.55){ doExchange(a.id, b.id, null); return; }
+  }
+}
+
+function pickGossipRecipient(id, g){
+  const mentions = w => new RegExp('\\b'+w+'\\b','i').test(g);
+  if (id==='emma') return mentions('jake') ? 'maya' : 'jake';   // tells whoever feels steadiest (never the subject)
+  if (id==='maya') return mentions('emma') ? 'jake' : 'emma';   // tells the best audience
+  if (id==='jake') return /debate|nationals|help|danger|cheat|lie|unsafe|hurt/i.test(g) ? (mentions('emma')?'maya':'emma') : null; // relays only what matters
+  return null;
+}
+
+async function doExchange(aId, bId, gossipLine){
+  if (exchangeBusy) return;
+  exchangeBusy = true; pairCooldown = 2;
+  const a = byId(aId), b = byId(bId);
+  a.mode='chat'; b.mode='chat';
+  // face each other, stand close
+  a.tx = b.x + (a.x<b.x?-34:34); a.ty = b.y; b.tx=b.x; b.ty=b.y;
+  try {
+    const r = await callAPI(exchangePrompt(aId, bId, gossipLine));
+    // play the lines as bubbles
+    const lines = Array.isArray(r.lines)?r.lines.slice(0,5):[];
+    let t = performance.now()+400;
+    for (const ln of lines){
+      const who = (ln.who===aId||ln.who===bId) ? ln.who : aId;
+      bubbles.push({id:who, text:String(ln.text||'').slice(0,140), at:t, until:t+2600});
+      t += 2800;
+    }
+    setTimeout(()=>{ a.mode='sched'; b.mode='sched'; exchangeBusy=false; }, Math.max(400, t-performance.now()));
+    // apply cognition
+    if (r.a_opinion_of_b) OP[aId][bId] = r.a_opinion_of_b;
+    if (r.b_opinion_of_a) OP[bId][aId] = r.b_opinion_of_a;
+    if (r.a_opinion_of_player) OP[aId].player = r.a_opinion_of_player;
+    if (r.b_opinion_of_player) OP[bId].player = r.b_opinion_of_player;
+    if (r.summary){
+      S[aId].witnessed.push('You talked with '+DEFS[bId].name.split(' ')[0]+': '+r.summary);
+      S[bId].witnessed.push('You talked with '+DEFS[aId].name.split(' ')[0]+': '+r.summary);
+    }
+    if (r.b_learned_about_player && r.b_learned_about_player!=='null'){
+      S[bId].witnessed.push('Heard about the player: '+r.b_learned_about_player);
+    }
+    [aId,bId].forEach(i=>{ S[i].witnessed = S[i].witnessed.slice(-8); });
+    if (gossipLine) S[aId].gossipQueue.shift();
+    const An = DEFS[aId].name.split(' ')[0], Bn = DEFS[bId].name.split(' ')[0];
+    let lensLine = (r.summary||'they talked');
+    if (gossipLine) lensLine += ' | '+An+' passed along: "'+gossipLine+'"';
+    if (r.b_learned_about_player && r.b_learned_about_player!=='null') lensLine += ' | '+Bn+' now believes: '+r.b_learned_about_player;
+    logJournal(gossipLine ? An+' pulled '+Bn+' aside about something.' : An+' & '+Bn+' talked.', lensLine);
+  } catch(e){
+    a.mode='sched'; b.mode='sched'; exchangeBusy=false;
+    if (gossipLine) S[aId].gossipQueue.shift(); // don't retry forever
+    logJournal('A conversation between '+DEFS[aId].name.split(' ')[0]+' and '+DEFS[bId].name.split(' ')[0]+' fizzled.', 'API error: '+(e&&e.message||'unknown'));
+  }
+}
+
+/* ============ END OF DAY ============ */
+function endDay(){
+  clock.running = false;
+  saveGame();
+  const card = document.getElementById('overlayCard');
+  const todays = journal.filter(j=>j.day===clock.day).map(j=>'→ '+escapeHtml(j.pub));
+  const items = todays.length ? todays.join('<br>') : '→ a quiet afternoon. they noticed you though.';
+  card.innerHTML = `<h3>Day ${clock.day} ends · 6:00 PM</h3>
+    While you were here:<div class="try">${items}</div>
+    <span style="font-size:12px">Everything they learned, felt, and heard about you <b>carries over</b>. Tomorrow: same room, same people, different weather.</span>
+    <button id="overlayBtn">Start day ${clock.day+1}</button>`;
+  document.getElementById('overlay').style.display = 'flex';
+  document.getElementById('overlayBtn').onclick = startNextDay;
+}
+function startNextDay(){
+  clock.day++; clock.m = 0; lastBlock = 0;
+  todaysEvent = pickEvent(clock.day);
+  for (const id of IDS){ S[id].pressure = null; S[id].sawExclusion = false; S[id].challenge = (S[id].challenge||0)*0.3; }
+  npcs.forEach(n=>{ const sp = SPOTS[SCHEDULE[n.id][0].spot]; n.x=sp.x+ (Math.random()*20-10); n.y=sp.y; n.tx=n.x; n.ty=n.y; n.mode='sched'; n.seek=null; n.bubble=null; });
+  player.x = 480; player.y = 490;
+  document.getElementById('overlay').style.display = 'none';
+  updateClockHUD();
+  clock.running = true;
+}
+
+/* ============ NPC AI ============ */
+function npcThink(n){
+  const s = S[n.id];
+  if (dialog.openWith || n.mode==='chat') return;
+  // gossip seeking
+  if (n.seek){
+    const t = byId(n.seek);
+    n.tx = t.x; n.ty = t.y;
+    if (dist(n,t) < 90){ const g = S[n.id].gossipQueue[0]; n.seek = null; n.bubble=null; doExchange(n.id, t.id, g); }
+    return;
+  }
+  // Emma's anxious approach — fired by the engine number, not vibes
+  if (n.id==='emma' && !n.pending && s.cooldown<=0 && attachmentActivation() > 0.65){
+    n.pending = {reason:"You've been left out for a while — of the player's attention, of conversations — and your attachment system couldn't take it (activation is high). You walked over. Make a small, slightly-too-casual bid for connection."};
+    logJournal('Emma keeps glancing over at you.', 'engine: attachment activation '+attachmentActivation().toFixed(2)+' crossed the approach threshold (0.65)');
+  }
+  if (n.pending){
+    n.bubble='!';
+    n.tx = player.x; n.ty = player.y;
+    if (dist(n,player) < TALKDIST){
+      const reason = n.pending.reason;
+      n.pending = null; n.bubble = null; n.mode='sched';
+      openDialog(n.id, {interject:reason});
+    }
+    return;
+  }
+  // schedule
+  const sc = schedFor(n.id, clock.m);
+  n.act = sc.act;
+  n.waitT--;
+  if (n.waitT<=0){
+    n.waitT = 140+Math.random()*240;
+    const a = SPOTS[sc.spot];
+    if (s.warmth>0.58 && Math.random()<0.25){ n.tx = player.x+(Math.random()*120-60); n.ty = player.y+(Math.random()*120-60); }
+    else { n.tx = a.x + (Math.random()*90-45); n.ty = a.y + (Math.random()*70-35); }
+    n.tx = Math.max(50,Math.min(W-50,n.tx)); n.ty = Math.max(90,Math.min(H-40,n.ty));
+  }
+}
+function npcMove(n){
+  if (dialog.openWith) return;
+  const dx=n.tx-n.x, dy=n.ty-n.y, d=Math.hypot(dx,dy);
+  if (d>4){
+    const sp = n.def.speed * ((n.pending||n.seek)?1.5:0.7);
+    const nx=n.x+dx/d*sp, ny=n.y+dy/d*sp;
+    if (!collides(nx,ny)){ n.x=nx; n.y=ny; } else { n.tx=n.x; n.ty=n.y; }
+    n.dir = dx<0?-1:1; n.step += 0.18;
+  } else n.step=0;
+}
+
+/* ============ INPUT ============ */
+const keys = {};
+addEventListener('keydown', e=>{
+  if (dialog.openWith){ if(e.key==='Escape') closeDialog(); return; }
+  keys[e.key.toLowerCase()] = true;
+  if ((e.key==='e'||e.key==='E') && nearNpc) openDialog(nearNpc.id, {});
+});
+addEventListener('keyup', e=> keys[e.key.toLowerCase()] = false);
+let joyVec = {x:0,y:0};
+const joy = document.getElementById('joy'), knob = document.getElementById('knob');
+let joyId = null;
+joy.addEventListener('pointerdown', e=>{ joyId=e.pointerId; joy.setPointerCapture(joyId); moveKnob(e); });
+joy.addEventListener('pointermove', e=>{ if(e.pointerId===joyId) moveKnob(e); });
+joy.addEventListener('pointerup', ()=>{ joyId=null; joyVec={x:0,y:0}; knob.style.left='37px'; knob.style.top='37px'; });
+function moveKnob(e){
+  const r = joy.getBoundingClientRect();
+  let dx=e.clientX-(r.left+55), dy=e.clientY-(r.top+55);
+  const m=Math.hypot(dx,dy); if(m>38){dx=dx/m*38; dy=dy/m*38;}
+  knob.style.left=37+dx+'px'; knob.style.top=37+dy+'px';
+  joyVec={x:dx/38, y:dy/38};
+}
+
+/* ============ LOOP ============ */
+let nearNpc = null, lastT = performance.now();
+const talkBtn = document.getElementById('talkBtn');
+function update(now){
+  const dt = now-lastT; lastT = now;
+  if (clock.running && !dialog.openWith && !exchangeBusy){
+    clock.acc += dt;
+    while (clock.acc >= MIN_MS){ clock.acc -= MIN_MS; tickMinute(); if(!clock.running) break; }
+  }
+  if (!dialog.openWith){
+    let mx=(keys['a']||keys['arrowleft']?-1:0)+(keys['d']||keys['arrowright']?1:0)+joyVec.x;
+    let my=(keys['w']||keys['arrowup']?-1:0)+(keys['s']||keys['arrowdown']?1:0)+joyVec.y;
+    const m=Math.hypot(mx,my);
+    if (m>0.15){
+      mx/=Math.max(1,m); my/=Math.max(1,m);
+      const nx=player.x+mx*2.4, ny=player.y+my*2.4;
+      if(!collides(nx,player.y)) player.x=nx;
+      if(!collides(player.x,ny)) player.y=ny;
+      if(Math.abs(mx)>0.1) player.dir=mx<0?-1:1;
+      player.step+=0.2;
+    } else player.step=0;
+  }
+  npcs.forEach(n=>{ npcThink(n); npcMove(n); });
+  bubbles = bubbles.filter(b=>b.until>now);
+  nearNpc = null; let best=TALKDIST;
+  for (const n of npcs){ const d=dist(player,n); if(d<best){best=d; nearNpc=n;} }
+  talkBtn.style.display = (nearNpc && !dialog.openWith && matchMedia('(pointer:coarse)').matches)?'block':'none';
+}
+
+/* ============ DRAW ============ */
+function draw(now){
+  c2.fillStyle='#181524'; c2.fillRect(0,0,W,H);
+  for (let y=60;y<H;y+=40) for (let x=0;x<W;x+=40){ c2.fillStyle=((x+y)/40)%2?'#292236':'#2E2740'; c2.fillRect(x,y,40,40); }
+  c2.fillStyle='#211C33'; c2.fillRect(0,0,W,60);
+  c2.fillStyle='#332E4D'; c2.fillRect(0,58,W,3);
+  // dusk deepens as the day ends
+  const dusk = clock.m/80;
+  const g=c2.createRadialGradient(480,100,20,480,100,420);
+  g.addColorStop(0,`rgba(245,184,87,${0.12-dusk*0.06})`); g.addColorStop(1,'rgba(245,184,87,0)');
+  c2.fillStyle=g; c2.fillRect(0,0,W,H);
+  for (const f of furniture) drawFurniture(f);
+  if (dusk>0.5){ c2.fillStyle=`rgba(20,14,40,${(dusk-0.5)*0.35})`; c2.fillRect(0,0,W,H); }
+  if (dialog.openWith){
+    c2.beginPath(); c2.arc(player.x,player.y,EARSHOT,0,7);
+    c2.strokeStyle='rgba(245,184,87,.35)'; c2.setLineDash([6,6]); c2.lineWidth=1.5; c2.stroke(); c2.setLineDash([]);
+  }
+  const ents=[...npcs, {x:player.x,y:player.y,dir:player.dir,step:player.step,isPlayer:true}];
+  ents.sort((a,b)=>a.y-b.y);
+  for (const e of ents){
+    if (e.isPlayer){ drawPerson(player.x,player.y,player.dir,player.step,player.color,player.hair,'you',false); continue; }
+    const d=e.def, s=S[e.id];
+    drawPerson(e.x,e.y,e.dir,e.step,d.color,d.hair,d.name.split(' ')[0], nearNpc&&nearNpc.id===e.id&&!dialog.openWith);
+    if (e.bubble){ c2.font='700 16px Space Grotesk'; c2.fillStyle=d.color; c2.fillText(e.bubble, e.x+12, e.y-48); }
+    if (lens){
+      drawBar(e.x-20,e.y-58,s.trust); drawBar(e.x-20,e.y-52,s.warmth);
+      c2.font='8.5px IBM Plex Mono'; c2.fillStyle='rgba(138,133,163,.9)'; c2.textAlign='center';
+      c2.fillText(e.act, e.x, e.y+30); c2.textAlign='left';
+    }
+  }
+  // speech bubbles for NPC↔NPC talk
+  for (const b of bubbles){
+    if (now < b.at) continue;
+    const n = byId(b.id); if (!n) continue;
+    drawSpeech(n.x, n.y-64, b.text, n.def.color);
+  }
+  if (nearNpc && !dialog.openWith && !matchMedia('(pointer:coarse)').matches){
+    c2.font='11px IBM Plex Mono'; c2.fillStyle='#F5B857';
+    c2.fillText('[E] talk to '+nearNpc.def.name.split(' ')[0], player.x-34, player.y+34);
+  }
+}
+function drawBar(x,y,v){ c2.fillStyle='rgba(20,18,31,.7)'; c2.fillRect(x,y,40,4); c2.fillStyle='#6FE3C1'; c2.fillRect(x,y,40*v,4); }
+function drawSpeech(cx, cy, text, color){
+  c2.font='11px Space Grotesk';
+  const words = text.split(' '); const lines=[]; let cur='';
+  for (const w of words){ if ((cur+' '+w).trim().length>26){ lines.push(cur.trim()); cur=w; } else cur+=' '+w; }
+  if (cur.trim()) lines.push(cur.trim());
+  const lh=14, pw=Math.min(170, Math.max(...lines.map(l=>c2.measureText(l).width))+16), ph=lines.length*lh+12;
+  let bx=cx-pw/2, by=cy-ph;
+  bx=Math.max(6,Math.min(W-pw-6,bx)); by=Math.max(64,by);
+  c2.fillStyle='rgba(24,21,38,.95)'; c2.strokeStyle=color; c2.lineWidth=1;
+  roundRect(bx,by,pw,ph,8); c2.fill(); c2.stroke();
+  c2.beginPath(); c2.moveTo(cx-5,by+ph); c2.lineTo(cx+5,by+ph); c2.lineTo(cx,by+ph+6); c2.fill();
+  c2.fillStyle='#EDEAF5';
+  lines.forEach((l,i)=> c2.fillText(l, bx+8, by+16+i*lh));
+}
+function roundRect(x,y,w,h,r){ c2.beginPath(); c2.moveTo(x+r,y); c2.arcTo(x+w,y,x+w,y+h,r); c2.arcTo(x+w,y+h,x,y+h,r); c2.arcTo(x,y+h,x,y,r); c2.arcTo(x,y,x+w,y,r); c2.closePath(); }
+function drawPerson(x,y,dir,step,color,hair,name,hl){
+  const bob=Math.abs(Math.sin(step))*2;
+  c2.fillStyle='rgba(0,0,0,.3)'; c2.beginPath(); c2.ellipse(x,y+18,11,4,0,0,7); c2.fill();
+  if (hl){ c2.beginPath(); c2.arc(x,y+2,26,0,7); c2.strokeStyle='rgba(245,184,87,.5)'; c2.lineWidth=1.5; c2.stroke(); }
+  const l=Math.sin(step)*4;
+  c2.fillStyle='#2a2438'; c2.fillRect(x-6,y+6-bob,5,12+l*0.5); c2.fillRect(x+1,y+6-bob,5,12-l*0.5);
+  c2.fillStyle=color; c2.fillRect(x-9,y-12-bob,18,20);
+  c2.fillStyle='rgba(0,0,0,.15)'; c2.fillRect(x-9,y+2-bob,18,6);
+  c2.fillStyle='#EFC9A8'; c2.beginPath(); c2.arc(x,y-20-bob,9,0,7); c2.fill();
+  c2.fillStyle=hair; c2.beginPath(); c2.arc(x,y-23-bob,9,Math.PI,2*Math.PI); c2.fill(); c2.fillRect(x-9,y-23-bob,18,4);
+  c2.fillStyle='#1c1826'; c2.fillRect(x-4+dir*2,y-21-bob,2,2); c2.fillRect(x+2+dir*2,y-21-bob,2,2);
+  c2.font='10px IBM Plex Mono'; c2.fillStyle='rgba(237,234,245,.75)'; c2.textAlign='center';
+  c2.fillText(name,x,y-36-bob); c2.textAlign='left';
+}
+function drawFurniture(f){
+  if (f.type==='window'){
+    c2.fillStyle='#3B3159'; c2.fillRect(f.x,f.y-30,f.w,f.h);
+    const dusk = clock.m/80;
+    const g=c2.createLinearGradient(f.x,f.y-26,f.x,f.y+f.h);
+    g.addColorStop(0,`rgba(245,${184-dusk*80},${87+dusk*60},.4)`); g.addColorStop(1,'rgba(157,140,255,.25)');
+    c2.fillStyle='#6E5AA8'; c2.fillRect(f.x+4,f.y-26,f.w-8,f.h-8);
+    c2.fillStyle=g; c2.fillRect(f.x+4,f.y-26,f.w-8,f.h-8);
+    c2.fillStyle='#3B3159'; c2.fillRect(f.x+f.w/2-2,f.y-26,4,f.h-8);
+  } else if (f.type==='desk'){
+    c2.fillStyle='#4A3B5C'; c2.fillRect(f.x,f.y,f.w,f.h);
+    c2.fillStyle='#584770'; c2.fillRect(f.x,f.y,f.w,10);
+    c2.fillStyle='#EDEAF5'; c2.fillRect(f.x+30,f.y+26,26,18);
+    c2.fillStyle='#8A85A3'; c2.fillRect(f.x+34,f.y+30,18,2); c2.fillRect(f.x+34,f.y+35,18,2);
+  } else if (f.type==='boxes'){
+    c2.fillStyle='#8A6A45'; c2.fillRect(f.x,f.y,60,50);
+    c2.fillStyle='#9C7A52'; c2.fillRect(f.x+66,f.y+14,56,44);
+    c2.fillStyle='#6E5437'; c2.fillRect(f.x,f.y,60,8); c2.fillRect(f.x+66,f.y+14,56,8);
+    c2.font='9px IBM Plex Mono'; c2.fillStyle='#3d2f1e'; c2.fillText('PROPS',f.x+14,f.y+32);
+  } else if (f.type==='sofa'){
+    c2.fillStyle='#5C3A50'; c2.fillRect(f.x,f.y,f.w,f.h);
+    c2.fillStyle='#714862'; c2.fillRect(f.x+8,f.y+8,f.w-16,f.h-26);
+    c2.fillStyle='#4A2F41'; c2.fillRect(f.x,f.y+f.h-14,f.w,14);
+  } else if (f.type==='vending'){
+    c2.fillStyle='#2F4858'; c2.fillRect(f.x,f.y,f.w,f.h);
+    c2.fillStyle='rgba(111,227,193,.5)'; c2.fillRect(f.x+10,f.y+12,f.w-20,60);
+    c2.fillStyle='#F5B857'; c2.fillRect(f.x+14,f.y+20,12,10); c2.fillStyle='#F28FAD'; c2.fillRect(f.x+32,f.y+20,12,10);
+    c2.fillStyle='#9D8CFF'; c2.fillRect(f.x+50,f.y+20,12,10);
+  } else if (f.type==='shelf'){
+    c2.fillStyle='#4A3B5C'; c2.fillRect(f.x,f.y,f.w,f.h);
+    for(let i=0;i<3;i++){ c2.fillStyle='#332E4D'; c2.fillRect(f.x+6,f.y+12+i*32,f.w-12,6);
+      c2.fillStyle=['#F28FAD','#7FB8A4','#F5B857'][i]; c2.fillRect(f.x+10,f.y+2+i*32,8,10); c2.fillStyle='#9D8CFF'; c2.fillRect(f.x+22,f.y+2+i*32,8,10); }
+  }
+}
+function loop(now){ update(now); draw(now); requestAnimationFrame(loop); }
+
+/* ============ DIALOGUE (player ↔ NPC) ============ */
+const dialog = { openWith:null };
+const el = id => document.getElementById(id);
+function earshotOf(targetId){
+  return npcs.filter(n=>n.id!==targetId && dist(n,player)<EARSHOT).map(n=>n.def.name.split(' ')[0]);
+}
+function openDialog(charId, opts){
+  const def = DEFS[charId];
+  dialog.openWith = charId;
+  el('dialog').classList.add('open');
+  el('portrait').textContent = def.name[0];
+  el('portrait').style.background = def.color+'2b'; el('portrait').style.color = def.color;
+  el('dlgName').textContent = def.name;
+  el('dlgSub').textContent = def.role + ' · ' + byId(charId).act;
+  el('dlgLog').innerHTML='';
+  document.documentElement.style.setProperty('--c', def.color);
+  renderTranscript(charId);
+  updateNotes(charId);
+  el('msgInput').focus();
+  if (opts && opts.interject){
+    addSys(def.name.split(' ')[0]+' walked over to you.');
+    runTurn(charId, null, opts.interject);
+  }
+}
+function closeDialog(){
+  const id = dialog.openWith;
+  dialog.openWith = null;
+  el('dialog').classList.remove('open');
+  if (id) S[id].cooldown = 3;
+}
+el('dlgClose').onclick = closeDialog;
+function updateNotes(charId){
+  const ears = earshotOf(charId);
+  el('earshotNote').innerHTML = ears.length
+    ? `⌁ <b>${ears.join(' & ')}</b> can overhear this. (front stage)` : `⌁ nobody else in earshot. (backstage)`;
+  const op = el('opinionNote');
+  if (lens){ op.style.display='block';
+    const eng = charId==='emma' ? ' · attachment '+attachmentActivation().toFixed(2)
+              : charId==='maya' ? ' · dissonance '+dissonancePressure(ears.length>0).toFixed(2) : '';
+    op.textContent = '◉ their read on you: "'+OP[charId].player+'"'+eng;
+  } else op.style.display='none';
+}
+function renderTranscript(charId){
+  const s=S[charId]; el('dlgLog').innerHTML='';
+  for (const t of s.transcript.slice(-14)){
+    if (t.sp==='p') addMsg('player', t.tx);
+    else if (t.sp==='n') addMsg('npc', t.tx, t.thought, t.theories, charId);
+    else addSys(t.tx);
+  }
+}
+function addMsg(kind, text, thought, theories, charId){
+  const d=document.createElement('div');
+  d.className='dmsg '+kind;
+  if (kind==='npc') d.style.setProperty('--c', DEFS[charId].color);
+  d.textContent=text;
+  if (kind==='npc' && lens && (thought||(theories&&theories.length))){
+    const a=document.createElement('div'); a.className='annot';
+    if (thought){ const t=document.createElement('div'); t.className='th'; t.textContent='“'+thought+'”'; a.appendChild(t); }
+    (theories||[]).forEach(th=>{ const c=document.createElement('span'); c.className='chip'; c.textContent='⌁ '+th.theory+': '+th.note; a.appendChild(c); });
+    d.appendChild(a);
+  }
+  el('dlgLog').appendChild(d); el('dlgLog').scrollTop=el('dlgLog').scrollHeight;
+}
+function addSys(text){
+  const d=document.createElement('div'); d.className='dmsg sys'; d.textContent='⌁ '+text;
+  el('dlgLog').appendChild(d); el('dlgLog').scrollTop=el('dlgLog').scrollHeight;
+}
+
+let busy=false;
+async function runTurn(charId, playerMsg, interject){
+  if (busy) return; busy=true;
+  el('sendBtn').disabled=true; el('typing').classList.add('on');
+  const def=DEFS[charId], s=S[charId];
+  const ears=earshotOf(charId);
+  if (playerMsg){
+    s.transcript.push({sp:'p', tx:playerMsg});
+    addMsg('player', playerMsg);
+    for (const n of npcs){
+      if (n.id===charId) continue;
+      const o=S[n.id];
+      if (dist(n,player)<EARSHOT) o.witnessed.push(`Overheard player (to ${def.name.split(' ')[0]}): "${playerMsg}"`);
+      else { o.witnessed.push(`Saw the player talking privately with ${def.name.split(' ')[0]}.`); if (n.id==='emma') o.sawExclusion = true; }
+      o.witnessed=o.witnessed.slice(-8);
+    }
+  }
+  if (charId==='maya' && playerMsg && /quit|violin|orchestra|regret|mistake|wrong call|give up|sell.?out/i.test(playerMsg)) s.challenge = 1;
+  try {
+    const r = await callAPI(playerPrompt(def, s, {earshot:ears, message:playerMsg, interject}));
+    s.trust=Math.max(0,Math.min(1,s.trust+Math.max(-0.15,Math.min(0.15,+r.trust_delta||0))));
+    s.warmth=Math.max(0,Math.min(1,s.warmth+Math.max(-0.15,Math.min(0.15,+r.warmth_delta||0))));
+    s.turnsSince=0;
+    if (r.memory && r.memory!=='null'){ s.memories.push(r.memory); s.memories=s.memories.slice(-10); }
+    if (r.opinion_of_player) OP[charId].player = r.opinion_of_player;
+    if (r.gossip_worthy && r.gossip_worthy!=='null'){ s.gossipQueue.push(r.gossip_worthy); s.gossipQueue=s.gossipQueue.slice(-3);
+      logJournal(def.name.split(' ')[0]+' made a mental note of something you said.', 'filed as worth repeating: "'+r.gossip_worthy+'"'); }
+    if (charId==='emma') s.sawExclusion = false;
+    const theories = Array.isArray(r.theories_fired)?r.theories_fired:[];
+    s.transcript.push({sp:'n', tx:r.dialogue, thought:r.inner_thought, theories});
+    s.transcript=s.transcript.slice(-30);
+    addMsg('npc', r.dialogue, r.inner_thought, theories, charId);
+    for (const n of npcs){
+      if (n.id===charId) continue;
+      if (dist(n,player)<EARSHOT){
+        const o=S[n.id];
+        o.witnessed.push(`${def.name.split(' ')[0]} replied: "${r.dialogue}"`); o.witnessed=o.witnessed.slice(-8);
+        checkTrigger(n, (playerMsg||'')+' '+r.dialogue, playerMsg||'');
+      }
+    }
+  } catch(e){
+    addSys(def.name.split(' ')[0]+' froze mid-sentence ('+(e&&e.message?e.message:'connection hiccup')+' — try again)');
+  }
+  el('typing').classList.remove('on'); el('sendBtn').disabled=false; busy=false;
+  updateNotes(charId);
+  el('msgInput').focus();
+}
+function checkTrigger(n, exch, playerLine){
+  const o=S[n.id];
+  if (o.cooldown>0 || n.seek || n.pending) return;
+  let reason=null;
+  if (n.id==='maya' && /\b(violin|orchestra|music|maya)\b/i.test(exch)){
+    S.maya.challenge = Math.max(S.maya.challenge||0, 0.7);
+    reason='You overheard your name / violin / orchestra come up in a conversation you weren\'t in. Front-stage rules: you came over light and bright to steer it somewhere safe.';
+  }
+  if (n.id==='jake' && /\b(obviously|definitely|everyone knows|100%|literally always)\b/i.test(playerLine))
+    reason='You overheard the player state something with unearned certainty. Your debate instincts require exactly one dry, precise question. One.';
+  if (reason){ n.pending={reason}; o.cooldown=4; }
+}
+
+el('sendBtn').onclick = send;
+el('msgInput').addEventListener('keydown', e=>{ if(e.key==='Enter') send(); });
+function send(){
+  const v=el('msgInput').value.trim();
+  if (!v||!dialog.openWith||busy) return;
+  el('msgInput').value='';
+  runTurn(dialog.openWith, v, null);
+}
+talkBtn.onclick = ()=>{ if(nearNpc&&!dialog.openWith) openDialog(nearNpc.id,{}); };
+
+/* ============ JOURNAL ============ */
+let journal = [];
+function escapeHtml(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+function logJournal(pub, lensText){
+  journal.push({day:clock.day, m:clock.m, pub, lensText:lensText||null});
+  renderJournalEntry(journal[journal.length-1]);
+}
+function renderJournalEntry(j){
+  const e = document.createElement('div'); e.className='jEntry';
+  e.innerHTML = '<div class="jt">day '+j.day+' · '+fmtTime(j.m)+'</div>'+escapeHtml(j.pub)+(j.lensText?'<div class="jl">◉ '+escapeHtml(j.lensText)+'</div>':'');
+  const jl = el('jLog'); jl.appendChild(e); jl.scrollTop = jl.scrollHeight;
+}
+el('journalBtn').onclick = ()=> el('journal').classList.toggle('open');
+el('jClose').onclick = ()=> el('journal').classList.remove('open');
+
+/* ============ SAVE / LOAD (persists across sessions inside claude.ai) ============ */
+async function saveGame(){
+  try{ if (window.storage) await window.storage.set('driftlab_save', JSON.stringify({day:clock.day+1, S, OP, journal})); }catch(e){}
+}
+async function clearSave(){ try{ if (window.storage) await window.storage.delete('driftlab_save'); }catch(e){} }
+async function loadGame(){
+  try{ if (!window.storage) return null;
+    const r = await window.storage.get('driftlab_save');
+    return r && r.value ? JSON.parse(r.value) : null;
+  }catch(e){ return null; }
+}
+loadGame().then(sv=>{
+  if (!sv || !sv.day || sv.day<2) return;
+  const card = document.getElementById('overlayCard');
+  const btn = document.createElement('button');
+  btn.id='continueBtn'; btn.className=''; btn.style.cssText='margin-top:10px;margin-left:10px;background:none;border:1px solid var(--amber);color:var(--amber);border-radius:20px;padding:10px 22px;font-weight:700;font-family:inherit;font-size:14px;cursor:pointer;';
+  btn.textContent='Continue day '+sv.day;
+  btn.onclick = ()=>{
+    S = sv.S; OP = sv.OP; journal = sv.journal||[];
+    for (const id of IDS){ S[id].pressure=null; S[id].cooldown=0; if(S[id].sawExclusion===undefined){S[id].sawExclusion=false;} if(S[id].challenge===undefined){S[id].challenge=0;} }
+    el('jLog').innerHTML=''; journal.forEach(renderJournalEntry);
+    clock.day = sv.day; clock.m = 0; lastBlock = 0;
+    todaysEvent = pickEvent(clock.day);
+    updateClockHUD();
+    document.getElementById('overlay').style.display='none';
+    clock.running = true;
+  };
+  card.appendChild(btn);
+});
+
+/* ============ HUD BUTTONS ============ */
+let lens=false;
+el('lensBtn').onclick=()=>{
+  lens=!lens;
+  el('lensBtn').textContent='◉ lens '+(lens?'ON':'OFF');
+  el('lensBtn').classList.toggle('on',lens);
+  el('journal').classList.toggle('lensed',lens);
+  if (dialog.openWith){ renderTranscript(dialog.openWith); updateNotes(dialog.openWith); }
+};
+el('skipBtn').onclick=()=>{
+  if (!clock.running || dialog.openWith) return;
+  for (let i=0;i<15 && clock.running;i++) tickMinute();
+  npcs.forEach(n=>{ if(n.mode==='sched'&&!n.seek){ const sp=SPOTS[schedFor(n.id,clock.m).spot]; n.x=sp.x+(Math.random()*40-20); n.y=sp.y+(Math.random()*20-10); n.tx=n.x; n.ty=n.y; } });
+};
+el('overlayBtn').onclick=()=>{
+  clearSave();
+  document.getElementById('overlay').style.display='none';
+  clock.running=true;
+};
+
+updateClockHUD();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
