@@ -1,0 +1,127 @@
+# AP(R) Psychology (2024 CED) coverage registry — evidence-first.
+#
+# Every entry is a CLAIM and must fill all six fields (EDUCATION_ARCHITECTURE.md §7).
+# Readiness enum:
+#   instrument-ready  teachable via the instrument's methodology, model-independent
+#   phenomenon-ready  engine stages the paradigm; published human data anchors claims;
+#                     the model appears only as "one proposed account"
+#   model-gated       claims about model correctness wait for Study 1A
+#   roadmap-Vn        requires engine constructs that do not exist yet
+#   out-of-scope      will not be simulated; stated aloud
+#
+# "AP" is a registered trademark of College Board, which does not endorse and is not
+# affiliated with this project.
+#
+# (verify) = citation detail to confirm against the source before any lesson ships.
+
+curriculum: ap-psychology-2024
+version: 0.1
+
+entries:
+  - objective: "3.4 Cognitive Development Across the Lifespan"
+    component_covered: >
+      Adult perspective-taking limits (egocentric interference) only. NOT covered:
+      Piagetian stages, conservation, child theory-of-mind development, aging.
+    phenomenon: egocentric interference in reference resolution
+    engine_capability: director-task simulation; choice-level DVs; provenance traces
+    evidence:
+      - "Keysar, Barr, Balin & Brauner (2000), Psychological Science"
+      - "Epley, Keysar, Van Boven & Gilovich (2004), JPSP"
+    interaction: predict-observe-explain; critical vs control comparison
+    readiness: phenomenon-ready (model-gated for any model-correctness claim)
+
+  - objective: "3.5 Communication and Language Development"
+    component_covered: >
+      Referential communication and use of shared context in comprehension. NOT
+      covered: language acquisition, phonology, syntax, milestones.
+    phenomenon: perspective use in interpreting referring expressions
+    engine_capability: director-task simulation as above
+    evidence:
+      - "Clark & Marshall (1981), definite reference and mutual knowledge"
+      - "Keysar et al. (2000)"
+    interaction: predict-observe-explain
+    readiness: phenomenon-ready; clarification/repair content is roadmap-V2
+
+  - objective: "2.2 Thinking, Problem-Solving, Judgments, and Decision-Making"
+    component_covered: >
+      Perspective inference as judgment under uncertainty; egocentric anchoring as a
+      bias instance. NOT covered: general heuristics (availability, representativeness,
+      framing), problem-solving strategies, creativity.
+    phenomenon: egocentric anchoring in interpretation
+    engine_capability: director-task simulation
+    evidence:
+      - "Epley et al. (2004), JPSP"
+      - "Epley & Gilovich (2006), Psychological Science"
+    interaction: predict-observe-explain
+    readiness: phenomenon-ready (narrow)
+
+  - objective: "4.1 Attribution Theory and Person Perception"
+    component_covered: >
+      Inferring what another person can see/knows. NOT covered: attribution styles,
+      fundamental attribution error, actor-observer bias, halo effects.
+    phenomenon: mental-state inference limits in live interaction
+    engine_capability: director-task simulation
+    evidence:
+      - "Keysar et al. (2000)"
+      - "Rubio-Fernández (2017), Psychonomic Bulletin & Review — construct-validity caveat, taught alongside"
+    interaction: predict-observe-explain; the construct-validity dispute itself is teachable
+    readiness: phenomenon-ready (narrow)
+
+  - objective: "2.4–2.7 Memory (encoding, storage, retrieval, forgetting)"
+    component_covered: "None yet. Target: reconstructive retrieval and false memory."
+    phenomenon: reconstructive memory (target)
+    engine_capability: none (V4 construct)
+    evidence:
+      - "Bartlett-tradition serial reproduction (to be specified at V4)"
+    interaction: to be designed at V4
+    readiness: roadmap-V4
+
+  - objective: "4.3 Psychology of Social Situations"
+    component_covered: "None yet. Target: norms, conformity dynamics."
+    phenomenon: normative influence (target)
+    engine_capability: none (V5 construct)
+    evidence: []
+    interaction: to be designed at V5
+    readiness: roadmap-V5
+
+  - objective: "Unit 1: Biological Bases of Behavior"
+    component_covered: "None."
+    phenomenon: n/a
+    engine_capability: none, by design
+    evidence: []
+    interaction: n/a
+    readiness: out-of-scope
+
+  - objective: "Unit 5: Mental and Physical Health"
+    component_covered: "None."
+    phenomenon: n/a
+    engine_capability: none, by design
+    evidence: []
+    interaction: n/a
+    readiness: out-of-scope
+
+  - objective: "Science Practice 2: Research Methods and Design"
+    component_covered: >
+      Experimental design with the simulation as the object: conditions, controls,
+      confounds, operationalization.
+    phenomenon: n/a (methodological)
+    engine_capability: seeded runs; condition construction; model comparison harness
+    evidence: []
+    interaction: students design critical/control variants and justify them
+    readiness: instrument-ready
+
+  - objective: "Science Practice 3: Data Interpretation"
+    component_covered: "Reading DV tables/distributions from simulation output."
+    phenomenon: n/a (methodological)
+    engine_capability: RunResult aggregates and per-trial records
+    evidence: []
+    interaction: interpret simulated results, always labeled simulated
+    readiness: instrument-ready
+
+  - objective: "Science Practice 4: Argumentation"
+    component_covered: "Claim-evidence-reasoning over competing accounts."
+    phenomenon: n/a (methodological)
+    engine_capability: multiple listener models on identical trials
+    evidence: []
+    interaction: argue which account the data support; encounter identifiability limits
+    readiness: instrument-ready

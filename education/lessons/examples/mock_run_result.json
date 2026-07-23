@@ -1,0 +1,39 @@
+{
+  "mock": true,
+  "disclaimer": "Illustrative mock output for lesson-schema testing. Not produced by the engine. Not human data. All numbers are placeholders.",
+  "engine_version": "0.0.0-mock",
+  "trace_schema_version": "0-mock",
+  "scenario_id": "teaching/candles-basic",
+  "model_id": "mixture-listener",
+  "params": {"w": 0.6},
+  "seed": 7,
+  "n_trials": 200,
+  "aggregates": {
+    "critical": {
+      "intended_accuracy": 0.6,
+      "egocentric_error_rate": 0.4,
+      "competitor_consideration": 0.4,
+      "clarify_rate": 0.0
+    },
+    "control": {
+      "intended_accuracy": 1.0,
+      "egocentric_error_rate": 0.0,
+      "competitor_consideration": 0.0,
+      "clarify_rate": 0.0
+    }
+  },
+  "trials": [
+    {
+      "condition": "critical",
+      "choice": "c1",
+      "posterior": {"c1": 0.4, "c2": 0.6},
+      "trace": [["ego_best", "c1"], ["cg_best", "c2"], ["w", 0.6]]
+    },
+    {
+      "condition": "critical",
+      "choice": "c2",
+      "posterior": {"c1": 0.4, "c2": 0.6},
+      "trace": [["ego_best", "c1"], ["cg_best", "c2"], ["w", 0.6]]
+    }
+  ]
+}

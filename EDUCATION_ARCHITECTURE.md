@@ -1,6 +1,12 @@
 # Education Edition — Architecture
 
-**Status: design document. No lesson content exists yet, deliberately.**
+**Status: design document, rev. 2 (after external review). No production lesson code
+exists, deliberately.**
+
+**Governing principle:** *the research platform determines what Aspire can honestly
+simulate; the education platform determines how those validated capabilities are
+taught.* Never the reverse. A compelling lesson interaction is not a reason to bend
+the engine, and the current model is not a doctrine for the product to enshrine.
 
 The Aspire Project splits into two products sharing one engine:
 
@@ -125,11 +131,15 @@ Contract properties, decided now:
 
 ## 5. The scenario system
 
-The key structural insight: **the scenario system education needs is the stimulus
-builder research already owes itself.** MODEL_AUDIT §4.3 requires dataset-matched,
-declarative stimulus construction for Study 1A. That same machinery — a validated,
-versioned, declarative scenario format owned by the engine — is exactly what lessons
-need. Build it once, in the engine, for research reasons; education gets it free.
+The engine owes itself — for Study 1A, independent of education — a set of **neutral
+capabilities**: scenario loading, state initialization, controlled interventions,
+simulation execution, trace extraction, result serialization (MODEL_AUDIT §4.3).
+Education consumes those primitives. But sharing primitives is not sharing a product:
+a research stimulus builder and a classroom scenario-authoring experience are
+different tools that happen to emit the same schema. Classroom concepts — difficulty,
+hints, misconception tags, prediction prompts, reflection prompts, teacher notes,
+curriculum standards — never enter the engine, its schema, or its API. They live in
+education-side files that reference engine artifacts by id.
 
 ```yaml
 # scenarios/teaching/candles-basic.yaml   (engine schema; no pedagogy)
@@ -185,10 +195,15 @@ Design decisions inside this:
 - **Phases are a typed, extensible registry.** Adding a phase type (e.g., a
   `compare-models` phase where students run P-EGO vs P-CG vs P-MIX on the same
   scenario) is a player extension, no lesson-format migration.
-- **The parameter slider is the signature interaction.** A student dragging `w` from
-  0 to 1 watches pure egocentrism fail, pure common-ground fail, and the human-like
-  middle emerge. That single control teaches the deepest lesson the engine knows:
-  the truth is a fitted parameter, not a pole.
+- **Lessons are organized around psychological questions, not model parameters.**
+  The unit of design is a question a student can hold — "what does your partner
+  think you can see?" — never "adjust parameter w." Parameter exploration is one
+  optional interaction pattern inside individual lessons, and wherever a model
+  appears it is labeled as one proposed account. Empirical claims (e.g., that
+  neither pure egocentrism nor pure common-ground restriction matches human
+  behavior) may be taught from the published literature, with citations; they may
+  not be demonstrated *from this engine's output* until Study 1A validates the
+  simulation under the relevant conditions.
 - **Prediction before simulation is mandatory in the schema** — the player refuses
   to run a simulation phase if no prediction was captured. Commitment before
   evidence is the whole pedagogical (and scientific) point.
@@ -207,39 +222,37 @@ Learning, 4 Social Psychology and Personality, 5 Mental and Physical Health) cro
 with four science practices (1 Concept Application, 2 Research Methods and Design,
 3 Data Interpretation, 4 Argumentation).
 
-**The mapping is data, not code** — a coverage registry per curriculum:
+**The mapping is data, not code, and every entry must carry evidence.** Conceptual
+relatedness is not teachability: the director task illustrates a *narrow component*
+of broad learning objectives like "cognitive development" or "person perception," and
+the registry says exactly which component and what it does not cover. Each entry in
+`education/curricula/ap-psychology-2024/coverage.yaml` is required to fill six
+fields:
 
-```yaml
-# education/curricula/ap-psychology-2024/coverage.yaml (excerpt)
-- standard: "3.4 Cognitive Development Across the Lifespan"   # Piaget, egocentrism, ToM
-  concepts: [perspective-taking.egocentric-interference]
-  status: available
-- standard: "4.1 Attribution Theory and Person Perception"
-  concepts: [perspective-taking.egocentric-interference]
-  status: available
-- standard: "2.4–2.7 Memory (encoding, storage, retrieval, forgetting)"
-  concepts: [memory.reconstruction]
-  status: roadmap-V4
-- standard: "1.x Biological Bases of Behavior"
-  concepts: []
-  status: out-of-scope
-```
+| Field | Content |
+|---|---|
+| Curriculum objective | the CED topic or science practice, verbatim |
+| Psychological phenomenon | the specific, citable effect Aspire can stage |
+| Engine capability | what the engine actually runs today (named modules/DVs) |
+| Evidence base | the published studies anchoring any truth-claim in a lesson |
+| Educational interaction | how a student engages it (predict–observe–explain, etc.) |
+| Readiness | see enum below — plus an explicit statement of what is NOT covered |
 
-Three honest tiers:
+Readiness levels (an enum, not a mood):
 
-- **Tier A — available with today's engine.** Topics touching perspective-taking,
-  egocentrism, and theory of mind: 3.4 (cognitive development — the director task is
-  literally the adult ToM paradigm), 3.5 (communication and language), 4.1 (person
-  perception), 2.2 (judgment and decision-making — egocentric anchoring as a
-  heuristic). A handful of topics, served deeply.
-- **Tier B — unlocked by the research roadmap.** Clarification and repair (V2) → 3.5;
-  reconstructive memory and false memory (V4) → 2.4–2.7, which is one of the
-  highest-yield AP topics; norms, conformity, attribution mechanisms (V5 and the
-  ARCHITECTURE.md quarry) → 4.3. The research ladder doubles as the content
-  pipeline: each published version flips registry entries from `roadmap` to
-  `available` with no education-side rework.
-- **Tier C — permanently out of scope.** Units 1 and 5. The registry says so
-  explicitly, so the product never half-promises neuroscience it will never simulate.
+- `instrument-ready` — teachable through the instrument's methodology itself
+  (research design, data interpretation, argumentation), independent of any model's
+  validity.
+- `phenomenon-ready` — the engine can stage the paradigm AND published human data
+  anchors the empirical claims; the model appears only as "one proposed account."
+- `model-gated` — any claim about the model's *correctness* waits for Study 1A.
+- `roadmap-Vn` — requires engine constructs that do not exist yet.
+- `out-of-scope` — will not be simulated; the registry says so aloud (Units 1
+  and 5), so the product never half-promises neuroscience it will never model.
+
+The research ladder still doubles as the content pipeline — each validated version
+flips registry entries forward — but a registry entry is a claim, and claims carry
+citations here like everywhere else in this project.
 
 **The strongest current fit is not a topic at all — it's the science practices.**
 Practices 2, 3, and 4 (research design, data interpretation, argumentation) are what
@@ -275,17 +288,24 @@ that in any pitch to teachers.
 2. **Scenario schema goes in the engine, built when Study 1A needs it** (it does —
    dataset-matched stimuli). This is the single shared investment; do not let
    education build its own.
-3. **Rename the package now or never.** `cogsim` → `aspire` costs five import lines
-   today, with zero clients. After `api.py` ships and education imports it, the
-   rename price rises permanently. Decide before building the facade.
+3. **Settle the name before the facade — but the gate is identity, not imports.**
+   Renaming `cogsim` → `aspire` is cheapest now and stays feasible later
+   (compatibility aliases, staged deprecation); "now or never" would be
+   overstatement. The real question is whether *Aspire* is confirmed as the durable
+   technical name — for the package, schemas, CLI, and saved artifacts. Until that
+   is decided deliberately, the package stays `cogsim` and `api.py` ships under it.
 4. **CI directionality checks from the first education commit** (L1/L2). Trivial to
    add now, culturally impossible to retrofit.
-5. **Keep the engine stdlib-only.** This preserves the option of running the entire
-   engine client-side in the browser via WebAssembly (Pyodide) — meaning the
-   Education Edition can ship as a static site: no servers, no accounts, and no
-   student data collected by default. For a product aimed at minors in schools,
-   "no data leaves the browser" is not just cheap hosting; it is the privacy
-   architecture (COPPA/FERPA exposure designed out rather than complied with).
+5. **Keep the simulation kernel lightweight; let research take dependencies.** The
+   right structure is a split, not an ideology: a browser-compatible simulation
+   kernel (currently stdlib-only, and worth keeping dependency-light) that education
+   depends on exclusively, plus optional research extras — numerical computation,
+   optimization, statistical inference, parameter fitting — that Study 1A will
+   likely need and must never be blocked from taking. The kernel/extras boundary
+   preserves the WASM/static-site path: the Education Edition can run entirely
+   client-side — no servers, no accounts, no student data collected by default.
+   For a product aimed at minors in schools, "no data leaves the browser" is the
+   privacy architecture (COPPA/FERPA exposure designed out, not complied with).
 6. **Concept ids before the first lesson.** Renaming the join key after ten lessons
    reference it is the refactor this document exists to prevent.
 7. **Trademark hygiene.** "AP" is a College Board registered trademark. The product
@@ -307,3 +327,21 @@ lessons will present the mixture model to students, and until 1A runs, the proje
 own audit says that model is an unverified adaptation. Teach the phenomenon the day
 the data is real; teach the model the day it survives contact with human data. The
 registry's `roadmap` statuses make that patience visible instead of vague.
+
+## 11. Authorized scope (current)
+
+Per review, only these pieces exist or may be built now — everything else waits for
+Study 1A stability:
+
+1. This document (rev. 2). ✔
+2. **API contract draft** — `API_CONTRACT.md`, a specification (not an
+   implementation); `api.py` is built later, alongside the scenario schema work
+   Study 1A requires.
+3. **Coverage registry** — `education/curricula/ap-psychology-2024/coverage.yaml`
+   with the six evidence/readiness fields of §7.
+4. **One example lesson specification** — `education/lessons/examples/`, running on
+   *mocked* simulation output, to test whether the lesson schema is pedagogically
+   usable without tying it to an unvalidated model.
+5. **CI boundary rules** — `tests/test_boundaries.py` + workflow, enforcing L1/L2
+   from the first education commit.
+6. **No production lesson code.** No player, no UI, no authored curriculum content.

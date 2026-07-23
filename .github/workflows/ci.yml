@@ -1,0 +1,21 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Engine tests
+        run: python tests/test_core.py
+      - name: Architecture boundary checks (L1/L2/L4)
+        run: python tests/test_boundaries.py
+      - name: exp0 smoke run
+        run: python experiments/exp0_keysar_signature.py

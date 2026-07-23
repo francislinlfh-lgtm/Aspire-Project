@@ -1,0 +1,65 @@
+# EXAMPLE LESSON SPECIFICATION — schema usability test only.
+# Runs on MOCKED simulation output (mock_run_result.json). Not production content;
+# exists to test whether the six-phase schema is pedagogically usable without tying
+# lessons to an unvalidated model (EDUCATION_ARCHITECTURE.md §11.4).
+
+id: examples/hidden-candle
+version: 0                       # 0 = example/mock; production lessons start at 1
+question: "When someone asks you for 'the small candle,' how do you know which one they mean?"
+concept: perspective-taking.egocentric-interference
+curriculum_refs: []              # production lessons are claimed via the coverage
+                                 # registry, never by inline curriculum ids
+
+engine:
+  source: mock                   # mock | live  — mock requires mock_result
+  mock_result: mock_run_result.json
+
+honesty:                         # rendered to students, not just to us
+  data_label: "All simulation output on this page is simulated, not human data."
+  model_label: >
+    The simulated listener implements one proposed account of perspective-taking
+    (a probabilistic mixture; Heller, Parisien & Stevenson, 2016). It has not been
+    validated against human data within this platform. Other accounts exist.
+
+phases:
+  - type: concept
+    content_ref: content/hidden-candle-intro.md   # question-led: what can each
+                                                  # person see? what is shared?
+  - type: scenario
+    scenario_ref: teaching/candles-basic          # engine schema instance
+    overlay_ref: candles-basic                    # education-side presentation
+
+  - type: prediction                              # REQUIRED before simulation;
+    prompts:                                      # the player refuses to continue
+      - id: p1                                    # without captured predictions
+        kind: estimate_percent
+        text: "Out of 100 listeners, how many do you think will reach for the
+               hidden tiny candle at least once?"
+      - id: p2
+        kind: choice
+        text: "Which candle will listeners pick most often?"
+        options: [the hidden tiny candle, the medium candle, the large candle]
+
+  - type: simulation
+    model_id: mixture-listener
+    params: {w: 0.6}                              # fixed; illustrative
+    seed: 7
+    n_trials: 200
+    show: [egocentric_error_rate, competitor_consideration, sample_traces]
+
+  - type: explanation
+    template_ref: templates/three-part.md
+    structure:
+      - "what happened in this simulation (derived from traces only)"
+      - "what real studies found, cited separately (Keysar et al., 2000)"
+      - "the model as one proposed account of why — and that rival accounts
+         predict the same choices (the identifiability problem, made teachable)"
+    uses: [traces, student_predictions]           # confront p1/p2 with outcomes
+
+  - type: reflection
+    prompts:
+      - "Describe a time you and someone else understood the same sentence
+         differently. What did each of you know that the other didn't?"
+      - "What would you ask the speaker to avoid the mix-up — and why do you
+         think people often don't ask?"
+    quiz_ref: null                                # none in the example
