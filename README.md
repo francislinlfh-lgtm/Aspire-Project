@@ -1,4 +1,4 @@
-# cogsim
+# Aspire Project
 
 A small instrument for testing theories of how people understand each other, and how
 they fail to.
@@ -31,7 +31,7 @@ observation could actually separate them is much of what this project is about
 
 ## The rule that defines the project
 
-cogsim contains language models and cognitive models, and they are never allowed to
+Aspire contains language models and cognitive models, and they are never allowed to
 touch.
 
 An LLM may parse a sentence into structured data ("the small candle" becomes a
@@ -61,7 +61,7 @@ and call it the truth.
 
 The director task is the smallest laboratory version of that gap I know of. One
 sentence, one shelf, one hidden candle, and already two people inhabit different
-worlds. cogsim models the listener's side of it in pieces small enough to test: what
+worlds. Aspire models the listener's side of it in pieces small enough to test: what
 they saw, how they weighed the other person's view against their own, how unsure they
 were, and eventually what they decide to do about being unsure.
 

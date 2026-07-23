@@ -1,6 +1,6 @@
 # Related Work and Positioning
 
-**Purpose of this document.** Map the neighboring literature honestly, state what cogsim
+**Purpose of this document.** Map the neighboring literature honestly, state what Aspire
 does *not* claim, and locate the narrow gap it does claim. Every novelty claim here must
 survive a hostile reviewer; when in doubt, the claim is stated weaker.
 
@@ -13,7 +13,7 @@ natural-language records, retrieval by recency × importance × relevance, refle
 planning via prompting. Evaluation is believability rating by human judges. The
 architecture demonstrated that LLM agents *look* social; it cannot say *why* any behavior
 occurred (the causal story is inside the model weights), and believability is not a
-behavioral-fidelity criterion. cogsim inverts the placement of the LLM and replaces
+behavioral-fidelity criterion. Aspire inverts the placement of the LLM and replaces
 believability with reproduction of published experimental signatures.
 
 ## 2. Conceptual frameworks for language agents
@@ -21,7 +21,7 @@ believability with reproduction of published experimental signatures.
 **CoALA** (Sumers, Yao, Narasimhan & Griffiths, 2023) organizes LLM agents using
 cognitive-architecture vocabulary: working/long-term memory, internal vs. external
 actions, a decision cycle. It is a design framework in which the LLM remains the
-reasoning substrate. cogsim sits at the pole CoALA's taxonomy points at but does not
+reasoning substrate. Aspire sits at the pole CoALA's taxonomy points at but does not
 occupy: the decision cycle contains **no** LLM calls; the LLM is confined to the
 perception/action boundary. We use CoALA's vocabulary where possible, as the field's
 lingua franca.
@@ -55,7 +55,7 @@ referring expressions given a category list + spatial neighbor graph; commonsens
 storage-location retrieval; translating free-form recipes into a controlled-English step
 sequence.
 
-| Dimension | Lindes & Skiker | cogsim |
+| Dimension | Lindes & Skiker | Aspire |
 |---|---|---|
 | Center | Soar agent (general architecture) | phenomenon-specific psycholinguistic model |
 | Goal | capable robot assistant (engineering) | reproduce human behavior *including its errors* (science) |
@@ -67,7 +67,7 @@ sequence.
 Two further points of contact. First, they describe two options for referential
 grounding — the LLM resolves fully, or the LLM emits a formal representation "suitable
 for symbolic resolution by the cognitive agent" — and experiment only with the former.
-cogsim's parser contract is a commitment to the latter branch, taken not for engineering
+Aspire's parser contract is a commitment to the latter branch, taken not for engineering
 reasons but because a sealed boundary is what makes the cognition measurable. Second,
 their closing argument — that orchestration is the hardest problem for "agentic LLMs"
 and that cognitive-architecture research is where solutions live — is an argument we
@@ -85,7 +85,7 @@ literature (Purver; Ginzburg, *The Interactive Stance*; Schlangen) already give 
 common-ground machinery with grounding acts and CR taxonomies. What that tradition did
 not do is evaluate the machinery *as a psychological model* against human behavioral
 signatures — systems were evaluated as artifacts (task success, dialogue efficiency).
-That evaluation gap, not the machinery, is where cogsim works.
+That evaluation gap, not the machinery, is where Aspire works.
 
 ## 6. Computational psycholinguistics
 
@@ -102,7 +102,7 @@ The closest methodological kin, and the literature V1 actually contributes to:
   early-integration constraint-based accounts (Hanna, Tanenhaus & Trueswell, 2003;
   Brown-Schmidt) vs. **graded probabilistic accounts — Heller, Parisien & Stevenson
   (2016)**, who model interpretation as a probabilistic weighing of egocentric and
-  common-ground domains. **cogsim V1's mixture listener is Heller et al.'s model** — we
+  common-ground domains. **Aspire V1's mixture listener is Heller et al.'s model** — we
   claim its embedding in an executable, interactive, instrumented agent, not the model
   itself. Note also that the director task's construct validity is itself contested
   (Rubio-Fernández, 2017: ToM use or selective attention?) — an instrument that can
@@ -125,13 +125,13 @@ A growing literature administers psychology experiments to LLMs: false-belief ba
 (Kosinski; Trott et al.; Ullman's fragility critiques), and — directly on our paradigm —
 **the director task has already been adapted to multimodal LLMs**
 ([Visuospatial Perspective Taking in Multimodal Language Models, 2026](https://arxiv.org/html/2603.23510)),
-reporting pronounced Level-2 perspective-taking deficits. Therefore cogsim's LLM
+reporting pronounced Level-2 perspective-taking deficits. Therefore Aspire's LLM
 benchmark arm is **not** "first to test LLMs on the director task." Our benchmark claim
 is narrower and different in kind: a *within-instrument* comparison, on identical trials
 and identical dependent variables, between an explicit mechanistic listener and
 LLM-centered listeners — evaluating trajectory-level behavioral fidelity, not accuracy.
 
-## 9. The gap cogsim claims — stated narrowly
+## 9. The gap Aspire claims — stated narrowly
 
 Each ingredient exists somewhere. We claim the **intersection** is unoccupied:
 

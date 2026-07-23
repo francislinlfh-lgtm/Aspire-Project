@@ -57,7 +57,7 @@ contribution is **not** "we evaluated LLMs on the director task." It is:
 
 1. Signature reproduction: presence and gradedness of interference; control cleanliness.
 2. Parameter stability/interpretability (`w` posterior width and cross-condition drift).
-3. Transparency: cogsim ships a per-trial provenance trace; LLM arms ship completions.
+3. Transparency: Aspire ships a per-trial provenance trace; LLM arms ship completions.
    Reported as a qualitative architectural property, not scored.
 4. Data efficiency (trials needed to characterize each system's behavior).
 

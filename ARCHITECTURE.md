@@ -1,4 +1,4 @@
-# cogsim — A Computational Social Cognition Engine
+# Aspire Project — A Computational Social Cognition Engine
 
 > **STATUS: ARCHIVED VISION DOCUMENT (superseded 2026-07-17).**
 > The project has been repositioned as computational cognitive science — see

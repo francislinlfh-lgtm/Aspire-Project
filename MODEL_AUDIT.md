@@ -31,7 +31,7 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
 - **Provenance:** no published account claims adult listeners are purely egocentric.
   Keysar's own position is *anchoring with adjustment* — egocentric interpretation is
   the starting point, not the endpoint (Keysar, Barr, Balin & Brauner, 2000, *Psych.
-  Science*; Epley, Keysar, Van Boven & Gilovich, 2004, *JPSP*). P-EGO exists in cogsim
+  Science*; Epley, Keysar, Van Boven & Gilovich, 2004, *JPSP*). P-EGO exists in Aspire
   as the w=0 limiting case and manipulation check.
 - **Already falsified as a complete account:** humans show intermediate, not total,
   egocentric error (Keysar et al., 2000) — which is precisely why it is a reference

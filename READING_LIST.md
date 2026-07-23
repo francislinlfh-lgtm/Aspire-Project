@@ -1,6 +1,6 @@
 # Priority reading list — ten papers, in order
 
-Read with a pencil. For each: what to extract for cogsim. (verify) = bibliographic
+Read with a pencil. For each: what to extract for Aspire. (verify) = bibliographic
 details to confirm; do not cite from this list without checking the source itself.
 
 1. **Heller, Parisien & Stevenson (2016), Cognition** — "Perspective-taking behavior
