@@ -29,8 +29,28 @@ objects the speaker can see at all. Yet listeners sometimes look at, and
 occasionally reach for, the hidden candle anyway \citep{keysar2000} — the classic
 egocentric error.
 
-*[¶2: the dispute — egocentric anchoring vs early integration vs probabilistic
-weighing; one sentence for Rubio-Fernández 2017's construct-validity caveat.]*
+The processes underlying such errors — documented most extensively in the
+"director task" paradigm \citep{keysar2000} — remain disputed.
+Egocentric-anchoring accounts propose that listeners initially interpret an
+utterance from their own perspective and only later, through an effortful
+correction process, adjust toward the speaker's knowledge; errors arise when that
+adjustment is incomplete or delayed \citep{keysar2000, epley2004}.
+Early-integration accounts instead argue that common-ground information
+constrains reference resolution from the earliest moments of processing, such
+that listeners do not necessarily begin from a fully egocentric interpretation
+\citep{hanna2003}. A third possibility is that listeners represent both
+egocentric and common-ground interpretations concurrently, with behavior
+reflecting their relative probabilistic weighting rather than a fixed sequence of
+anchoring and correction \citep{heller2016}. These accounts can produce similar
+final choices even though they imply different underlying computations, making
+aggregate error rates insufficient for deciding among them. More fundamentally,
+the director task itself has been criticized as potentially confounding
+perspective-taking with selective attention and task demands, leaving open
+whether an "egocentric error" uniquely identifies a failure to use common ground
+at all \citep{rubiofernandez2017}.
+
+*[¶3–¶6 to draft. ¶3: the precisely-mapped gap (OUTLINE.md wording). ¶2's debt:
+¶6 must state plainly that this paper does NOT adjudicate the three accounts.]*
 
 ## 2. Model
 
