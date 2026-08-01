@@ -198,6 +198,49 @@ test the parity split cannot provide); (vii) response-rule variant statements
    mechanisms; it sharpens the response-rule question the eye-tracking reanalysis
    (D1) exists to answer.
 
+## PROTOCOL EXECUTION RESULTS (2026-08-01; exp4 at commit 63943b1; verbatim log in `results/exp4_protocol_output.txt`)
+
+**OUTCOME CATEGORY: Meets prespecified robustness criteria** (R1: ΔAIC = −18.48;
+R2: 20/20 CV repeats positive, mean +9.35, range [+7.06, +10.90]).
+
+**Auto-generated §12 headline (the monotonicity rule fired — note the verb):**
+*Under P-MIX and its response assumptions, the estimated egocentric contribution
+**followed the fitted shape** with age (Δα = +0.1270, 95% bootstrap CI [+0.0621,
++0.1958]; ε-dual +0.2541 [+0.1242, +0.3916]), and the age-dependent model met the
+prespecified robustness criteria against the fitted constant-α model (20/20 CV
+repeats).*
+
+Key results:
+
+| Quantity | Value |
+|---|---|
+| Fitted curve | α(25) = 0.078 [0.046, 0.118] · α(50) = 0.076 [0.050, 0.104] · α(75) = 0.205 [0.147, 0.268] |
+| Shape | shallow decline 20→38, **turning point at age 38.0**, then accelerating rise to 0.36 at 85 — not monotonic over [25,75], hence "followed the fitted shape," not "increased" |
+| CV (unseen participants, same task/items) | 20/20 positive; per-participant mean out-of-fold Δ +0.035; 65.2% of participants positive (descriptive; no p — repeats correlated) |
+| Bootstrap | 1000/1000 successes, zero failures |
+| **T1 (ego rate 73–86)** | obs 0.290, **inside** 95% predictive interval [0.156, 0.358] — the quadratic resolved the oldest-band misfit that indicted knee-linear |
+| **T2 (singleton errors 20–37)** | obs 18, **outside the 99% interval [1, 11] — pre-registered model failure**, now a quantified fact rather than an exploratory hint |
+| S1 fine grid | Δα identical (+0.1270) |
+| S2 IQ cutoffs | Δα 0.1225–0.1270 across all four — irrelevant |
+| S3 estimated knee | best 62, 95% profile span 26 yr ≥ 20 → **declared unidentified per the pre-set criterion** (not reported) |
+| S4 full LOO (264) | max |ΔΔα| = 0.0099 (~8% of estimate; below the 20% flag) |
+| S6 positions | rates 0.044–0.156 across the 24 positions; leave-one-position-out max |ΔΔα| = 0.0100; caveat: position may conflate item |
+
+Consequences, per the frozen protocol:
+
+1. **The EF gate (§11) is partially closed:** the outcome category is met, but T2
+   breaches its 99% interval → the future EF protocol's analyses carry the
+   **exploratory** label. The gate did its work.
+2. **The T2 failure is the paper's discovered question:** the model cannot produce
+   the observed excess of exactly-one-error young adults; a single age-varying
+   mixture process does not fully account for errors at both ends of the age
+   range. This is the sharpened, pre-registered motivation for the D1
+   eye-tracking protocol (whose outcomes remain sealed).
+3. Two convergent details worth reporting: the freely-fitted quadratic put its
+   turning point at **age 38.0** — the same breakpoint the source paper described
+   — without being told; and the estimated-knee criterion correctly declared the
+   knee unidentifiable at this N, validating the review's concern in data.
+
 ## Analysis
 
 Hierarchical Bayesian fit (participant- and item-level variation where data permit);
