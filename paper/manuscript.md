@@ -13,7 +13,24 @@ scaffolds in OUTLINE.md. Every number below traces to a committed log.*
 
 ## 1. Introduction
 
-*[Francis drafts from OUTLINE.md scaffold ¶1–¶6.]*
+*(¶1 drafted by FL, supervisor line edits applied — candle display aligned to the
+three-candle canonical structure; keysar2000 added to the empirical claim. ¶2–¶6
+still to draft per OUTLINE.md.)*
+
+Understanding another person often requires setting aside information that is
+obvious from one's own perspective \citep{samuel2025}. The problem is clearest in
+reference resolution, where a listener must work out which object a speaker means.
+Suppose a speaker and a listener both see two candles, and a third, smaller candle
+is visible only to the listener. When the speaker asks for "the small candle," the
+candle that is smallest in the listener's view cannot be the intended referent —
+the speaker does not know it exists. To interpret the request correctly, the
+listener must weigh not only which object best fits the description, but which
+objects the speaker can see at all. Yet listeners sometimes look at, and
+occasionally reach for, the hidden candle anyway \citep{keysar2000} — the classic
+egocentric error.
+
+*[¶2: the dispute — egocentric anchoring vs early integration vs probabilistic
+weighing; one sentence for Rubio-Fernández 2017's construct-validity caveat.]*
 
 ## 2. Model
 
