@@ -140,9 +140,11 @@ First fit (P-MIX(α), Beta-Binomial hierarchy, knee fixed at 38):
 Headline sentence (exploratory; deliberately model-conditional): ***under P-MIX and
 its response assumptions, the estimated contribution of the egocentric
 interpretation to Bradford et al.'s (2023) trial-level choices increases
-approximately fourfold across the observed adult range** (fitted α ≈ 0.04 before
-age 38 to ≈ 0.16 at 86), and the age-dependent model improves held-out likelihood
-over any constant-α account.* We have not directly measured a psychological
+approximately threefold across the observed adult range** (extended-κ fit:
+α ≈ 0.065 before age 38 to ≈ 0.20 at 86; the initial fourfold figure was partly a
+κ-floor artifact — see battery results below), and the age-dependent model improves
+held-out likelihood over any constant-α account, including for entirely held-out
+participants.* We have not directly measured a psychological
 quantity called "egocentric weighting"; we have shown what the fitted parameter
 must do, within this model, to account for the behavior. The contribution, stated
 precisely: *a previously descriptive age-related error pattern can be expressed as
@@ -161,6 +163,38 @@ diagnostics; (v) repeated random trial-splits (was +9.85 split luck?);
 (vi) **participant-level repeated cross-validation** (the generalization-to-people
 test the parity split cannot provide); (vii) response-rule variant statements
 (α vs ε = 2α relabeling made explicit in all reported numbers).
+
+### Battery results (2026-08-03, `exp3_robustness.py`, seed 20260803)
+
+**Verdict: the age effect survives, with three honest revisions and one upgrade.**
+
+1. **The κ floor was binding, as the review predicted.** With the grid extended,
+   κ ≈ 1.5 (not at the new edge): population heterogeneity is severe (a strongly
+   right-skewed α distribution — most participants near 0, a heavy tail). Freeing
+   it: **ΔAIC for the age model weakens from −20.4 to −13.9** (still clearly
+   preferred), the slope CI **widens to [0.0015, 0.0040]** (point 0.00275), and
+   α_young rises to 0.065. Revised trajectory: **α ≈ 0.065 (20–38) → ≈ 0.20 (86),
+   approximately threefold** — the earlier "fourfold" was partly a κ-floor
+   artifact. The exploratory table above is superseded by these numbers.
+2. **Generalization to people holds — the upgrade.** Participant-level 5-fold CV,
+   10 repeats: age model wins **10/10**, mean held-out Δ +5.71 (+0.022 per
+   held-out participant). This is the test the parity split could not provide.
+3. **The parity split was mildly lucky but not misleading:** 20 random
+   within-participant splits give Δ mean +7.05, range [+3.60, +10.15],
+   **20/20 positive**.
+4. **No influential-participant fragility:** removing any of the 25 targeted
+   candidates changes the coarse-grid slope by less than one grid step (0.0005) —
+   resolution-limited but reassuring. **IQ-cutoff choice is irrelevant** (slope
+   0.0030 at every cutoff from none to 80).
+5. **Shape misfit at the extremes (new finding, PPC/deciles):** the knee-linear
+   α(age) under-predicts the oldest decile (obs 31.1% vs pred 17.4%, ages 73–82)
+   and over-predicts ages 52–63; and in the young band the model expects
+   polarized error counts (0 or many) while the data show singletons
+   (obs 18 participants with exactly one error vs ~5 predicted). The confirmatory
+   plan must pre-register shape flexibility (estimated knee or quadratic, as
+   Bradford et al. used) — and the singleton pattern in the young is exactly what
+   a lapse-like process would produce, which sharpens the response-rule question
+   the eye-tracking reanalysis (D1) exists to answer.
 
 ## Analysis
 
