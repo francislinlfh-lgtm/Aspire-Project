@@ -49,8 +49,25 @@ perspective-taking with selective attention and task demands, leaving open
 whether an "egocentric error" uniquely identifies a failure to use common ground
 at all \citep{rubiofernandez2017}.
 
-*[¶3–¶6 to draft. ¶3: the precisely-mapped gap (OUTLINE.md wording). ¶2's debt:
-¶6 must state plainly that this paper does NOT adjudicate the three accounts.]*
+Existing computational work has formalized perspective use, but the central
+quantity — how much weight the egocentric perspective actually receives — has
+never been estimated from interpretive choices. \citet{heller2016} introduced a
+probabilistic mixture parameter governing the relative contribution of egocentric
+and common-ground information, but used it to generate qualitative predictions
+rather than estimating its value from data. \citet{mozuraitis2018} subsequently
+examined which ranges of a related parameter reproduced condition-level patterns
+in reference production, without trial-level likelihood estimation, participant
+heterogeneity, or age dependence. Other neighboring approaches have modeled
+common ground as an inferred latent state evaluated against offline judgments
+\citep{rubiofernandez2018} or fitted Rational Speech Act parameters in a
+different communicative paradigm \citep{hawkins2021}. To our knowledge, no
+previous study has estimated a comprehension-side perspective-mixture weight from
+director-task choices using a participant-level hierarchy, modeled that weight
+across adulthood, and evaluated the resulting age-dependent account through
+held-out-participant prediction.
+
+*[¶4–¶6 to draft. ¶4: Bradford's dataset. ¶2's debt: ¶6 must state plainly that
+this paper does NOT adjudicate the three accounts.]*
 
 ## 2. Model
 
