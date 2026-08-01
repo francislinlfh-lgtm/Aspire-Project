@@ -19,3 +19,5 @@ jobs:
         run: python tests/test_boundaries.py
       - name: exp0 smoke run
         run: python experiments/exp0_keysar_signature.py
+      - name: exp1 recovery smoke run
+        run: python experiments/exp1_recovery.py --fast
