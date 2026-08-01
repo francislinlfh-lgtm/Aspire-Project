@@ -1,12 +1,17 @@
 # Manuscript plan — Study 1A
 
-**Working titles (pick one, or improve):**
-1. "Fitting the egocentric weight: a model-based reanalysis of perspective-taking
-   across adulthood"
-2. "Perspective weighting across adulthood: estimating Heller et al.'s mixture
-   parameter from director-task choices"
-3. "A latent egocentric weight changes across adulthood — and one mixture process
-   is not enough"
+**Title shortlist (refined 2026-08-01 after the gap mapping; rule-checked — no
+"first," no "increases across adulthood," no "U-shaped"):**
+1. **RECOMMENDED:** "From error curves to a latent weight: a model-based
+   reanalysis of perspective-taking across adulthood" — names the contribution
+   (descriptive curves → estimated quantity); venue-agnostic.
+2. Findings-forward (journal): "The egocentric weight rises across later
+   adulthood — and a single mixture process cannot explain both ends of the adult
+   age range" ("rises across later adulthood" is rule-safe: monotone from the
+   fitted minimum at 38 onward; carries the T2 failure in the title).
+3. Estimand-forward (CogSci-compact): "Weighing perspectives across adulthood:
+   estimating the egocentric mixture weight from director-task choices" (quietly
+   echoes Heller et al.'s own title — their lineage will notice).
 
 **Venue ladder:** PsyArXiv preprint → CogSci 2027 (6-page, ~Feb deadline) and/or
 Psychonomic Bulletin & Review (Brief Report); ISEF/STS project paper draws from the
