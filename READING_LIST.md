@@ -3,6 +3,16 @@
 Read with a pencil. For each: what to extract for Aspire. (verify) = bibliographic
 details to confirm; do not cite from this list without checking the source itself.
 
+**Priority insert (2026-07-30), read alongside #1:** Bradford, Brunsdon & Ferguson
+(2023), "Cognitive mechanisms of perspective-taking across adulthood: An eye-tracking
+study using the director task," *JEP: Learning, Memory, and Cognition*, 49(6),
+959–973, doi:10.1037/xlm0001190 — **the source paper of the verified Study 1A
+dataset (OSF 2epsu)**. Extract: exact design (Listener vs Shared conditions; what
+Contrast/Distractor/AF/F codes mean), trial counts and exclusions, what ScalarTime
+is locked to in the eye-tracking file, RT conventions (negative values), and their
+analysis choices. You cannot fit data whose design you haven't read. Open-access
+manuscript: kar.kent.ac.uk/96936.
+
 1. **Heller, Parisien & Stevenson (2016), Cognition** — "Perspective-taking behavior
    as the probabilistic weighing of multiple domains."
    *The* paper. Extract: exact model equations, salience treatment, fitted parameter
