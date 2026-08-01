@@ -46,12 +46,25 @@ A companion 48.5 MB eye-tracking file holds AOI fixation indicators in 20 ms bin
 with a "ScalarTime" column (apparently time-locked to the scalar adjective — verify
 against the paper), i.e., process-level data relevant to experiment D1.
 
-Adoption checklist before this becomes *the* dataset: read the source paper (design
-details: what exactly Listener/Shared and Contrast/Distractor denote; stimuli);
-courtesy email to the corresponding author (public data, citation, no ask); license
-check (none listed on OSF — all-rights-reserved by default; reanalysis with citation
-is standard, but confirm); cleaning questions (odd Object_Clicked codes 'AF', 'F',
-'3', '7', '8'; negative RTs; meaning of Age2). Note honestly: the authors' own
+Adoption checklist — updated 2026-07-31 after obtaining the paper (Bradford,
+Brunsdon & Ferguson, 2023, JEP:LMC; AAM via the St Andrews repository; do **not**
+commit the PDF to this public repo — APA copyright):
+- **Resolved by the paper:** Listener-Only = hidden competitor fits the description
+  (perspective required) vs Shared-Perspective = no hidden competitor — maps exactly
+  to our critical/control. 12 + 12 critical trials per participant (fillers excluded
+  from the CSV, matching its 24 rows/participant). RT is measured **from scalar
+  adjective onset** to click — which both confirms that the eye-tracking file's
+  ScalarTime is scalar-locked and explains the negative RTs (anticipatory clicks
+  before scalar onset). Their RT/eye analyses use lmer with maximal random effects
+  (Barr et al., 2013); the participant-level lm is only their age-curve accuracy
+  analysis. Bonus: the study includes an executive-function battery (Stroop,
+  O-Span, task-switching, Tower of Hanoi — the MediationData.csv), i.e., published
+  individual-difference measures that could later moderate fitted `w` — directly
+  relevant to effort-based accounts (Epley et al., 2004).
+- **Still open:** Object_Clicked codes 'AF', 'F', and numerals (likely filler/slot
+  codes — ask or find codebook); why some participants have 48 rows; license
+  confirmation; courtesy email. Correspondence per the author note: Elisabeth
+  Bradford (Dundee) or Heather Ferguson (Kent). Note honestly: the authors' own
 AccuracyAnalysis.Rmd fits participant-level `lm(EgocentricErrors ~ Age)` — our
 trial-level hierarchical fitting goes beyond their published analysis, which is the
 reanalysis contribution. Lifespan ages also upgrade H-1A.2: fitting `w` by age asks
