@@ -53,8 +53,15 @@ is deliberately model-conditional.
 - ¶2 The dispute: egocentric-anchoring (Keysar; Epley et al. 2004) vs early
   integration (Hanna et al., 2003) vs probabilistic weighing (Heller et al., 2016).
   One sentence on construct-validity critique (Rubio-Fernández, 2017).
-- ¶3 The gap, stated narrowly: Heller et al. varied α, never fitted it; no
-  likelihood-based comparison; no held-out prediction (verified against the text).
+- ¶3 The gap, stated narrowly and with its neighbors named (RELATED_WORK.md §6,
+  searched 2026-08-01): Heller et al. varied α, never fitted it (verified);
+  Mozuraitis et al. determined a *range* for the production-side weight against
+  condition means — not trial-level estimation, no hierarchy, no age;
+  Rubio-Fernández & Jara-Ettinger inferred common ground from offline judgments;
+  Hawkins et al. fitted RSA parameters in a different paradigm. **No study has
+  estimated the comprehension-side weight from trial-level choices, with a
+  participant hierarchy, as a function of age, with held-out prediction.** The
+  loose "first to quantify the weight" claim is FALSE and banned.
 - ¶4 Aging: Bradford et al. (2023) — lifespan sample, quadratic error curves,
   open data. Their analysis is descriptive of error rates, not model-based.
 - ¶5 This paper: fit α(age) at trial level under a frozen protocol; three

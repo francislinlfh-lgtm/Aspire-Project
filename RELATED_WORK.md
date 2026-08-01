@@ -114,6 +114,30 @@ The closest methodological kin, and the literature V1 actually contributes to:
   (Rubio-Fernández, 2017: ToM use or selective attention?) — an instrument that can
   implement *both* accounts as competing policies is a contribution to precisely this
   dispute.
+- **The weighting parameter's quantitative history (mapped 2026-08-01, systematic
+  search).** Three neighbors, none occupying the gap:
+  (i) **Mozuraitis, Stevenson & Heller (2016 CogSci; 2018 *Cognitive Science*)** —
+  the *production* side: they reformulate Heller's α as a domain probability P(d)
+  by marginalization and, in their words, "determine the range of values of P(d)
+  that yields a fit to the empirical data" — a range determination against
+  condition-level production proportions; no trial-level likelihood estimation, no
+  participant hierarchy, no age, no held-out prediction. Verified against their
+  CogSci text.
+  (ii) **Rubio-Fernández & Jara-Ettinger (2018 CogSci)** — a joint-inference model
+  (referent + speaker knowledge + expression preference) for the director task,
+  evaluated against *offline human judgments* by model comparison; common ground is
+  *inferred*, not weighted; no weight fitting, no age.
+  (iii) **Hawkins et al. (2021, Cognitive Science)** — RSA models of perspective
+  asymmetries in matcher games, with fitted RSA parameters; different paradigm and
+  parameters, no age, not Heller's mixture.
+  No computational-model reanalysis of Bradford et al.'s (2023) dataset was found,
+  and no fitted perspective-weight model across age in any paradigm.
+- **The precise surviving gap (manuscript ¶3 wording):** trial-level
+  maximum-likelihood estimation of the *comprehension-side* mixture weight, with a
+  participant hierarchy, **as a function of age**, evaluated by held-out
+  participant prediction under a frozen public protocol — no prior study found.
+  The loose claim "no one has quantified the weight" is false (Mozuraitis) and is
+  banned from all drafts.
 - **Good-enough processing** (Ferreira et al.): underspecified interpretation as the
   default — background support for treating "assume without clarifying" as the human
   baseline rather than a failure.
