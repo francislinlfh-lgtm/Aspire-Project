@@ -35,6 +35,29 @@ Priority order (availability audit is Step 0 — none of these is verified yet):
    (browser-based; preregistered; IRB + ISEF SRC pre-approval; power analysis from
    published effect sizes).
 
+**Step 0 status (2026-07-30): a candidate is verified.** OSF project 2epsu
+("Cognitive Mechanisms of Perspective-Taking Across Adulthood: An Eye-Tracking Study
+Using the Director Task"; see PubMed 36548095) — **trial-level confirmed by direct
+inspection**: `DirectorTask_RawBehaviouralData.csv` has 6,432 rows = one per trial;
+266 participants, ages ~20–86; 24 trials each (some 48); columns include CONDITION
+(Listener = privileged competitor vs Shared), Object_Clicked (Target / Competitor /
+Contrast / Distractor …), per-trial EgocentricErrors, TargetMoveAccuracy, and RT.
+A companion 48.5 MB eye-tracking file holds AOI fixation indicators in 20 ms bins
+with a "ScalarTime" column (apparently time-locked to the scalar adjective — verify
+against the paper), i.e., process-level data relevant to experiment D1.
+
+Adoption checklist before this becomes *the* dataset: read the source paper (design
+details: what exactly Listener/Shared and Contrast/Distractor denote; stimuli);
+courtesy email to the corresponding author (public data, citation, no ask); license
+check (none listed on OSF — all-rights-reserved by default; reanalysis with citation
+is standard, but confirm); cleaning questions (odd Object_Clicked codes 'AF', 'F',
+'3', '7', '8'; negative RTs; meaning of Age2). Note honestly: the authors' own
+AccuracyAnalysis.Rmd fits participant-level `lm(EgocentricErrors ~ Age)` — our
+trial-level hierarchical fitting goes beyond their published analysis, which is the
+reanalysis contribution. Lifespan ages also upgrade H-1A.2: fitting `w` by age asks
+whether perspective weighting changes across adulthood — a question their design
+raises and a mixture-model reanalysis can quantify.
+
 ## Procedure
 
 0. **Availability audit** of the datasets above; freeze the choice.
