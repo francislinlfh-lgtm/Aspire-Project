@@ -1,8 +1,9 @@
 # Frozen Analysis Protocol Following Exploratory Reanalysis — Study 1A
 
-**Status: frozen at commit e09d306 (2026-08-03); amended by Addendum 1 (§15,
-2026-08-04) after external review and BEFORE any protocol execution or any
-`exp4` code existed.** The public commit history provides a timestamped,
+**Status: frozen at commit e09d306 (2026-08-01, 16:05 +0800); amended by
+Addendum 1 (§15, commit a8de96b, 2026-08-01, 16:16 +0800) after external review
+and BEFORE any protocol execution or any `exp4` code existed.** Dates corrected
+by Addendum 2 — commit timestamps are authoritative throughout. The public commit history provides a timestamped,
 version-controlled record of the frozen protocol; it does not by itself prove the
 absence of earlier private analyses — the exploration disclosure below is the
 honest account. The original frozen text is preserved verbatim at e09d306.
@@ -58,8 +59,8 @@ Logit-quadratic age curve with Beta-Binomial heterogeneity:
   all compared models — it cancels).
 
 Rationale (recorded; shape chosen after exploration): exploratory parametric
-predictive checks indicted knee-linear at both age extremes; the source paper's
-accuracy curve was quadratic; the logit link keeps α in (0,1).
+predictive checks indicated that the knee-linear model misfit both age extremes;
+the source paper's accuracy curve was quadratic; the logit link keeps α in (0,1).
 
 **Comparator:** constant-α Beta-Binomial (α0, κ) — described in all reporting as
 "the fitted constant-α model," never "any constant-weight account."
@@ -149,7 +150,10 @@ Nonparametric participant bootstrap: one generator, `numpy.random.default_rng(
 20261001)`, drawing B = 1000 resamples sequentially; each resample draws 264
 participants with replacement at the participant level; duplicated participants
 enter as replicated clusters (their (age, e, n) records counted again). Each
-resample is refit by §4 with the grid stage at half resolution. Failed or
+resample is refit by §4 with the grid stage at these exact steps (Addendum 2):
+β0 step 0.4 over [−5.0, −0.4] (12 points); β1 step 0.2 over [−0.5, 1.0]
+(8 points); β2 step 0.2 over [−0.5, 0.5] (6 points); log2 κ step 1.0 over
+[−1, 11] (13 points); Nelder–Mead stage from the best three grid points. Failed or
 bound-hitting fits are counted and reported; if successful fits fall below 950,
 B is extended until 950 successes or the failure pattern is reported as the
 result. Interval: percentile (2.5, 97.5) — chosen over BCa for transparency;
@@ -157,7 +161,9 @@ noted as a limitation.
 
 ## 9. Sensitivity analyses (locked; reported alongside, never promoted)
 
-- **S1:** grid stage at doubled resolution in all four parameters.
+- **S1:** grid stage at these exact steps (Addendum 2): β0 step 0.1; β1 step
+  0.05; β2 step 0.05; log2 κ step 0.25 (ranges as §4), then the §4 Nelder–Mead
+  stage.
 - **S2:** IQ cutoff none / 70 / 75 / 80 (expected N 265 / 264 / 264 / 263).
 - **S3:** shape alternatives — knee-linear (knee 38) and estimated-knee; the
   estimated knee is reported only if its 95% profile interval spans < 20 years,
@@ -219,11 +225,14 @@ descriptive reporting.
 
 `experiments/exp4_protocol.py` implements §§1–10 and 12 exactly; it is validated
 against synthetic data only (§4.4), then executed once on the real dataset; the
-full output is reported regardless of outcome.
+full output is reported regardless of outcome. **"Once" means one outcome-bearing
+execution under this implementation** — if a coding defect is discovered
+afterward, the remedy is a dated addendum, a correction, and a complete rerun,
+never preservation of a known-wrong output.
 
 ## 15. Addenda
 
-### Addendum 1 — 2026-08-04, following external review; before any exp4 code
+### Addendum 1 — commit a8de96b (2026-08-01, 16:16 +0800), following external review; before any exp4 code
 
 Original frozen text preserved at commit e09d306. Amendments, applied to the body
 above for usability (the diff is the audit trail):
@@ -253,3 +262,21 @@ above for usability (the diff is the audit trail):
    raised to B = 1000.
 10. **EF mediation removed** to a separate future frozen protocol; only the gate
     remains here; the term "mediation" deleted from this protocol's claims.
+
+### Addendum 2 — before execution; audit corrections (external review, round 2)
+
+1. **Date corrections.** The freeze and Addendum 1 were previously labeled
+   2026-08-03 and 2026-08-04 — dates that had not occurred. The machine clock was
+   verified correct (2026-08-01); the error was authorial (dates invented on an
+   assumed day-per-working-session basis). All dates corrected to the actual
+   commit timestamps, which are authoritative: freeze e09d306 (2026-08-01 16:05
+   +0800), Addendum 1 a8de96b (2026-08-01 16:16 +0800). The same correction was
+   applied to STUDY_1A.md and MODEL_AUDIT.md. Note: exp3's `SEED = 20260803` and
+   this protocol's seed constants (20260901 etc.) are arbitrary integers, not
+   date claims, and are unchanged — changing seeds would change results.
+2. **Grid ambiguity removed:** §8 and S1 now state exact step sizes and ranges;
+   implementation discretion is zero.
+3. **Typo fixed** in §3 rationale ("indicted" → "indicated that … misfit").
+4. **Execution semantics clarified** in §14: one outcome-bearing execution under
+   this implementation; defects found later mean addendum + correction + complete
+   rerun, never preservation of known-wrong output.

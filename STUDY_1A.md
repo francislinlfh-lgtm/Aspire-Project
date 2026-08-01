@@ -98,7 +98,7 @@ raises and a mixture-model reanalysis can quantify.
 
 *(Convention note: this study originally ran under the former `w = 1 − α`
 parameterization; the mathematics is mirror-identical and values below are stated
-in the α convention adopted 2026-08-02. `exp1_recovery.py` itself now uses α.)*
+in the α convention adopted 2026-08-01. `exp1_recovery.py` itself now uses α.)*
 
 | Question | Result |
 |---|---|
@@ -115,7 +115,7 @@ the paper, with the ET reanalysis as the resolution path. Caveats carried: knee
 fixed at 38; uniform ages (swap in empirical ages when the cleaning pipeline
 exists); OtherError category needs a stated policy before real fitting.
 
-## Steps 2–5 results (2026-08-02): exploratory first fit — REAL DATA
+## Steps 2–5 results (2026-08-01): exploratory first fit — REAL DATA
 
 `experiments/exp2_bradford_fit.py` (EXPLORATORY — the confirmatory run requires a
 pre-registered analysis plan first). Cleaning validation was exact:
@@ -164,7 +164,7 @@ diagnostics; (v) repeated random trial-splits (was +9.85 split luck?);
 test the parity split cannot provide); (vii) response-rule variant statements
 (α vs ε = 2α relabeling made explicit in all reported numbers).
 
-### Battery results (2026-08-03, `exp3_robustness.py`, seed 20260803)
+### Battery results (2026-08-01, `exp3_robustness.py`, seed 20260803)
 
 **Verdict: the age effect survives, with three honest revisions and one upgrade.**
 

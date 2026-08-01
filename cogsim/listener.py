@@ -1,6 +1,6 @@
 """Listener models as swappable policies. Provenance and labels: MODEL_AUDIT.md §1.
 
-Parameter convention (adopted 2026-08-02, matching Heller, Parisien & Stevenson
+Parameter convention (adopted 2026-08-01, matching Heller, Parisien & Stevenson
 2016, Eq. 2): **alpha weights the EGOCENTRIC domain** — alpha near 1 means
 egocentric interpretation, alpha near 0 means common-ground interpretation.
 (The project's former `w` was the complementary weight: w = 1 - alpha.)

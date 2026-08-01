@@ -12,7 +12,7 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
 |---|---|---|
 | P-EGO | reference limit (nobody's theory of adults) | retain as α=1 boundary; never present as a competing account |
 | P-CG | reference limit (strong mutual-knowledge reading) | retain as α=0 boundary; already inconsistent with interference data |
-| P-MIX(α) | [ADAPT] from Heller et al. (2016) — **source verified 2026-08-01; their α convention adopted in code and docs 2026-08-02** | retain as the primary quantitative account; upgrade requirements listed in §4 |
+| P-MIX(α) | [ADAPT] from Heller et al. (2016) — **source verified 2026-08-01; their α convention adopted in code and docs 2026-08-01** | retain as the primary quantitative account; upgrade requirements listed in §4 |
 | P-ANCHOR(p) | [PROV] — our invention wearing Keysar's name | **reclassify**: not a competing model; retain code only as the identifiability exhibit |
 | `Interpretation.sample` (response rule) | [PROV] linking assumption | most consequential un-cited choice in the codebase; must be sensitivity-analyzed |
 | `best_match` scalar semantics | [PROV] engineering | align to target-study stimuli before any fit |
@@ -56,7 +56,7 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
   `P(obj|RE,d) ∝ P(RE|obj,d) · P(obj|d)`; their Eq. (2), the model itself:
   `P(obj|RE) = α·P(RE|obj,d=e)·P(obj|d=e) + (1−α)·P(RE|obj,d=c)·P(obj|d=c)`.
   **Polarity: their α weights the EGOCENTRIC domain (α→1 = egocentric). The project
-  originally used the complementary `w = 1 − α`; on 2026-08-02 the α convention was
+  originally used the complementary `w = 1 − α`; on 2026-08-01 the α convention was
   adopted throughout code and docs to eliminate the standing inversion trap** (the
   second such trap after the dataset's Distractor/competitor naming).
   Their components: `P(RE|obj,d)` estimated **empirically from a production/norming
@@ -71,7 +71,7 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
   Keysar et al.'s reach rate for the privileged object as 23% of critical trials.)
 - **Parameters:** `α ∈ [0,1]`, the egocentric-domain weight, matching the source.
   The single psychologically interpretable free parameter of V1; a fitting target,
-  never hand-set in any claim. (Resolved 2026-08-02: α convention adopted
+  never hand-set in any claim. (Resolved 2026-08-01: α convention adopted
   throughout; any document or result dated earlier used `w = 1 − α`.)
 - **Our divergences from the verified source (each a confession, not a feature):**
   1. Point-mass within-domain resolutions vs their norming-estimated graded
