@@ -90,6 +90,27 @@ raises and a mixture-model reanalysis can quantify.
 6. **Sensitivity analysis** over response rules; conclusions must survive all three or
    be reported as response-rule-dependent.
 
+## Step 1 results (2026-08-01): parameter recovery — PASSED
+
+`experiments/exp1_recovery.py`, 100 replications at the dataset's exact structure
+(264 × 12 critical trials, ages 20–86, Beta-Binomial heterogeneity κ=50, seed
+20260801), engine-vs-analytic generative check passed:
+
+| Question | Result |
+|---|---|
+| A. Grand-mean `w` | recovered essentially unbiased: e.g. true 0.90 → 0.901 ± 0.005 |
+| B. Age effect (published size: plateau→decline, slope ≈ 0.0027/yr) | **power 100/100** (ΔAIC < −2); slope recovered 0.00270 ± 0.00045; **false-positive rate 2/100** on flat truth |
+| B′. Heterogeneity κ | weakly identified (estimates spread 16–1024 around true 50) — the magnitude of individual variation is not well constrained by 12 trials/person |
+| C. Individual `w_i` | shrunk posterior SD 0.047 vs no-pooling SE 0.090 — individual estimates are ~half prior; **individual-difference claims (age, EF) must enter through the hierarchy, never per-person point estimates** |
+| D. Response rule | exact theorem: matching and argmax+lapse are likelihood-identical under ε = 2(1−w) for *every* choice dataset — all `w` conclusions are conditional on the rule; the eye-tracking file (graded competitor consideration vs none) is the discriminating measurement |
+
+Consequences for the fitting plan: proceed — grand `w` and `w(age)` at the
+published effect size are comfortably recoverable; report κ with honest intervals;
+frame EF-moderation as hierarchical regression; state the rule-conditionality in
+the paper, with the ET reanalysis as the resolution path. Caveats carried: knee
+fixed at 38; uniform ages (swap in empirical ages when the cleaning pipeline
+exists); OtherError category needs a stated policy before real fitting.
+
 ## Analysis
 
 Hierarchical Bayesian fit (participant- and item-level variation where data permit);
