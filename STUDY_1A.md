@@ -143,7 +143,7 @@ interpretation to Bradford et al.'s (2023) trial-level choices increases
 approximately threefold across the observed adult range** (extended-κ fit:
 α ≈ 0.065 before age 38 to ≈ 0.20 at 86; the initial fourfold figure was partly a
 κ-floor artifact — see battery results below), and the age-dependent model improves
-held-out likelihood over any constant-α account, including for entirely held-out
+held-out likelihood over the fitted constant-α model, including for entirely held-out
 participants.* We have not directly measured a psychological
 quantity called "egocentric weighting"; we have shown what the fitted parameter
 must do, within this model, to account for the behavior. The contribution, stated
@@ -192,9 +192,11 @@ test the parity split cannot provide); (vii) response-rule variant statements
    polarized error counts (0 or many) while the data show singletons
    (obs 18 participants with exactly one error vs ~5 predicted). The confirmatory
    plan must pre-register shape flexibility (estimated knee or quadratic, as
-   Bradford et al. used) — and the singleton pattern in the young is exactly what
-   a lapse-like process would produce, which sharpens the response-rule question
-   the eye-tracking reanalysis (D1) exists to answer.
+   Bradford et al. used). The joint discrepancy **suggests that a single
+   age-varying mixture process may not fully account for errors at both ends of
+   the age distribution** — a model-failure observation, not an inference about
+   mechanisms; it sharpens the response-rule question the eye-tracking reanalysis
+   (D1) exists to answer.
 
 ## Analysis
 
