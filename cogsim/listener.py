@@ -1,16 +1,14 @@
 """Listener models as swappable policies. Provenance and labels: MODEL_AUDIT.md §1.
 
-Post-audit status: P-MIX is the primary account ([ADAPT] from Heller et al. 2016);
-P-EGO and P-CG are reference limits (w=0, w=1), not competing accounts; P-ANCHOR is
-retained solely as the identifiability exhibit (MODEL_AUDIT.md §1.4).
+Parameter convention (adopted 2026-08-02, matching Heller, Parisien & Stevenson
+2016, Eq. 2): **alpha weights the EGOCENTRIC domain** — alpha near 1 means
+egocentric interpretation, alpha near 0 means common-ground interpretation.
+(The project's former `w` was the complementary weight: w = 1 - alpha.)
 
-Each policy maps (display, frame) -> Interpretation: a posterior over candidate
-referents plus a provenance trace. Candidate enumeration and all weighting happen
-here, in cognition — never in a language model.
-
-Linking assumptions (V1.md §4.3): selection samples from the posterior (a linking
-assumption in itself); posterior mass on the privileged competitor is the model
-analogue of interference measures, flagged as a linking hypothesis, not an identity.
+Post-audit status: P-MIX is the primary account ([ADAPT] — a choice-level
+projection of Heller et al.'s Eq. 2); P-EGO and P-CG are reference limits
+(alpha=1, alpha=0), not competing accounts; P-ANCHOR is retained solely as the
+identifiability exhibit (MODEL_AUDIT.md §1.4).
 """
 import math
 from dataclasses import dataclass
@@ -53,8 +51,8 @@ def _domains(display: Display, frame: ReferringFrame):
 
 
 class EgocentricListener:
-    """P-EGO: resolve in the egocentric domain. Baseline, not a serious theory of
-    adults — Keysar's own account is anchor-and-adjust, not pure egocentrism."""
+    """P-EGO: resolve in the egocentric domain — the alpha=1 limit. Baseline, not
+    a serious theory of adults; Keysar's own account is anchor-and-adjust."""
 
     def interpret(self, display, frame) -> Interpretation:
         ego, _ = _domains(display, frame)
@@ -64,8 +62,9 @@ class EgocentricListener:
 
 
 class CommonGroundListener:
-    """P-CG: full early integration — resolve in the common-ground domain only
-    (the strong reading of constraint-based accounts, Hanna et al. 2003)."""
+    """P-CG: full early integration — resolve in the common-ground domain only;
+    the alpha=0 limit (the strong reading of constraint-based accounts,
+    Hanna et al. 2003)."""
 
     def interpret(self, display, frame) -> Interpretation:
         _, cg = _domains(display, frame)
@@ -75,24 +74,28 @@ class CommonGroundListener:
 
 
 class MixtureListener:
-    """P-MIX(w): probabilistic weighing of egocentric and common-ground domains.
+    """P-MIX(alpha): probabilistic weighing of egocentric and common-ground domains.
 
-    This is Heller, Parisien & Stevenson (2016), implemented — not our model.
-    w = 0 reduces to P-EGO, w = 1 to P-CG.
+    Choice-level projection of Heller, Parisien & Stevenson (2016), Eq. 2 —
+    their model, their alpha convention (alpha weights the egocentric domain);
+    our simplifications are confessed in MODEL_AUDIT.md §1.3.
+    alpha = 1 reduces to P-EGO, alpha = 0 to P-CG.
     """
 
-    def __init__(self, w: float):
-        if not 0.0 <= w <= 1.0:
-            raise ValueError("w must be in [0, 1]")
-        self.w = w
+    def __init__(self, alpha: float):
+        if not 0.0 <= alpha <= 1.0:
+            raise ValueError("alpha must be in [0, 1]")
+        self.alpha = alpha
 
     def interpret(self, display, frame) -> Interpretation:
         ego, cg = _domains(display, frame)
         ego_best, cg_best = best_match(ego, frame.scalar), best_match(cg, frame.scalar)
         posterior: dict = {}
-        posterior[ego_best.oid] = posterior.get(ego_best.oid, 0.0) + (1.0 - self.w)
-        posterior[cg_best.oid] = posterior.get(cg_best.oid, 0.0) + self.w
-        trace = (("ego_best", ego_best.oid), ("cg_best", cg_best.oid), ("w", self.w))
+        for oid, mass in ((ego_best.oid, self.alpha), (cg_best.oid, 1.0 - self.alpha)):
+            if mass > 0.0:
+                posterior[oid] = posterior.get(oid, 0.0) + mass
+        trace = (("ego_best", ego_best.oid), ("cg_best", cg_best.oid),
+                 ("alpha", self.alpha))
         return Interpretation(posterior, trace)
 
 
@@ -103,7 +106,7 @@ class AnchorAdjustListener:
     RECLASSIFIED BY AUDIT (MODEL_AUDIT.md §1.4): this equation appears in no paper —
     it is our [PROV] invention, and it strips the serial theory's distinctive process
     content (effort, time course; Epley et al. 2004). With deterministic within-domain
-    resolution it is choice-equivalent to MixtureListener(w=p) — proven in
+    resolution it is choice-equivalent to MixtureListener(alpha = 1 - p) — proven in
     tests/test_core.py. It is therefore NOT a competing model in Study 1A; it exists
     as the standing identifiability exhibit (IDENTIFIABILITY.md, Prop. 1).
     """
@@ -117,8 +120,10 @@ class AnchorAdjustListener:
         ego, cg = _domains(display, frame)
         anchor, adjusted = best_match(ego, frame.scalar), best_match(cg, frame.scalar)
         posterior: dict = {}
-        posterior[anchor.oid] = posterior.get(anchor.oid, 0.0) + (1.0 - self.p_adjust)
-        posterior[adjusted.oid] = posterior.get(adjusted.oid, 0.0) + self.p_adjust
+        for oid, mass in ((anchor.oid, 1.0 - self.p_adjust),
+                          (adjusted.oid, self.p_adjust)):
+            if mass > 0.0:
+                posterior[oid] = posterior.get(oid, 0.0) + mass
         trace = (("anchor", anchor.oid), ("adjusted", adjusted.oid),
                  ("p_adjust", self.p_adjust))
         return Interpretation(posterior, trace)

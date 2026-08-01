@@ -197,7 +197,7 @@ Design decisions inside this:
   scenario) is a player extension, no lesson-format migration.
 - **Lessons are organized around psychological questions, not model parameters.**
   The unit of design is a question a student can hold — "what does your partner
-  think you can see?" — never "adjust parameter w." Parameter exploration is one
+  think you can see?" — never "adjust parameter α." Parameter exploration is one
   optional interaction pattern inside individual lessons, and wherever a model
   appears it is labeled as one proposed account. Empirical claims (e.g., that
   neither pure egocentrism nor pure common-ground restriction matches human

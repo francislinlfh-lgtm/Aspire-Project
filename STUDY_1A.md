@@ -9,12 +9,12 @@ language layer is scripted frames; 1B validates the parser separately).**
 
 ## Hypotheses
 
-- **H-1A.1:** a single fitted weight `w` reproduces the critical/control contrast
+- **H-1A.1:** a single fitted weight `α` reproduces the critical/control contrast
   (interference present on critical trials, absent on control — Keysar et al., 2000)
   within pre-registered tolerance.
-- **H-1A.2:** the same fitted `w` (not refit) predicts held-out conditions —
+- **H-1A.2:** the same fitted `α` (not refit) predicts held-out conditions —
   gradedness across manipulations of the display (Heller et al., 2016).
-- **H-1A.3 (falsifiable premise):** boundary models P-EGO (w=0) and P-CG (w=1) fail on
+- **H-1A.3 (falsifiable premise):** boundary models P-EGO (α=1) and P-CG (α=0) fail on
   the same data — confirming the fit is doing work.
 
 **Explicit non-claim:** 1A does not and cannot adjudicate serial adjustment vs
@@ -59,7 +59,7 @@ commit the PDF to this public repo — APA copyright):
   (Barr et al., 2013); the participant-level lm is only their age-curve accuracy
   analysis. Bonus: the study includes an executive-function battery (Stroop,
   O-Span, task-switching, Tower of Hanoi — the MediationData.csv), i.e., published
-  individual-difference measures that could later moderate fitted `w` — directly
+  individual-difference measures that could later moderate fitted `α` — directly
   relevant to effort-based accounts (Epley et al., 2004).
 - **Still open:** Object_Clicked codes 'AF', 'F', and numerals (likely filler/slot
   codes — ask or find codebook); why some participants have 48 rows; license
@@ -67,15 +67,15 @@ commit the PDF to this public repo — APA copyright):
   Bradford (Dundee) or Heather Ferguson (Kent). Note honestly: the authors' own
 AccuracyAnalysis.Rmd fits participant-level `lm(EgocentricErrors ~ Age)` — our
 trial-level hierarchical fitting goes beyond their published analysis, which is the
-reanalysis contribution. Lifespan ages also upgrade H-1A.2: fitting `w` by age asks
+reanalysis contribution. Lifespan ages also upgrade H-1A.2: fitting `α` by age asks
 whether perspective weighting changes across adulthood — a question their design
 raises and a mixture-model reanalysis can quantify.
 
 ## Procedure
 
 0. **Availability audit** of the datasets above; freeze the choice.
-1. **Parameter recovery** on synthetic data: generate from P-MIX(w*), refit, report
-   recovery precision vs trial count. If `w` is unrecoverable at realistic N, stop and
+1. **Parameter recovery** on synthetic data: generate from P-MIX(α*), refit, report
+   recovery precision vs trial count. If `α` is unrecoverable at realistic N, stop and
    redesign — before touching human data.
 2. **Stimulus alignment:** rebuild displays and referring expressions to match the
    chosen dataset item-by-item, including vague-adjective semantics if the stimuli
@@ -96,15 +96,19 @@ raises and a mixture-model reanalysis can quantify.
 (264 × 12 critical trials, ages 20–86, Beta-Binomial heterogeneity κ=50, seed
 20260801), engine-vs-analytic generative check passed:
 
+*(Convention note: this study originally ran under the former `w = 1 − α`
+parameterization; the mathematics is mirror-identical and values below are stated
+in the α convention adopted 2026-08-02. `exp1_recovery.py` itself now uses α.)*
+
 | Question | Result |
 |---|---|
-| A. Grand-mean `w` | recovered essentially unbiased: e.g. true 0.90 → 0.901 ± 0.005 |
-| B. Age effect (published size: plateau→decline, slope ≈ 0.0027/yr) | **power 100/100** (ΔAIC < −2); slope recovered 0.00270 ± 0.00045; **false-positive rate 2/100** on flat truth |
+| A. Grand-mean `α` | recovered essentially unbiased: e.g. true 0.10 → 0.099 ± 0.005 |
+| B. Age effect (published size: plateau→rise in egocentricity, slope ≈ 0.0027/yr) | **power 100/100** (ΔAIC < −2); slope recovered 0.00270 ± 0.00045; **false-positive rate 2/100** on flat truth |
 | B′. Heterogeneity κ | weakly identified (estimates spread 16–1024 around true 50) — the magnitude of individual variation is not well constrained by 12 trials/person |
-| C. Individual `w_i` | shrunk posterior SD 0.047 vs no-pooling SE 0.090 — individual estimates are ~half prior; **individual-difference claims (age, EF) must enter through the hierarchy, never per-person point estimates** |
-| D. Response rule | exact theorem: matching and argmax+lapse are likelihood-identical under ε = 2(1−w) for *every* choice dataset — all `w` conclusions are conditional on the rule; the eye-tracking file (graded competitor consideration vs none) is the discriminating measurement |
+| C. Individual `α_i` | shrunk posterior SD 0.047 vs no-pooling SE 0.090 — individual estimates are ~half prior; **individual-difference claims (age, EF) must enter through the hierarchy, never per-person point estimates** |
+| D. Response rule | exact theorem: matching and argmax+lapse are likelihood-identical under ε = 2α for *every* choice dataset — all `α` conclusions are conditional on the rule; the eye-tracking file (graded competitor consideration vs none) is the discriminating measurement |
 
-Consequences for the fitting plan: proceed — grand `w` and `w(age)` at the
+Consequences for the fitting plan: proceed — grand `α` and `α(age)` at the
 published effect size are comfortably recoverable; report κ with honest intervals;
 frame EF-moderation as hierarchical regression; state the rule-conditionality in
 the paper, with the ET reanalysis as the resolution path. Caveats carried: knee
@@ -114,8 +118,8 @@ exists); OtherError category needs a stated policy before real fitting.
 ## Analysis
 
 Hierarchical Bayesian fit (participant- and item-level variation where data permit);
-model comparison across {P-MIX(w), P-EGO, P-CG} with complexity penalties (PSIS-LOO or
-equivalent); posterior of `w` reported with intervals — `w` is the paper's
+model comparison across {P-MIX(α), P-EGO, P-CG} with complexity penalties (PSIS-LOO or
+equivalent); posterior of `α` reported with intervals — `α` is the paper's
 psychological payload, so its identifiability and stability across subsets is a
 result, not a footnote.
 
@@ -124,7 +128,7 @@ result, not a footnote.
 - **Success:** H-1A.1–3 met → the explicit model reproduces the established behavioral
   signatures; proceeds to 1C as the cognitive arm, and licenses D1
   (IDENTIFIABILITY.md §4) as the follow-up.
-- **Informative failure:** no `w` fits both signatures → indicts a linking assumption
+- **Informative failure:** no `α` fits both signatures → indicts a linking assumption
   (response rule, domain construction) or the point-mass simplification; the failure
   mode is diagnosable from the provenance traces and is itself reportable.
 - **Uninformative failure to avoid:** fitting everything with post-hoc flexibility.

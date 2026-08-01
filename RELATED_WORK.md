@@ -104,7 +104,8 @@ The closest methodological kin, and the literature V1 actually contributes to:
   (2016)**, whose Eq. (2) combines Bayesian reference resolution under egocentric and
   common-ground domains with a weight α. **Aspire V1's mixture listener is a
   choice-level projection of Heller et al.'s model** (divergences confessed in
-  MODEL_AUDIT §1.3; note `w = 1 − α`) — we claim the embedding and the fitting, not
+  MODEL_AUDIT §1.3; their α convention adopted project-wide 2026-08-02) — we claim
+  the embedding and the fitting, not
   the model. **Verified against their full text (2026-08-01): they varied α from 0
   to 1 and argued from qualitative patterns; α was never fitted to data, no serial
   model was implemented, and no likelihood-based model comparison or held-out

@@ -71,8 +71,9 @@ The honest inventory, as of now:
 
 - `cogsim/` — a Python package, standard library only. Displays, structured
   instruction frames, and four listener models: a probabilistic mixture adapted from
-  Heller et al. (2016) with a single interpretable parameter `w` (how much weight the
-  listener gives the shared view), two boundary models that bracket it, and one model
+  Heller et al. (2016) with a single interpretable parameter `α` (how much weight
+  the listener gives their own view over the shared one — Heller et al.'s own
+  convention), two boundary models that bracket it, and one model
   kept purely as a cautionary exhibit, because our formalization of it turned out to
   be the mixture model wearing a different name.
 - `experiments/exp0_keysar_signature.py` — runs the critical/control contrast and

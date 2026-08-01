@@ -1,5 +1,8 @@
 """exp0 — instrument demonstration on the Keysar critical/control contrast.
 
+Parameter convention: alpha weights the EGOCENTRIC domain (Heller et al. 2016) —
+alpha=1 is the egocentric limit, alpha=0 the common-ground limit.
+
 HONESTY CAVEAT (V1.md §7): at this stage the model reproduces signature S1 *by
 construction* — P-EGO errs on critical trials because that is what egocentric
 resolution means. This script demonstrates that the instrument runs end-to-end with
@@ -18,9 +21,9 @@ from cogsim.experiment import run_battery
 
 POLICIES = [
     ("P-EGO", EgocentricListener()),
-    ("P-MIX(w=0.25)", MixtureListener(0.25)),
-    ("P-MIX(w=0.50)", MixtureListener(0.50)),
-    ("P-MIX(w=0.75)", MixtureListener(0.75)),
+    ("P-MIX(a=0.75)", MixtureListener(0.75)),
+    ("P-MIX(a=0.50)", MixtureListener(0.50)),
+    ("P-MIX(a=0.25)", MixtureListener(0.25)),
     ("P-ANCHOR(p=0.50)", AnchorAdjustListener(0.50)),
     ("P-CG", CommonGroundListener()),
 ]

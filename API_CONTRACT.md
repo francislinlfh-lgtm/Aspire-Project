@@ -52,8 +52,8 @@ def run(scenario: str | dict,            # scenario id or inline definition
 {
   "id": "mixture-listener",
   "params": [
-    {"name": "w", "range": [0.0, 1.0],
-     "meaning": "relative weight of the common-ground domain"}
+    {"name": "alpha", "range": [0.0, 1.0],
+     "meaning": "weight of the egocentric domain (Heller et al. 2016 convention)"}
   ],
   "provenance_label": "ADAPT",
   "citations": ["Heller, Parisien & Stevenson (2016), Cognition"]

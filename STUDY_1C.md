@@ -17,12 +17,12 @@ contribution is **not** "we evaluated LLMs on the director task." It is:
 1. a **DV-matched, same-harness** comparison: identical trials, identical dependent
    variables, cognitive model and LLM listeners run through the same instrument;
 2. a **model-based characterization** of LLM behavior: fitting P-MIX to LLM choices to
-   ask whether the LLM behaves *as if* it had any stable perspective weight `w` —
+   ask whether the LLM behaves *as if* it had any stable perspective weight `α` —
    using the cognitive model as a measurement device on the LLM.
 
 ## Systems
 
-- **Cognitive arm:** P-MIX with `w` fitted in Study 1A (frozen — no refitting to look
+- **Cognitive arm:** P-MIX with `α` fitted in Study 1A (frozen — no refitting to look
   good here).
 - **LLM arms:** (a) text-rendered display + instruction → constrained choice;
   (b) multimodal variant if resourced; (c) prompt battery: minimal instructions vs
@@ -40,7 +40,7 @@ contribution is **not** "we evaluated LLMs on the director task." It is:
 - **Stability:** repeated identical trials → response distribution consistency;
   cross-prompt variance (an LLM whose "perspective-taking" swings with paraphrase has
   no stable underlying quantity — report this as variance, not as gotcha).
-- **Implied-w analysis:** fit P-MIX per arm; report whether a stable `w` exists across
+- **Implied-α analysis:** fit P-MIX per arm; report whether a stable `α` exists across
   conditions, with fit quality. The cognitive arm has this by construction; the
   question is whether the LLM arms do.
 
@@ -56,7 +56,7 @@ contribution is **not** "we evaluated LLMs on the director task." It is:
 ## Comparison criteria (pre-registered)
 
 1. Signature reproduction: presence and gradedness of interference; control cleanliness.
-2. Parameter stability/interpretability (`w` posterior width and cross-condition drift).
+2. Parameter stability/interpretability (`α` posterior width and cross-condition drift).
 3. Transparency: Aspire ships a per-trial provenance trace; LLM arms ship completions.
    Reported as a qualitative architectural property, not scored.
 4. Data efficiency (trials needed to characterize each system's behavior).
@@ -66,9 +66,9 @@ contribution is **not** "we evaluated LLMs on the director task." It is:
 - LLMs show no interference (over-cooperative or instruction-following) → human-shaped
   misunderstanding requires perspective *limits*, which the explicit model has and the
   LLM lacks.
-- LLMs show human-like graded interference with stable implied `w` → the architecture
+- LLMs show human-like graded interference with stable implied `α` → the architecture
   claim weakens substantially; report as such. The instrument still contributed the
   measurement method.
 - LLMs show interference that is unstable across prompts/paraphrases → the phenomenon
-  exists in the LLM but is not a stable disposition; the implied-w analysis quantifies
+  exists in the LLM but is not a stable disposition; the implied-α analysis quantifies
   this.

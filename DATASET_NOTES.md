@@ -84,7 +84,7 @@ data** (IDENTIFIABILITY.md §3.1) sitting in public.
 
 - `MediationData.csv` — executive-function battery: inhibition (Stroop), working
   memory (O-Span), flexibility (task-switching), planning (Tower of Hanoi).
-  Individual-difference measures that can moderate fitted `w` — directly relevant
+  Individual-difference measures that can moderate fitted `α` — directly relevant
   to effort-based accounts (Epley et al., 2004).
 - `DirectorTask_Demographics.csv`, `QuestionnaireData.csv` — participant-level.
 - `Code/` — the authors' Rmd analyses (accuracy: participant-level lm over age;
@@ -99,7 +99,7 @@ data** (IDENTIFIABILITY.md §3.1) sitting in public.
 
 If our cleaned data does not reproduce (1)–(3) descriptively, our cleaning is wrong
 — fix that before any model fitting. Note for modeling: 10.23% average egocentric
-choice, under the current linking assumptions, implies a high fitted `w` — expect
+choice, under the current linking assumptions, implies a low fitted `α` (≈0.10) — expect
 the interesting variance to be *across age and individuals*, not in the grand mean.
 
 ## Remaining unknowns (the entire list, shrinking)

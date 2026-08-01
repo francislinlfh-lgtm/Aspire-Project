@@ -10,9 +10,9 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
 
 | Element | Label | Verdict |
 |---|---|---|
-| P-EGO | reference limit (nobody's theory of adults) | retain as w=0 boundary; never present as a competing account |
-| P-CG | reference limit (strong mutual-knowledge reading) | retain as w=1 boundary; already inconsistent with interference data |
-| P-MIX(w) | [ADAPT] from Heller et al. (2016) — **source verified 2026-08-01**; note `w = 1 − α` polarity | retain as the primary quantitative account; upgrade requirements listed in §4 |
+| P-EGO | reference limit (nobody's theory of adults) | retain as α=1 boundary; never present as a competing account |
+| P-CG | reference limit (strong mutual-knowledge reading) | retain as α=0 boundary; already inconsistent with interference data |
+| P-MIX(α) | [ADAPT] from Heller et al. (2016) — **source verified 2026-08-01; their α convention adopted in code and docs 2026-08-02** | retain as the primary quantitative account; upgrade requirements listed in §4 |
 | P-ANCHOR(p) | [PROV] — our invention wearing Keysar's name | **reclassify**: not a competing model; retain code only as the identifiability exhibit |
 | `Interpretation.sample` (response rule) | [PROV] linking assumption | most consequential un-cited choice in the codebase; must be sensitivity-analyzed |
 | `best_match` scalar semantics | [PROV] engineering | align to target-study stimuli before any fit |
@@ -32,7 +32,7 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
   Keysar's own position is *anchoring with adjustment* — egocentric interpretation is
   the starting point, not the endpoint (Keysar, Barr, Balin & Brauner, 2000, *Psych.
   Science*; Epley, Keysar, Van Boven & Gilovich, 2004, *JPSP*). P-EGO exists in Aspire
-  as the w=0 limiting case and manipulation check.
+  as the α=1 limiting case and manipulation check.
 - **Already falsified as a complete account:** humans show intermediate, not total,
   egocentric error (Keysar et al., 2000) — which is precisely why it is a reference
   point and nothing more.
@@ -45,19 +45,20 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
 - **Parameters:** none.
 - **Provenance:** even constraint-based theorists do not hold this: Hanna, Tanenhaus &
   Trueswell (2003, *JML*) found early but **partial** integration — privileged
-  competitors still attract fixations. P-CG is the w=1 limit.
+  competitors still attract fixations. P-CG is the α=0 limit.
 - **Already falsified as a complete account** by the interference findings above.
 
-### 1.3 P-MIX(w) (`listener.MixtureListener`) — the primary account
+### 1.3 P-MIX(α) (`listener.MixtureListener`) — the primary account
 
-- **Equation:** `π(r) = (1−w)·π_ego(r) + w·π_cg(r)` — **[ADAPT]**.
+- **Equation:** `π(r) = α·π_ego(r) + (1−α)·π_cg(r)` — **[ADAPT]**.
 - **Source — VERIFIED against the text (2026-08-01).** Heller, Parisien & Stevenson
   (2016, *Cognition*, 149, 104–120). Their Eq. (1), via Bayes rule:
   `P(obj|RE,d) ∝ P(RE|obj,d) · P(obj|d)`; their Eq. (2), the model itself:
   `P(obj|RE) = α·P(RE|obj,d=e)·P(obj|d=e) + (1−α)·P(RE|obj,d=c)·P(obj|d=c)`.
-  **Polarity warning: their α weights the EGOCENTRIC domain (α→1 = egocentric);
-  our `w` weights the common-ground domain. `w = 1 − α`.** (Second naming-inversion
-  trap in this project, after the dataset's Distractor/competitor.)
+  **Polarity: their α weights the EGOCENTRIC domain (α→1 = egocentric). The project
+  originally used the complementary `w = 1 − α`; on 2026-08-02 the α convention was
+  adopted throughout code and docs to eliminate the standing inversion trap** (the
+  second such trap after the dataset's Distractor/competitor naming).
   Their components: `P(RE|obj,d)` estimated **empirically from a production/norming
   experiment** (full distributions over elicited referring expressions, per object
   per domain; Appendix A), evaluated **incrementally** on partial expressions
@@ -68,18 +69,17 @@ carries a citation. An equation that cannot be traced is marked [PROV] or delete
   regressions on a new visual-world experiment. No serial model implemented; no
   likelihood-based model comparison; no held-out prediction. (Also noted: they read
   Keysar et al.'s reach rate for the privileged object as 23% of critical trials.)
-- **Parameters:** `w ∈ [0,1]` = `1 − α`. The single psychologically interpretable
-  free parameter of V1; a fitting target, never hand-set in any claim. **Open
-  action:** adopt their α convention in code/docs (mechanical rename) or keep `w`
-  with the mapping stated everywhere — decide before the real fit; a silent mix of
-  conventions is how polarity bugs are born.
+- **Parameters:** `α ∈ [0,1]`, the egocentric-domain weight, matching the source.
+  The single psychologically interpretable free parameter of V1; a fitting target,
+  never hand-set in any claim. (Resolved 2026-08-02: α convention adopted
+  throughout; any document or result dated earlier used `w = 1 − α`.)
 - **Our divergences from the verified source (each a confession, not a feature):**
   1. Point-mass within-domain resolutions vs their norming-estimated graded
      `P(RE|obj,d)` distributions — ours cannot fit fixation data and forces all
-     gradedness into `w`.
+     gradedness into `α`.
   2. No ground-status prior (`P(obj|d)` implicit-uniform in ours).
   3. Full-expression evaluation vs their incremental partial-RE evaluation.
-  4. `w` time- and context-invariant; their simultaneity claim is neither tested
+  4. `α` time- and context-invariant; their simultaneity claim is neither tested
      nor contradicted at our choice level.
   5. The response rule (§1.5) is ours, not theirs.
   **Label stays [ADAPT]** — accurately: we implement a *choice-level projection*
@@ -144,8 +144,8 @@ with theoretical content: a valid *analytic* result (an equivalence proof), not 
 empirical one. No test validates any claim about humans. That is the correct current
 state, and the gap Studies 1A–1C exist to fill. **Missing methodological test** (first
 action of Study 1A, analysis code not architecture): parameter recovery — generate
-synthetic choice data from P-MIX(w*), refit, and report recovery precision as a
-function of trial count. If `w` does not recover from realistic Ns, the fitting plan
+synthetic choice data from P-MIX(α*), refit, and report recovery precision as a
+function of trial count. If `α` does not recover from realistic Ns, the fitting plan
 is dead before contact with human data.
 
 ---
