@@ -7,3 +7,4 @@ venv/
 Thumbs.db
 desktop.ini
 *.tmp
+data/

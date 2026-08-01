@@ -115,6 +115,40 @@ the paper, with the ET reanalysis as the resolution path. Caveats carried: knee
 fixed at 38; uniform ages (swap in empirical ages when the cleaning pipeline
 exists); OtherError category needs a stated policy before real fitting.
 
+## Steps 2–5 results (2026-08-02): exploratory first fit — REAL DATA
+
+`experiments/exp2_bradford_fit.py` (EXPLORATORY — the confirmatory run requires a
+pre-registered analysis plan first). Cleaning validation was exact:
+
+- 6,432 → 6,384 rows (the 48 predicted duplicates removed); sample reconstruction
+  landed at **N = 264, the paper's exact analysis N** (one id absent from
+  demographics + one FSIQ4 < 70), all with exactly 12 Listener trials;
+- **mean per-participant egocentric rate: 10.23% — matches the published 10.23%
+  to the decimal.** The pipeline reproduces the paper's anchor before fitting.
+
+First fit (P-MIX(α), Beta-Binomial hierarchy, knee fixed at 38):
+
+| Quantity | Result |
+|---|---|
+| Raw age gradient (pooled ego rate) | 4.51% (20–37) → 8.42% (38–59) → 16.08% (60–86) |
+| Model comparison | age model preferred, **ΔAIC = −20.4** vs flat |
+| α(age) | α_young = 0.040; slope = 0.0025/yr, profile 95% CI [0.0015, 0.0033]; fitted α: 0.04 at 20–38 → 0.095 at 60 → **0.16 at 86** |
+| Held-out (fit odd trials, predict even) | age model **+9.85 log-likelihood** out of sample — the project's first fit-then-predict success |
+| Boundary models (H-1A.3) | P-EGO and P-CG assign zero probability to 90/264 participants — both rejected outright |
+| Heterogeneity | κ fit at the grid floor (4): strong individual overdispersion beyond age — extend the κ grid downward in the confirmatory run; EF moderation (MediationData.csv) is the obvious follow-up |
+
+Headline sentence (exploratory, conditional on the response rule): *the egocentric
+weight α in Heller et al.'s (2016) mixture model, fitted to Bradford et al.'s (2023)
+trial-level choices, roughly quadruples across adulthood — from ~0.04 before age 38
+to ~0.16 by 86 — and the age-dependent model predicts held-out trials better than
+any constant-α account.* This quantifies, in a psychologically interpretable
+parameter, the age effect Bradford et al. reported as error-rate curves — the
+reanalysis contribution Study 1A promised.
+
+Before any writeup: freeze a pre-registered confirmatory plan (cleaning rules as
+above; κ grid extended; sensitivity across response-rule statements and IQ-cutoff
+choices; empirical-age recovery check), then rerun blind.
+
 ## Analysis
 
 Hierarchical Bayesian fit (participant- and item-level variation where data permit);
