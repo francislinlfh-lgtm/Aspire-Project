@@ -54,15 +54,22 @@ be committed to this repository.**
 | trial_number | 1–24 (critical trials only; fillers absent) | confirmed |
 | Trial_section_type | constant "Experimental" | confirmed |
 | CONDITION | Listener / Shared (see Design) | confirmed |
-| Object_Clicked | Target, Competitor, Contrast, Distractor, plus codes AF, F, 3, 7, 8 | **partially unknown** — AF/F/numerals unexplained; likely filler-object or grid-slot codes; the one remaining email question |
+| Object_Clicked | *which object was clicked*, decoded by crosstab against the error flags (2026-08-01): `Target` = correct (all acc=1); **`Distractor` = the occluded/privileged object** — every such click has EgocentricErrors=1, so the CSV's "Distractor" is what the paper calls the *competitor* (naming inversion — do not confuse); `Contrast` = a mutually visible wrong match (all OtherError=1); `F`, `AF`, `3`, `7`, `8` = miscellaneous other objects (all OtherError=1; 28 rows = 0.4% of trials, scattered across participants — F/AF plausibly filler objects, numerals plausibly slot ids; exact semantics immaterial for fitting since all fold into OtherError) | decoded |
 | EgocentricErrors | 1 = selected the hidden competitor | confirmed |
 | OtherError | 1 = wrong selection other than the competitor | confirmed (by construction) |
 | TargetMoveAccuracy | 1 = correct | confirmed |
 | MousePress_RT | ms **from scalar-adjective onset** to click; negative = anticipatory click before scalar onset; paper analyzes correct trials only (~6.56% loss), log-transformed | confirmed |
 
-Open bookkeeping question: a few participants have 48 rows, not 24 — not explained
-by the paper (tasks ran over one *or* two days; a repeat administration?). Resolve
-before fitting; second email question if the data doesn't answer it.
+**Resolved (2026-08-01):** exactly two participants (28225, 64185) have 48 rows,
+and both are *exact duplicates* — every trial appears twice, byte-identical.
+Cleaning rule: deduplicate rows. No email question needed.
+
+**Pooled sanity check from raw data:** 339 EgocentricErrors rows / ~3,216 Listener
+rows ≈ 10.4%, vs the paper's 10.23% (per-participant average, post-exclusion) —
+the published anchor nearly reproduces before cleaning even starts. One oddity to
+handle: **5 EgocentricErrors=1 rows occur in the Shared condition** (clicks on the
+occluded *non-matching* object, still flagged egocentric by the authors' coding);
+decide explicitly whether our cleaning keeps that convention.
 
 ### DirectorTask_EyeTrackingData.txt (process-level, 48.5 MB)
 
@@ -95,11 +102,14 @@ If our cleaned data does not reproduce (1)–(3) descriptively, our cleaning is 
 choice, under the current linking assumptions, implies a high fitted `w` — expect
 the interesting variance to be *across age and individuals*, not in the grand mean.
 
-## Remaining unknowns (the entire list)
+## Remaining unknowns (the entire list, shrinking)
 
-1. Object_Clicked codes AF / F / 3 / 7 / 8.
-2. Why some participants have 48 rows.
-3. Age2 definition (verify Age − 19).
+1. ~~Object_Clicked codes~~ — decoded by crosstab (see column table); only the
+   cosmetic question of what F/AF literally stand for remains, and it no longer
+   matters for fitting.
+2. ~~48-row participants~~ — exact duplicates; deduplicate.
+3. Age2 definition (verify Age − 19 against the full column).
 4. Abstract's N=265 vs results' N=264.
-5. Two unexamined files on page 2 of the OSF Code folder — check for a codebook
-   before emailing; the codes question may answer itself.
+5. Two unexamined files on page 2 of the OSF Code folder — still worth a look.
+6. The 5 Shared-condition EgocentricErrors rows — adopt or revise the authors'
+   coding convention, explicitly.
