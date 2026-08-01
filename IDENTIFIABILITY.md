@@ -161,9 +161,11 @@ by complexity-penalized comparison, and we say so in any writeup.
 > fit-then-predict comparison on common human datasets — with LLM listeners runnable
 > as comparison systems in the same harness.
 
-**Standing caveats:** "to our knowledge" requires the systematic search pass
-(RELATED_WORK.md verification debt) — in particular, whether Heller et al. (2016) or
-follow-ups already performed formal serial-vs-simultaneous model comparison on their
-own data, and whether a companion production-side model exists (Mozuraitis, Stevenson
-& Heller (verify)). If either substantially overlaps, the gap narrows to items
-(iii)–(iv) and the LLM bridge, and we will say exactly that.
+**Standing caveats:** "to our knowledge" still requires the systematic search pass
+(RELATED_WORK.md verification debt). **Resolved (2026-08-01), against the full
+text:** Heller et al. (2016) did *not* perform formal serial-vs-simultaneous model
+comparison — α was varied, not fitted; no serial model was implemented; their test
+was qualitative plus mixed-effects regression on a new experiment. The gap stands.
+Remaining to check: the production-side companion (Mozuraitis et al., 2018,
+*Cognitive Science* — confirmed to exist; content not yet read) and any post-2016
+fitting work in the same lineage.

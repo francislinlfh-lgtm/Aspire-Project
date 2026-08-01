@@ -101,10 +101,15 @@ The closest methodological kin, and the literature V1 actually contributes to:
   interference from listener-privileged competitors in the director task) vs.
   early-integration constraint-based accounts (Hanna, Tanenhaus & Trueswell, 2003;
   Brown-Schmidt) vs. **graded probabilistic accounts — Heller, Parisien & Stevenson
-  (2016)**, who model interpretation as a probabilistic weighing of egocentric and
-  common-ground domains. **Aspire V1's mixture listener is Heller et al.'s model** — we
-  claim its embedding in an executable, interactive, instrumented agent, not the model
-  itself. Note also that the director task's construct validity is itself contested
+  (2016)**, whose Eq. (2) combines Bayesian reference resolution under egocentric and
+  common-ground domains with a weight α. **Aspire V1's mixture listener is a
+  choice-level projection of Heller et al.'s model** (divergences confessed in
+  MODEL_AUDIT §1.3; note `w = 1 − α`) — we claim the embedding and the fitting, not
+  the model. **Verified against their full text (2026-08-01): they varied α from 0
+  to 1 and argued from qualitative patterns; α was never fitted to data, no serial
+  model was implemented, and no likelihood-based model comparison or held-out
+  prediction was performed.** Study 1A's hierarchical trial-level fitting with
+  fit-then-predict therefore does what the source paper explicitly did not. Note also that the director task's construct validity is itself contested
   (Rubio-Fernández, 2017: ToM use or selective attention?) — an instrument that can
   implement *both* accounts as competing policies is a contribution to precisely this
   dispute.
