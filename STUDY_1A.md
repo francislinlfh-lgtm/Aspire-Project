@@ -133,21 +133,34 @@ First fit (P-MIX(α), Beta-Binomial hierarchy, knee fixed at 38):
 | Raw age gradient (pooled ego rate) | 4.51% (20–37) → 8.42% (38–59) → 16.08% (60–86) |
 | Model comparison | age model preferred, **ΔAIC = −20.4** vs flat |
 | α(age) | α_young = 0.040; slope = 0.0025/yr, profile 95% CI [0.0015, 0.0033]; fitted α: 0.04 at 20–38 → 0.095 at 60 → **0.16 at 86** |
-| Held-out (fit odd trials, predict even) | age model **+9.85 log-likelihood** out of sample — the project's first fit-then-predict success |
-| Boundary models (H-1A.3) | P-EGO and P-CG assign zero probability to 90/264 participants — both rejected outright |
+| Held-out (fit odd-position trials, predict even) | age model **+9.85 log-likelihood** (summed over all 1,584 held-out trials, ≈ +0.037/trial; hyperparameters estimated on the training half only; parity rule fixed in code before evaluation, though not formally pre-registered). **Limitation: a within-participant trial split does not license generalization to new participants** — participant-level cross-validation is part of the robustness battery (exp3) |
+| Boundary models (H-1A.3) | for 90/264 participants, neither deterministic boundary policy assigns positive probability to the complete observed response pattern — both rejected as implemented policies (a statement about the policies, not about "impossible" psychology) |
 | Heterogeneity | κ fit at the grid floor (4): strong individual overdispersion beyond age — extend the κ grid downward in the confirmatory run; EF moderation (MediationData.csv) is the obvious follow-up |
 
-Headline sentence (exploratory, conditional on the response rule): *the egocentric
-weight α in Heller et al.'s (2016) mixture model, fitted to Bradford et al.'s (2023)
-trial-level choices, roughly quadruples across adulthood — from ~0.04 before age 38
-to ~0.16 by 86 — and the age-dependent model predicts held-out trials better than
-any constant-α account.* This quantifies, in a psychologically interpretable
-parameter, the age effect Bradford et al. reported as error-rate curves — the
-reanalysis contribution Study 1A promised.
+Headline sentence (exploratory; deliberately model-conditional): ***under P-MIX and
+its response assumptions, the estimated contribution of the egocentric
+interpretation to Bradford et al.'s (2023) trial-level choices increases
+approximately fourfold across the observed adult range** (fitted α ≈ 0.04 before
+age 38 to ≈ 0.16 at 86), and the age-dependent model improves held-out likelihood
+over any constant-α account.* We have not directly measured a psychological
+quantity called "egocentric weighting"; we have shown what the fitted parameter
+must do, within this model, to account for the behavior. The contribution, stated
+precisely: *a previously descriptive age-related error pattern can be expressed as
+a quantitatively increasing latent mixture weight within an independently developed
+model of perspective-sensitive interpretation, and this age dependence improves
+out-of-sample prediction over a constant-weight model.*
 
-Before any writeup: freeze a pre-registered confirmatory plan (cleaning rules as
-above; κ grid extended; sensitivity across response-rule statements and IQ-cutoff
-choices; empirical-age recovery check), then rerun blind.
+**Robustness battery (exp3) — required BEFORE the EF mediation analysis and before
+any confirmatory freeze.** The κ-at-floor finding means the hierarchy may be
+under-expressing population heterogeneity, which could artificially sharpen the
+slope CI; mediation on top of a misspecified hierarchy would partly explain
+model error, not psychology. Battery: (i) κ grid extended below 4; (ii) continuous
+age (decile table + posterior predictive checks by age band and condition);
+(iii) IQ-exclusion sensitivity (none / 70 / 75 / 80); (iv) influential-participant
+diagnostics; (v) repeated random trial-splits (was +9.85 split luck?);
+(vi) **participant-level repeated cross-validation** (the generalization-to-people
+test the parity split cannot provide); (vii) response-rule variant statements
+(α vs ε = 2α relabeling made explicit in all reported numbers).
 
 ## Analysis
 
