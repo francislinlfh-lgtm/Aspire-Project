@@ -10,6 +10,10 @@ verified bibliography in [`paper/`](paper/).
 **Code archive:** release `v1.0-preprint` is permanently archived at Zenodo —
 DOI [10.5281/zenodo.21773784](https://doi.org/10.5281/zenodo.21773784).
 
+**Demo:** [`demo/`](demo/) — *The Common Room, revisited*: 33 simulated people
+running the paper's fitted model, engine-computed and page-replayed, with a
+glass-box inspector per person. Open `demo/room.html` in a browser.
+
 ## The task
 
 Sit across a grid of open shelves from another person. Three candles sit in the slots
