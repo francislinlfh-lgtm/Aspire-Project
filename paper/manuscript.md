@@ -66,8 +66,22 @@ director-task choices using a participant-level hierarchy, modeled that weight
 across adulthood, and evaluated the resulting age-dependent account through
 held-out-participant prediction.
 
-*[¶4–¶6 to draft. ¶4: Bradford's dataset. ¶2's debt: ¶6 must state plainly that
-this paper does NOT adjudicate the three accounts.]*
+\citet{bradford2023} provide the empirical basis for the present analysis. They
+studied a community lifespan sample of adults aged 20–86 (analytic N = 264) using
+an eye-tracked, computerized version of the director task, in which each
+participant completed 12 critical Listener-Only trials requiring them to ignore a
+privileged competitor and interpret the director's intended referent. Their
+behavioral analysis found a quadratic relation between age and egocentric error
+rates: performance remained broadly stable through approximately age 37, followed
+by a substantial increase in egocentric errors from around age 38 onward. The
+study also recorded eye movements and made both the data and analysis code openly
+available, creating an unusually rich basis for computational reanalysis.
+However, their analysis characterized how observed error rates changed across
+adulthood; it did not estimate the parameters of a cognitive model intended to
+explain those choices.
+
+*[¶5–¶6 to draft. ¶5: this paper — the three contributions. ¶6: pays ¶2's debt —
+no adjudication of the three accounts; rule-conditionality; T2 as feature.]*
 
 ## 2. Model
 
