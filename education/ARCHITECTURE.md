@@ -1,7 +1,8 @@
 # Education Edition — Architecture
 
-**Status: design document, rev. 2 (after external review). No production lesson code
-exists, deliberately.**
+**Status: design document, rev. 2 (after elicited AI review; see
+PREREGISTRATION.md Addendum 3 for review provenance conventions). No production
+lesson code exists, deliberately.**
 
 **Governing principle:** *the research platform determines what Aspire can honestly
 simulate; the education platform determines how those validated capabilities are

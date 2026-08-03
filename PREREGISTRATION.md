@@ -280,3 +280,14 @@ above for usability (the diff is the audit trail):
 4. **Execution semantics clarified** in §14: one outcome-bearing execution under
    this implementation; defects found later mean addendum + correction + complete
    rerun, never preservation of known-wrong output.
+
+### Addendum 3 — review-provenance clarification (no analytic change)
+
+The phrase "external review" in the Status line and in the headings of Addenda
+1–2 refers to structured adversarial critique that the author elicited from the
+same AI system assisting this project (Claude, Anthropic), in sessions separate
+from the drafting context. It does not refer to review by an independent human
+expert; none occurred before execution. The historical wording above is left
+unmodified per this protocol's no-rewrite rule; this addendum corrects its
+implication. The analytic content of Addenda 1–2 — which stands or falls on its
+statistical merits, not its source — is unaffected.

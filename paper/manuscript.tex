@@ -261,7 +261,9 @@ egocentric rate (10.23\%, matching the 10.23\% reported by
 
 All analysis decisions were frozen in a public, version-controlled protocol
 before the outcome-bearing run (repository commits \texttt{e09d306}, amended
-\texttt{a8de96b} and \texttt{be30e90} after two rounds of external review;
+\texttt{a8de96b} and \texttt{be30e90} after two rounds of structured
+adversarial review elicited by the author from the assisting AI system in
+separate sessions (see the AI Assistance Disclosure);
 implementation \texttt{63943b1}). The protocol is explicitly a \emph{frozen
 analysis following exploration}: earlier exploratory passes on the same data
 (committed and public) informed the model shape and the two predictive-check
@@ -501,21 +503,22 @@ results \texttt{9764283}). The dataset is \citet{bradford2023}'s open data at
 This project was conducted by the author with substantial assistance from Claude
 (Anthropic). The author developed the research question, selected the
 theoretical model, made the substantive modeling and analysis decisions,
-directed and froze the robustness protocol following external review, verified
-the reconstructed dataset against its published anchors, read and verified the
-core sources, interpreted the results, and takes full responsibility for all
-claims and conclusions. Claude served as a research and engineering assistant:
-it implemented and debugged the analysis pipeline and figure code, drafted the
-protocol document and the Model, Method, and Results sections for the author's
-verification, and performed literature searches whose key sources the author
-read directly. All numerical results were produced by the publicly committed
-analysis pipeline and checked against the preserved execution logs; the
-repository's commit history records this division of labor in detail. The
-Introduction, Discussion, and Abstract were written by the author, with AI
-feedback during revision.
-% [Pending FL: identify the source of the external review (self / person /
-%  another AI) and credit accordingly in Acknowledgments or this statement.
-%  Align final wording with the target venue's policy at submission.]
+directed and froze the robustness protocol, verified the reconstructed dataset
+against its published anchors, read and verified the core sources, interpreted
+the results, and takes full responsibility for all claims and conclusions.
+Claude served as a research and engineering assistant: it implemented and
+debugged the analysis pipeline and figure code, drafted the protocol document
+and the Model, Method, and Results sections for the author's verification,
+performed literature searches whose key sources the author read directly, and
+provided methodological critique --- including two rounds of structured
+adversarial review, elicited by the author in sessions separate from the
+drafting context, that produced the protocol's amendments. No independent human
+expert reviewed the analyses before submission. All numerical results were
+produced by the publicly committed analysis pipeline and checked against the
+preserved execution logs; the repository's commit history records this division
+of labor in detail. The Introduction, Discussion, and Abstract were written by
+the author, with AI feedback during revision.
+% [Align final wording with the target venue's policy at submission.]
 
 \section*{Acknowledgments}
 We thank Bradford, Brunsdon and Ferguson for publishing their data and code.
@@ -537,7 +540,8 @@ expected values, the primary model and estimand, the estimation procedure, the
 cross-validation design and robustness criteria, the bootstrap, the predictive
 checks, and the sensitivity analyses.
 
-\paragraph{Addendum 1 (commit \texttt{a8de96b}; following external review).}
+\paragraph{Addendum 1 (commit \texttt{a8de96b}; following elicited adversarial
+review --- see the AI Assistance Disclosure for its provenance).}
 Ten amendments, the substantive ones being: the exercise was reclassified as a
 frozen robustness analysis following exploration, with outcome categories
 renamed accordingly; an invalid binomial $p$-value attached to correlated

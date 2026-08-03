@@ -21,8 +21,10 @@ same manuscript. The paper is written venue-agnostic first.
 Discussion (7¶), and Abstract; Claude drafted Model/Methods/Results, the protocol
 document, and the figure code, all verified by Francis against
 `results/exp4_protocol_output.txt`. The final disclosure statement lives in
-manuscript.tex (Statements); one item pending there: identify and credit the
-source of the external protocol review. Every number traces to a committed log.
+manuscript.tex (Statements); review provenance resolved — the protocol critique
+was elicited by FL from Claude in separate sessions, now stated in the
+disclosure, Methods §3.3, the appendix, and PREREGISTRATION.md Addendum 3.
+Every number traces to a committed log.
 
 ---
 
