@@ -107,9 +107,32 @@ computational reanalysis. However, their analysis characterized how observed
 error rates changed across adulthood; it did not estimate the parameters of a
 cognitive model intended to explain those choices.
 
-% TODO (FL): paragraphs 5-6 per paper/OUTLINE.md scaffold. NOTE the para-2 debt:
-% para 6 MUST state plainly that this paper does not adjudicate the three
-% accounts (explicit non-claim; Proposition 1) — para 2's setup requires it.
+The present study fitted a choice-level projection of the mixture model of
+\citet{heller2016} to the director-task choices of \citet{bradford2023}, using a
+Beta--Binomial participant hierarchy and a publicly frozen analysis protocol.
+First, the model quantified how the estimated egocentric contribution varied
+across adulthood: the contrast between ages 25 and 75 was $\dalpha = +0.127$,
+with a 95\% participant-bootstrap interval of $[+0.062, +0.196]$. Second, the
+age-dependent model predicted entirely held-out participants completing the same
+task and items better than the fitted constant-$\alpha$ model in all 20
+cross-validation repetitions. Third, a prespecified parametric predictive check
+revealed a systematic failure among younger adults, showing that a single
+age-varying mixture process does not reproduce the full observed distribution of
+errors. The analysis therefore yields not only an estimate of age-related
+variation in $\alpha$, but also evidence about where that quantitative account
+succeeds and where it breaks.
+
+These results do not adjudicate among the three process accounts introduced
+above. At the level of final two-alternative choices, a probability-matching
+mixture weight is formally indistinguishable from an argmax-plus-lapse process
+under the mapping $\varepsilon = 2\alpha$
+(Proposition~\ref{prop:equivalence}), so every estimate is conditional on the
+assumed response rule; the \dalpha{} above reads equally as a lapse-rate change
+of $+0.254$. Final choices likewise cannot determine whether competing
+perspectives were represented simultaneously or arose through an egocentric
+interpretation followed by correction. What the present study offers instead is
+one explicit account made quantitative, its predictive value measured in
+held-out participants, and its empirical failure point located.
 
 % =========================================================================
 \section{Model}\label{sec:model}

@@ -80,8 +80,34 @@ However, their analysis characterized how observed error rates changed across
 adulthood; it did not estimate the parameters of a cognitive model intended to
 explain those choices.
 
-*[¶5–¶6 to draft. ¶5: this paper — the three contributions. ¶6: pays ¶2's debt —
-no adjudication of the three accounts; rule-conditionality; T2 as feature.]*
+The present study fitted a choice-level projection of the mixture model of
+\citet{heller2016} to the director-task choices of \citet{bradford2023}, using a
+Beta–Binomial participant hierarchy and a publicly frozen analysis protocol.
+First, the model quantified how the estimated egocentric contribution varied
+across adulthood: the contrast between ages 25 and 75 was Δα = +0.127, with a
+95% participant-bootstrap interval of [+0.062, +0.196]. Second, the age-dependent
+model predicted entirely held-out participants completing the same task and items
+better than the fitted constant-α model in all 20 cross-validation repetitions.
+Third, a prespecified parametric predictive check revealed a systematic failure
+among younger adults, showing that a single age-varying mixture process does not
+reproduce the full observed distribution of errors. The analysis therefore yields
+not only an estimate of age-related variation in α, but also evidence about where
+that quantitative account succeeds and where it breaks.
+
+These results do not adjudicate among the three process accounts introduced
+above. At the level of final two-alternative choices, a probability-matching
+mixture weight is formally indistinguishable from an argmax-plus-lapse process
+under the mapping ε = 2α (Proposition 1), so every estimate is conditional on the
+assumed response rule; the Δα above reads equally as a lapse-rate change of
++0.254. Final choices likewise cannot determine whether competing perspectives
+were represented simultaneously or arose through an egocentric interpretation
+followed by correction. What the present study offers instead is one explicit
+account made quantitative, its predictive value measured in held-out
+participants, and its empirical failure point located.
+
+**[INTRODUCTION COMPLETE — 2026-08-01. Remaining: Discussion ¶1–¶7 (FL, per
+OUTLINE.md scaffold), abstract (last; T2 mandatory), AI-disclosure wording,
+verify-flag sweep of references.bib.]**
 
 ## 2. Model
 
