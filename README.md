@@ -3,6 +3,10 @@
 A small instrument for testing theories of how people understand each other, and how
 they fail to.
 
+**Paper:** *From Error Curves to an Estimated Weight: A Model-Based Reanalysis of
+Perspective Taking Across Adulthood* — [PDF](paper/manuscript.pdf), source and
+verified bibliography in [`paper/`](paper/).
+
 ## The task
 
 Sit across a grid of open shelves from another person. Three candles sit in the slots

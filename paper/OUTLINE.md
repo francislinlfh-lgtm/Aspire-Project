@@ -1,5 +1,9 @@
 # Manuscript plan — Study 1A
 
+**TITLE DECIDED (final compile): "From Error Curves to an Estimated Weight: A
+Model-Based Reanalysis of Perspective Taking Across Adulthood" — FL's adaptation
+of option 1. Shortlist retained below for the record.**
+
 **Title shortlist (refined 2026-08-01 after the gap mapping; rule-checked — no
 "first," no "increases across adulthood," no "U-shaped"):**
 1. **RECOMMENDED:** "From error curves to a latent weight: a model-based
