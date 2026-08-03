@@ -283,7 +283,14 @@ identity in this dataset).
 
 ## 5. Discussion
 
-*[Francis drafts from OUTLINE.md scaffold ¶1–¶7.]*
+*(Complete — FL draft, 2026-08-01; supervisor edits were citation forms and math
+typesetting only. Canonical text lives in manuscript.tex §5; the seven paragraphs:
+findings restated in template language → what α is and is not (the ε = 2α dual in
+plain terms) → the age-38 convergence and knee unidentifiability → the T2 failure
+and two candidate elaborations → five scope limits → the two designed next steps
+(sealed ET as prospective test; EF exploratory by gate) → the broader close:
+"a transparent quantitative account with an empirical success criterion and a
+testable failure mode.")*
 
 ## Statements
 
