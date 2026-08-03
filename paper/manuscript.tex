@@ -1,8 +1,9 @@
 % =========================================================================
-% manuscript.tex — live compile target (Overleaf-ready with references.bib)
-% Sections 2-4 ported from paper/manuscript.md; every number traces to
-% results/exp4_protocol_output.txt. Section 1: para 1 in place, 2-6 TODO (FL).
-% Section 5: TODO (FL, per OUTLINE.md scaffold).
+% manuscript.tex — canonical source (matches the author's final Overleaf
+% version, merged 2026-08-03 with two repo-side changes, both disclosed:
+% (1) the Zenodo DOI citation restored in Data and Code Availability;
+% (2) LaTeX quote marks corrected around the outcome-category phrase.
+% Every number traces to results/exp4_protocol_output.txt.
 % =========================================================================
 \documentclass[11pt]{article}
 
@@ -16,19 +17,28 @@
 \usepackage[running]{lineno}
 \usepackage{setspace}
 \usepackage[hidelinks]{hyperref}
+\usepackage{placeins}
 
-\doublespacing
-\linenumbers
+\hypersetup{
+  pdftitle={From Error Curves to an Estimated Weight:
+  A Model-Based Reanalysis of Perspective Taking Across Adulthood},
+  pdfauthor={Francis Lin},
+  pdfsubject={Computational reanalysis of perspective taking across adulthood},
+  pdfkeywords={perspective-taking, common ground, reference resolution,
+  cognitive aging, computational modeling, director task}
+}
+
+%\doublespacing
+%\linenumbers
 
 \newtheorem{proposition}{Proposition}
 
 \newcommand{\dalpha}{\ensuremath{\Delta\alpha}}
 \newcommand{\repo}{\url{https://github.com/francislinlfh-lgtm/Aspire-Project}}
 
-\title{From Error Curves to an Estimated Weight: A Model-Based Reanalysis of
-Perspective Taking Across Adulthood}
-\author{Francis Lin\\{\small VIS@betterworld lab Experimental Educational
-Institution}\\{\small \texttt{francis.lin.lfh@gmail.com}}}
+\title{From Error Curves to an Estimated Weight:
+A Model-Based Reanalysis of Perspective Taking Across Adulthood}
+\author{Francis Lin\\{\small VIS@betterworld lab Experimental Educational Institution}\\{\small \texttt{francis.lin.lfh@gmail.com}}}
 \date{}
 
 \begin{document}
@@ -96,9 +106,7 @@ confounding perspective-taking with selective attention and task demands,
 leaving open whether an ``egocentric error'' uniquely identifies a failure to
 use common ground at all \citep{rubiofernandez2017}.
 
-Existing computational work has formalized perspective use, but the central
-quantity --- how much weight the egocentric perspective actually receives ---
-has never been estimated from interpretive choices. \citet{heller2016}
+Existing computational work has formalized perspective use, but has not examined how a comprehension-side perspective-mixture weight varies across adult participants in the director task. \citet{heller2016}
 introduced a probabilistic mixture parameter governing the relative contribution
 of egocentric and common-ground information, but used it to generate qualitative
 predictions rather than estimating its value from data. \citet{mozuraitis2018}
@@ -248,6 +256,12 @@ authors' EgocentricErrors coding (selection of the hidden competitor); other
 errors ($\approx$1.2\% of trials) count as non-egocentric, so the likelihood
 estimates egocentric-choice probability specifically.
 
+\paragraph{Ethics statement.}
+The present study is a secondary analysis of publicly available,
+deidentified data. No new participants were recruited or contacted,
+and no new institutional ethics approval was required for this
+reanalysis.
+
 \subsection{Cleaning, with verification against published anchors}\label{sec:cleaning}
 
 Exact byte-duplicate rows were removed (48 rows from two participants whose
@@ -344,9 +358,9 @@ cannot support estimating it as a parameter.
   \end{tabular}
 \end{table}
 
-\begin{figure}[tb]
+\begin{figure}[!htbp]
   \centering
-  \includegraphics[width=.8\linewidth]{figures/curve.pdf}
+  \includegraphics[width=.8\linewidth]{curve.png}
   \caption{Fitted egocentric weight $\alpha(\mathrm{age})$ (line) with its 95\%
   band from 1{,}000 participant-level bootstrap resamples (deterministic replay
   of the protocol's seeded bootstrap), observed pooled egocentric rates by age
@@ -360,19 +374,19 @@ cannot support estimating it as a parameter.
 \subsection{Held-out participant prediction}\label{sec:cv}
 
 The age-dependent model produced a positive held-out log-likelihood difference
-over the fitted constant-$\alpha$ model in \textbf{20 of 20} repeats (mean
+over the fitted constant-$\alpha$ model in 20 of 20 repeats (mean
 $+9.35$, median $+9.56$, range $[+7.06, +10.90]$), meeting the prespecified
 stability rule R2. The per-participant mean out-of-fold difference was
 $+0.035$, positive for 65.2\% of participants (descriptive summaries; no
 $p$-value is attached, as repeats are correlated). The overall outcome category
-is \textbf{Meets prespecified robustness criteria}. The bootstrap completed
+is ``Meets prespecified robustness criteria.'' The bootstrap completed
 1000/1000 refits without failures.
 
 \subsection{A prespecified model failure}\label{sec:t2}
 
 T1 passed: the observed pooled egocentric rate at ages 73--86 ($0.290$) fell
-within the model's 95\% predictive interval $[0.156, 0.358]$. \textbf{T2 failed
-beyond the 99\% interval:} 18 participants aged 20--37 made exactly one
+within the model's 95\% predictive interval $[0.156, 0.358]$. T2 failed
+beyond the 99\% interval: 18 participants aged 20--37 made exactly one
 egocentric error, against a predictive interval of $[1, 11]$. The fitted
 hierarchy, which accounts for the age trend and for heavy individual
 heterogeneity ($\kappa \approx 1.4$), cannot reproduce the observed excess of
@@ -505,24 +519,26 @@ release \texttt{v1.0-preprint} on Zenodo, DOI
 \url{https://osf.io/2epsu/}, cited rather than redistributed.
 
 \section*{AI Assistance Disclosure}
-This project was conducted by the author with substantial assistance from Claude
-(Anthropic). The author developed the research question, selected the
-theoretical model, made the substantive modeling and analysis decisions,
-directed and froze the robustness protocol, verified the reconstructed dataset
-against its published anchors, read and verified the core sources, interpreted
-the results, and takes full responsibility for all claims and conclusions.
-Claude served as a research and engineering assistant: it implemented and
-debugged the analysis pipeline and figure code, drafted the protocol document
-and the Model, Method, and Results sections for the author's verification,
-performed literature searches whose key sources the author read directly, and
-provided methodological critique --- including two rounds of structured
-adversarial review, elicited by the author in sessions separate from the
-drafting context, that produced the protocol's amendments. All numerical results were
-produced by the publicly committed analysis pipeline and checked against the
-preserved execution logs; the repository's commit history records this division
-of labor in detail. The Introduction, Discussion, and Abstract were written by
-the author, with AI feedback during revision.
-% [Align final wording with the target venue's policy at submission.]
+This project was conducted by the author with substantial assistance from
+Claude (Anthropic). The author developed the research question, selected and
+adapted the theoretical model, specified the estimands and analysis constraints,
+made the substantive modeling and methodological decisions, directed and froze
+the robustness protocol, verified the reconstructed dataset against published
+anchors, read and checked the core sources, interpreted the results, and takes
+full responsibility for all claims and conclusions. Claude served as a research and engineering assistant. It translated the
+author-specified model, estimands, analysis decisions, and validation
+requirements into analysis and figure code, which the author inspected,
+executed, tested, and verified. It also produced initial drafts of the protocol
+and portions of the Model, Method, and Results sections, which the author
+substantively revised and checked against the source literature, committed code,
+and preserved execution logs. Claude additionally supported literature
+searching, debugging, and methodological critique, including two structured
+adversarial-review sessions requested by the author that informed amendments to
+the frozen protocol. All numerical results were generated by the publicly committed analysis
+pipeline and checked against the preserved execution logs. The Introduction,
+Discussion, and Abstract were written by the author, with AI feedback used
+during revision. The repository commit history documents the development and
+division of labor in detail.
 
 \section*{Acknowledgments}
 We thank Bradford, Brunsdon and Ferguson for publishing their data and code.
