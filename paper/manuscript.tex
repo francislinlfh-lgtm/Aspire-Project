@@ -516,6 +516,48 @@ We thank Bradford, Brunsdon and Ferguson for publishing their data and code.
 
 \appendix
 \section{Protocol deviations and addenda}\label{app:addenda}
-% [Addenda 1-2 verbatim, or reference to the public protocol file.]
+
+The analysis protocol was frozen in the public repository before the
+outcome-bearing execution and amended twice, both times before any execution
+code existed. The verbatim protocol and its full amendment history are
+version-controlled at \repo{} (file \texttt{PREREGISTRATION.md}); this appendix
+summarizes the record.
+
+\paragraph{Freeze.} Commit \texttt{e09d306} locked the cleaning rules with
+expected values, the primary model and estimand, the estimation procedure, the
+cross-validation design and robustness criteria, the bootstrap, the predictive
+checks, and the sensitivity analyses.
+
+\paragraph{Addendum 1 (commit \texttt{a8de96b}; following external review).}
+Ten amendments, the substantive ones being: the exercise was reclassified as a
+frozen robustness analysis following exploration, with outcome categories
+renamed accordingly; an invalid binomial $p$-value attached to correlated
+cross-validation repeats was removed, leaving the 17-of-20 threshold as a
+descriptive stability rule; ``posterior predictive'' terminology was corrected
+to ``parametric predictive''; the cross-validation scope was restricted to
+unseen participants on the same task and items; the assumptions licensing the
+Beta--Binomial count likelihood were stated explicitly; item-position
+diagnostics were added; monotonicity and turning-point reporting rules were
+locked; the estimator was upgraded from a lattice to grid-initialized
+continuous optimization with synthetic-only validation; the bootstrap was fully
+specified and enlarged to $B = 1000$; and executive-function analyses were
+removed to a separate future protocol.
+
+\paragraph{Addendum 2 (commit \texttt{be30e90}; audit corrections before
+execution).} The freeze and Addendum 1 had initially been labeled with dates
+that had not yet occurred (an authoring error; the machine clock was verified
+correct); all dates were corrected to the authoritative commit timestamps.
+Ambiguous grid-resolution language was replaced with exact step sizes, a typo
+was corrected, and ``single execution'' was defined as one outcome-bearing
+execution under the implementation, with any later-discovered defect requiring
+a dated addendum, a correction, and a complete rerun rather than preservation
+of a known-wrong output.
+
+\paragraph{Execution.} The implementation (commit \texttt{63943b1}) was
+validated exclusively against synthetic data with known parameters and then
+executed once on the real dataset; the verbatim log is committed
+(\texttt{results/exp4\_protocol\_output.txt}, commit \texttt{9764283}). No
+deviations from the amended protocol occurred during or after execution, and no
+addenda postdate the execution.
 
 \end{document}
