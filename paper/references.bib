@@ -1,15 +1,20 @@
-% references.bib — skeleton only. Fill from RELATED_WORK.md / READING_LIST.md;
-% every entry must pass the page-level verification pass before submission.
+% references.bib — ALL CITED ENTRIES VERIFIED 2026-08-01.
+% Sources of verification per entry: [CR] Crossref-registered metadata via
+% api.crossref.org; [REF] the published reference list of a paper held in full
+% text (Heller et al. 2016 / Bradford et al. 2023 PDFs); [SELF] the article's
+% own PDF; [ESch] the eScholarship record.
+% The manuscript cites exactly the ten uncommented entries below.
 
-% --- core (verified against full text) ---
 @article{heller2016,
   author  = {Heller, Daphna and Parisien, Christopher and Stevenson, Suzanne},
   title   = {Perspective-taking behavior as the probabilistic weighing of multiple domains},
   journal = {Cognition},
   year    = {2016},
   volume  = {149},
-  pages   = {104--120}
+  pages   = {104--120},
+  doi     = {10.1016/j.cognition.2015.12.008}
 }
+% verified [CR] + [SELF]
 
 @article{bradford2023,
   author  = {Bradford, Elisabeth E. F. and Brunsdon, Victoria E. A. and Ferguson, Heather J.},
@@ -21,16 +26,7 @@
   pages   = {959--973},
   doi     = {10.1037/xlm0001190}
 }
-
-@article{mozuraitis2018,
-  author  = {Mozuraitis, Mindaugas and Stevenson, Suzanne and Heller, Daphna},
-  title   = {Modeling reference production as the probabilistic combination of multiple perspectives},
-  journal = {Cognitive Science},
-  year    = {2018},
-  volume  = {42},
-  pages   = {974--1008}
-}
-% ^ mozuraitis2018: author first name and page range to verify against the PDF
+% verified [CR] + [SELF]
 
 @article{keysar2000,
   author  = {Keysar, Boaz and Barr, Dale J. and Balin, Jennifer A. and Brauner, Jason S.},
@@ -41,51 +37,17 @@
   number  = {1},
   pages   = {32--38}
 }
-% ^ verify page range against the PDF before submission
+% verified [REF: Bradford et al. 2023 reference list]
 
-@article{samuel2025,
-  author  = {Samuel, Steven and Cole, Geoff G. and Eacott, Madeline J. and Edwardson, Rebecca},
-  title   = {How to eliminate (and even reverse) egocentric bias in perspective taking},
-  journal = {Quarterly Journal of Experimental Psychology},
-  year    = {2025},
-  doi     = {10.1177/17470218251341289}
-}
-% ^ found by FL; SAGE shows a 2026 issue date for the 2025 online version —
-%   verify year/volume/pages against the open-access PDF before submission
-
-% --- neighbors (gap mapping, 2026-08-01) ---
-% (mozuraitis2018 moved to core block above)
-
-@inproceedings{rubiofernandez2018,
-  author    = {Rubio-Fern{\'a}ndez, Paula and Jara-Ettinger, Julian},
-  title     = {Joint inferences of speakers' beliefs and referents based on how they speak},
-  booktitle = {Proceedings of the 40th Annual Meeting of the Cognitive Science Society},
-  year      = {2018}
-}
-% ^ verify page numbers / editors from the proceedings
-
-@article{hawkins2021,
-  author  = {Hawkins, Robert D. and Gweon, Hyowon and Goodman, Noah D.},
-  title   = {The division of labor in communication: {S}peakers help listeners account for asymmetries in visual perspective},
-  journal = {Cognitive Science},
-  year    = {2021},
-  volume  = {45},
-  number  = {3},
-  pages   = {e12926}
-}
-% ^ verify author list and volume/issue against the article page
-
-% --- accounts and methods (verify details before citing) ---
 @article{hanna2003,
   author  = {Hanna, Joy E. and Tanenhaus, Michael K. and Trueswell, John C.},
   title   = {The effects of common ground and perspective on domains of referential interpretation},
   journal = {Journal of Memory and Language},
   year    = {2003},
   volume  = {49},
-  number  = {1},
   pages   = {43--61}
 }
-% ^ verify pages
+% verified [REF: Heller et al. 2016 reference list]
 
 @article{epley2004,
   author  = {Epley, Nicholas and Keysar, Boaz and Van Boven, Leaf and Gilovich, Thomas},
@@ -94,9 +56,10 @@
   year    = {2004},
   volume  = {87},
   number  = {3},
-  pages   = {327--339}
+  pages   = {327--339},
+  doi     = {10.1037/0022-3514.87.3.327}
 }
-% ^ verify pages
+% verified [CR]
 
 @article{rubiofernandez2017,
   author  = {Rubio-Fern{\'a}ndez, Paula},
@@ -104,14 +67,61 @@
   journal = {Psychonomic Bulletin \& Review},
   year    = {2017},
   volume  = {24},
-  pages   = {1121--1128}
+  number  = {4},
+  pages   = {1121--1128},
+  doi     = {10.3758/s13423-016-1190-7}
 }
-% ^ verify volume/pages
+% verified [CR]
 
-%@article{epleygilovich2006, ...}
-%@article{rubiofernandez2017,...}
-%@article{barr2008,          ...}
-%@article{frankgoodman2012,  ...}
-%@article{robertspashler2000,...}
-%@book{luce1959,             ...}
-%@article{barr2013,          ... random effects ...}
+@inproceedings{rubiofernandez2018,
+  author    = {Rubio-Fern{\'a}ndez, Paula and Jara-Ettinger, Julian},
+  title     = {Joint inferences of speakers' beliefs and referents based on how they speak},
+  booktitle = {Proceedings of the 40th Annual Meeting of the Cognitive Science Society},
+  year      = {2018}
+}
+% verified [ESch]; the proceedings record carries no page numbers
+
+@article{mozuraitis2018,
+  author  = {Mozuraitis, Mindaugas and Stevenson, Suzanne and Heller, Daphna},
+  title   = {Modeling reference production as the probabilistic combination of multiple perspectives},
+  journal = {Cognitive Science},
+  year    = {2018},
+  volume  = {42},
+  number  = {S4},
+  pages   = {974--1008},
+  doi     = {10.1111/cogs.12582}
+}
+% verified [CR]
+
+@article{hawkins2021,
+  author  = {Hawkins, Robert D. and Gweon, Hyowon and Goodman, Noah D.},
+  title   = {The division of labor in communication: {S}peakers help listeners account for asymmetries in visual perspective},
+  journal = {Cognitive Science},
+  year    = {2021},
+  volume  = {45},
+  number  = {3},
+  pages   = {e12926},
+  doi     = {10.1111/cogs.12926}
+}
+% verified [CR]; e12926 is the article number (no page range registered)
+
+@article{samuel2025,
+  author  = {Samuel, Steven and Cole, Geoff G. and Eacott, Madeline J. and Edwardson, Rebecca},
+  title   = {How to eliminate (and even reverse) egocentric bias in perspective taking},
+  journal = {Quarterly Journal of Experimental Psychology},
+  year    = {2026},
+  volume  = {79},
+  number  = {2},
+  pages   = {338--354},
+  doi     = {10.1177/17470218251341289}
+}
+% verified [CR] — published online 2025, in-issue 2026; the SWEEP'S CATCH:
+% year corrected 2025 -> 2026 (bib key kept for stability; natbib renders 2026)
+
+% ---------------------------------------------------------------------------
+% Uncited pool (candidates for revision-stage citations; VERIFY before use):
+% barr2008 (Cognition); epleygilovich2006 (Psych Science); frankgoodman2012
+% (Science 336, 998); robertspashler2000 (Psych Review); luce1959 (book);
+% barr2013 (JML 68(3), 255-278 — random effects); keysar-lin-barr 2003
+% (NOTE: Heller's and Bradford's reference lists DISAGREE on its volume,
+% Cognition 89 vs 98 — resolve via Crossref if ever cited).
