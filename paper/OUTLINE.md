@@ -17,11 +17,12 @@
 Psychonomic Bulletin & Review (Brief Report); ISEF/STS project paper draws from the
 same manuscript. The paper is written venue-agnostic first.
 
-**Authorship & disclosure plan:** Francis writes Introduction and Discussion first
-drafts from the scaffolds below (these are the sections defended at ISEF and in
-interviews); AI-assisted drafting of Methods/Results is verified line-by-line by
-Francis against `results/exp4_protocol_output.txt` and disclosed in the manuscript's
-statement. Every number must trace to a committed log or document.
+**Authorship & disclosure plan — EXECUTED.** Francis wrote the Introduction (6¶),
+Discussion (7¶), and Abstract; Claude drafted Model/Methods/Results, the protocol
+document, and the figure code, all verified by Francis against
+`results/exp4_protocol_output.txt`. The final disclosure statement lives in
+manuscript.tex (Statements); one item pending there: identify and credit the
+source of the external protocol review. Every number traces to a committed log.
 
 ---
 
