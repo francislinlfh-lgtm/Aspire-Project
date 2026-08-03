@@ -8,8 +8,10 @@ scaffolds in OUTLINE.md. Every number below traces to a committed log.*
 
 ## Abstract
 
-*[Write last — structure in OUTLINE.md. Must contain: Δα = +0.127 [+0.062,
-+0.196]; 20/20 held-out CV; the T2 failure.]*
+*(Complete — FL draft, 2026-08-01; three edits: later-adulthood accuracy, α
+defined before Δα, repetitions terminology. Canonical text in manuscript.tex.
+All mandated elements present: Δα with CI, 20/20 with scope, T2 with numbers,
+rule-conditionality closing.)*
 
 ## 1. Introduction
 
