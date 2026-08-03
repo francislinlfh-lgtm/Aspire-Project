@@ -7,6 +7,9 @@ they fail to.
 Perspective Taking Across Adulthood* — [PDF](paper/manuscript.pdf), source and
 verified bibliography in [`paper/`](paper/).
 
+**Code archive:** release `v1.0-preprint` is permanently archived at Zenodo —
+DOI [10.5281/zenodo.21773784](https://doi.org/10.5281/zenodo.21773784).
+
 ## The task
 
 Sit across a grid of open shelves from another person. Three candles sit in the slots
