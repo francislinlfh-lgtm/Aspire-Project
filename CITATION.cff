@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software or reproduce these analyses, please cite it using this metadata."
+type: software
+title: "Aspire Project: analysis code, frozen protocol, and execution logs for 'From Error Curves to an Estimated Weight'"
+authors:
+  - family-names: "Lin"
+    given-names: "Francis"
+    affiliation: "VIS@betterworld lab Experimental Educational Institution"
+repository-code: "https://github.com/francislinlfh-lgtm/Aspire-Project"
+license: MIT
+version: v1.0-preprint
+keywords:
+  - perspective-taking
+  - common ground
+  - director task
+  - cognitive aging
+  - computational modeling
+  - reproducibility
+abstract: >-
+  Analysis code, the frozen analysis protocol with dated addenda, the verified
+  bibliography, figure-generation scripts, and verbatim execution logs for the
+  manuscript "From Error Curves to an Estimated Weight: A Model-Based Reanalysis
+  of Perspective Taking Across Adulthood." The dataset analyzed is Bradford,
+  Brunsdon & Ferguson's (2023) open data (https://osf.io/2epsu/), cited rather
+  than redistributed; it is not contained in this archive.

@@ -1,0 +1,20 @@
+{
+  "upload_type": "software",
+  "title": "Aspire Project: analysis code, frozen protocol, and execution logs for 'From Error Curves to an Estimated Weight'",
+  "creators": [
+    {
+      "name": "Lin, Francis",
+      "affiliation": "VIS@betterworld lab Experimental Educational Institution"
+    }
+  ],
+  "description": "Analysis code, the frozen analysis protocol with dated addenda (PREREGISTRATION.md), the verified bibliography, figure-generation scripts, and verbatim execution logs for the manuscript 'From Error Curves to an Estimated Weight: A Model-Based Reanalysis of Perspective Taking Across Adulthood.' The analyzed dataset is Bradford, Brunsdon & Ferguson's (2023) open data (https://osf.io/2epsu/), cited rather than redistributed; it is not contained in this archive.",
+  "license": "MIT",
+  "keywords": [
+    "perspective-taking",
+    "common ground",
+    "director task",
+    "cognitive aging",
+    "computational modeling",
+    "reproducibility"
+  ]
+}
