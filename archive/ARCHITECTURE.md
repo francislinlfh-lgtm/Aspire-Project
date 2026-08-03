@@ -2,9 +2,9 @@
 
 > **STATUS: ARCHIVED VISION DOCUMENT (superseded 2026-07-17).**
 > The project has been repositioned as computational cognitive science — see
-> [README.md](README.md) and [V1.md](V1.md). This document predates that repositioning:
+> [README.md](../README.md) and [V1.md](../docs/V1.md). This document predates that repositioning:
 > it is framed around NPC realism, overstates novelty relative to the literature review
-> that followed (see [RELATED_WORK.md](RELATED_WORK.md)), and describes far more
+> that followed (see [RELATED_WORK.md](../docs/RELATED_WORK.md)), and describes far more
 > architecture than any near-term version will build. It is retained as a quarry of
 > candidate constructs for future versions (V2+), each of which must independently
 > re-justify itself by (1) a psychological theory, (2) a computational necessity, and

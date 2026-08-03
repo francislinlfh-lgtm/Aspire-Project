@@ -1,7 +1,7 @@
 # Education Edition — data only, deliberately
 
 Nothing in this directory is executable, and that is the design, not an accident.
-Per [EDUCATION_ARCHITECTURE.md](../EDUCATION_ARCHITECTURE.md) §10–11, production
+Per [ARCHITECTURE.md](ARCHITECTURE.md) §10–11, production
 lesson code (player, UI, authored curriculum) is gated on Study 1A stability.
 
 What exists now:

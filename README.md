@@ -27,7 +27,7 @@ picks, the two accounts make identical predictions. There is a unit test in this
 repository that proves it
 (`tests/test_core.py::test_mix_anchor_choice_equivalence`), and working out what
 observation could actually separate them is much of what this project is about
-([IDENTIFIABILITY.md](IDENTIFIABILITY.md)).
+([IDENTIFIABILITY.md](docs/IDENTIFIABILITY.md)).
 
 ## The rule that defines the project
 
@@ -79,27 +79,39 @@ The honest inventory, as of now:
 - `experiments/exp0_keysar_signature.py` — runs the critical/control contrast and
   prints the classic interference pattern. By construction. The script says so
   itself: it demonstrates the instrument, not a finding.
-- `tests/` — seven tests. They check that the code matches its specification,
-  including the equivalence proof above. None of them validate anything about humans
-  yet.
+- `tests/` — eight engine tests plus architecture boundary checks. They verify
+  that the code matches its specification, including the equivalence proof above.
+- `experiments/` and `results/` — the full analysis arc: parameter recovery
+  (exp1), an exploratory first fit (exp2), a robustness battery (exp3), and the
+  single frozen-protocol execution (exp4), whose verbatim log is committed.
+- `paper/` — the manuscript: LaTeX, figure, references.
 - The paper trail. Every equation in the project carries one of three labels:
   literature-derived, adapted with justification, or provisional, meaning our own
-  unproven guess. [MODEL_AUDIT.md](MODEL_AUDIT.md) traces each model to its source,
+  unproven guess. [MODEL_AUDIT.md](docs/MODEL_AUDIT.md) traces each model to its source,
   or admits that it can't.
 
-No human data has been fit yet. Instrument built; science not yet begun.
+The science has begun, and its first pass is complete: a frozen-protocol
+reanalysis of Bradford, Brunsdon & Ferguson's (2023) open lifespan director-task
+data, executed once and reported whole ([PREREGISTRATION.md](PREREGISTRATION.md);
+results in [docs/STUDY_1A.md](docs/STUDY_1A.md)). The fitted egocentric weight
+runs from about 0.08 at age 25 to about 0.20 at 75, predicts entirely held-out
+participants in 20 of 20 cross-validation repetitions, and fails one
+pre-specified predictive check among younger adults — a boundary the paper
+reports as a result, not a footnote. Every value is conditional on the assumed
+response rule (ε = 2α; there is a three-line proof of why). The manuscript is
+drafted in `paper/`.
 
 ## The plan
 
 Three studies, kept separate so their claims can't blur into one:
 
-1. [Study 1A](STUDY_1A.md) — can the explicit model reproduce the published human
+1. [Study 1A](docs/STUDY_1A.md) — can the explicit model reproduce the published human
    findings, fitting its parameter on part of the data and predicting the rest? No
-   LLM involved anywhere.
-2. [Study 1B](STUDY_1B.md) — can an LLM parser feed the same model natural language
+   LLM involved anywhere. **Complete** — see the results sections in the study file.
+2. [Study 1B](docs/STUDY_1B.md) — can an LLM parser feed the same model natural language
    without changing the outcome and without leaking information across the boundary?
    An engineering claim only.
-3. [Study 1C](STUDY_1C.md) — put end-to-end LLM listeners on the identical trials and
+3. [Study 1C](docs/STUDY_1C.md) — put end-to-end LLM listeners on the identical trials and
    compare. Written so that the LLMs are allowed to win; that result would be
    reported too.
 
@@ -108,21 +120,24 @@ Three studies, kept separate so their claims can't blur into one:
 ```
 python tests/test_core.py
 python experiments/exp0_keysar_signature.py
+python experiments/exp4_protocol.py --synthetic
 ```
 
-Python 3.10 or newer. No dependencies.
+Python 3.10 or newer. The core package has no dependencies; the analysis
+scripts (exp2 onward) use numpy and scipy.
 
 ## Reading order
 
-1. [V1.md](V1.md) — the research specification
-2. [MODEL_AUDIT.md](MODEL_AUDIT.md) — where every equation comes from
-3. [IDENTIFIABILITY.md](IDENTIFIABILITY.md) — which measurements can tell which
+1. [V1.md](docs/V1.md) — the research specification
+2. [MODEL_AUDIT.md](docs/MODEL_AUDIT.md) — where every equation comes from
+3. [IDENTIFIABILITY.md](docs/IDENTIFIABILITY.md) — which measurements can tell which
    theories apart, and the experiment designed to do it
-4. [STUDY_1A.md](STUDY_1A.md) · [STUDY_1B.md](STUDY_1B.md) ·
-   [STUDY_1C.md](STUDY_1C.md) — the three claims
-5. [RELATED_WORK.md](RELATED_WORK.md) — what already exists, and the narrow gap left
-6. [READING_LIST.md](READING_LIST.md) — the ten papers that come before any new code
-7. [ARCHITECTURE.md](ARCHITECTURE.md) — an archived early vision, kept as a quarry
+4. [STUDY_1A.md](docs/STUDY_1A.md) · [STUDY_1B.md](docs/STUDY_1B.md) ·
+   [STUDY_1C.md](docs/STUDY_1C.md) — the three claims
+5. [RELATED_WORK.md](docs/RELATED_WORK.md) — what already exists, and the narrow gap left
+6. [PREREGISTRATION.md](PREREGISTRATION.md) — the frozen analysis protocol and its addenda
+7. [READING_LIST.md](docs/READING_LIST.md) — the ten papers that come before any new code
+8. [ARCHITECTURE.md](archive/ARCHITECTURE.md) — an archived early vision, kept as a quarry
 
 ## Where this came from
 
